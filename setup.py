@@ -7,5 +7,6 @@ setup(
     url='https://github.com/kang-health/fptools',
     author='Iddan Aharonson',
     author_email='iddan@kanghealth.io',
+    packages=['fptools']
     platforms="any"
 )
