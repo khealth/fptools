@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: fptools
+Version: 0.1.0
+Summary: Functional programming tools for Python
+Home-page: https://github.com/kang-health/fptools
+Author: Iddan Aharonson
+Author-email: iddan@kanghealth.io
+License: UNKNOWN
+Description: UNKNOWN
+Platform: any

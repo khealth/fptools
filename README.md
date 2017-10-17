@@ -24,3 +24,9 @@ pipenv install --dev
 ```bash
 pipenv run pytest
 ```
+
+### Build
+
+```bash
+python3 setup.py bdist_egg
+```

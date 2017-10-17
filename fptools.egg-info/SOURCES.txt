@@ -1,0 +1,5 @@
+setup.py
+fptools.egg-info/PKG-INFO
+fptools.egg-info/SOURCES.txt
+fptools.egg-info/dependency_links.txt
+fptools.egg-info/top_level.txt
