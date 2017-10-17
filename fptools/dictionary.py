@@ -1,6 +1,6 @@
 from collections import Iterable
 from functools import reduce
-from callable import curry
+from fptools.callable import curry
 
 
 def to_path(path):

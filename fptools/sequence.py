@@ -1,5 +1,5 @@
 from functools import reduce
-from callable import curry
+from fptools.callable import curry
 
 
 def initial(sequence):

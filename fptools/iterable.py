@@ -1,8 +1,8 @@
 from functools import reduce
 from collections import Iterable
 from operator import add
-from callable import curry
-from dictionary import update
+from fptools.callable import curry
+from fptools.dictionary import update
 
 
 def head(iterable):

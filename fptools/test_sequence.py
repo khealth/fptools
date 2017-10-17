@@ -1,4 +1,4 @@
-from sequence import initial, last, chunk_by, chunk
+from fptools.sequence import initial, last, chunk_by, chunk
 
 def test_initial():
   assert initial((1, 2, 3)) == (1, 2)

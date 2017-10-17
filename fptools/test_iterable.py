@@ -1,4 +1,4 @@
-from iterable import head, find, avg, flatten, group_by
+from fptools.iterable import head, find, avg, flatten, group_by
 
 def test_head():
   assert head((1,)) is 1

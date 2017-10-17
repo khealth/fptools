@@ -1,4 +1,4 @@
-from callable import curry, flow, noop, constant
+from fptools.callable import curry, flow, noop, constant
 from functools import partial
 
 def test_curry():

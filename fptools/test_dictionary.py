@@ -1,4 +1,4 @@
-from dictionary import to_path, getitem, setitem, delitem, update, pick, map_values
+from fptools.dictionary import to_path, getitem, setitem, delitem, update, pick, map_values
 
 def test_to_path():
   assert to_path('key') == ('key',)
