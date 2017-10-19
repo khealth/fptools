@@ -1,7 +1,7 @@
 # fptools
 
 ```bash
-pipenv install -e git+ssh://git@github.com/kang-health/fptools.git#egg=pytient
+pipenv install -e git+ssh://git@github.com/kang-health/fptools.git#egg=fptools
 ```
 
 ### Usage
