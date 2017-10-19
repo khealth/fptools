@@ -13,7 +13,7 @@ def last(sequence):
     '''
     Gets the last element of sequence.
     '''
-    return sequence[-1]
+    return sequence[-1] if sequence else None
 
 
 @curry
