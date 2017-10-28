@@ -70,6 +70,10 @@ def pick(keys, _dict):
     '''
     return {key: _dict.get(key) for key in keys}
 
+@curry
+def omit(keys, _dict):
+    return { key: value for key, value in _dict.items() if key in keys }
+
 
 @curry
 def map_values(modifier, _dict):
