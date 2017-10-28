@@ -1,5 +1,6 @@
 from functools import reduce
 from fptools.callable import curry
+from fptools.dictionary import update
 
 
 def initial(sequence):
@@ -39,3 +40,11 @@ def chunk(size, sequence):
     Creates a list of elements split into groups the length of size. If list can't be split evenly, the final chunk will be the remaining elements.
     '''
     return chunk_by(lambda item, index: index // size, sequence)
+
+@curry
+def group_by(selector, sequence):
+    return reduce(lambda groups, item: update(
+        selector(item),
+        lambda group: (*group, item) if group else (item,),
+        groups
+    ), sequence, {})

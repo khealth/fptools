@@ -1,4 +1,4 @@
-from fptools.sequence import initial, last, chunk_by, chunk
+from fptools.sequence import initial, last, chunk_by, chunk, group_by
 
 def test_initial():
   assert initial((1, 2, 3)) == (1, 2)
@@ -12,3 +12,16 @@ def test_chunk_by():
 
 def test_chunk():
   assert chunk(2, (1, 2, 3, 4)) == [[1, 2], [3, 4]]
+
+def test_group_by():
+  assert group_by(lambda item: item % 10, (10, 20, 15, 25, 30)) == {
+    0: (
+      10,
+      20,
+      30,
+    ),
+    5: (
+      15,
+      25
+    )
+  }

@@ -12,7 +12,7 @@ def curry(func):
     the remaining func arguments, and so on.
     '''
     parameters = signature(func).parameters
-    for parameter in signature(func).parameters.values():
+    for parameter in parameters.values():
         if parameter.kind in RESTRICTED_PARAMETER_KINDS:
             raise NotImplementedError(
                 'Curry can only be applied on functions with preknown number of parameters')

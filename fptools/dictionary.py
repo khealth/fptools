@@ -7,7 +7,7 @@ def to_path(path):
     '''
     Converts value to a property path tuple.
     '''
-    if isinstance(path, str):
+    if isinstance(path, str) or isinstance(path, int):
         return (path,)
     elif isinstance(path, Iterable):
         return path
