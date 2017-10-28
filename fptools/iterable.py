@@ -20,14 +20,25 @@ def find(comparator, iterable):
     return None
 
 
-def avg(_list):
-    return reduce(add, _list) / len(_list)
+def avg(iterable):
+    return reduce(add, iterable) / len(iterable)
 
 
-def flatten(_list):
-    return reduce(lambda acc, item: acc + (flatten(item) if isinstance(item, Iterable) else [item]), _list, [])
+def flatten(iterable):
+    return reduce(lambda acc, item: acc + (flatten(item) if isinstance(item, Iterable) else [item]), iterable, [])
 
 
-@curry
 def group_by(predicate, iterable):
     return reduce(lambda groups, item: update(predicate(item), lambda group: (group or []) + [item], groups), iterable, {})
+
+def _get_repeating(iterable):
+    visited = set()
+    for item in iterable:
+        if item in visited:
+            yield item
+        else:
+            visited = { *visited, item }
+
+@curry
+def intersection(source, target):
+    return tuple(_get_repeating((*source, *target)))

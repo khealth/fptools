@@ -1,4 +1,4 @@
-from fptools.iterable import head, find, avg, flatten, group_by
+from fptools.iterable import head, find, avg, flatten, group_by, intersection
 
 def test_head():
   assert head((1,)) is 1
@@ -28,3 +28,6 @@ def test_group_by():
       PEOPLE[0]
     ]
   }
+
+def test_intersection():
+  assert intersection((1, 2), (2, 3)) == (2,)
