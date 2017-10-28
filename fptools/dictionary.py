@@ -72,7 +72,7 @@ def pick(keys, _dict):
 
 @curry
 def omit(keys, _dict):
-    return { key: value for key, value in _dict.items() if key in keys }
+    return { key: value for key, value in _dict.items() if key not in keys }
 
 
 @curry
