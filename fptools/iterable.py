@@ -27,9 +27,14 @@ def avg(iterable):
 def flatten(iterable):
     return reduce(lambda acc, item: acc + (flatten(item) if isinstance(item, Iterable) else [item]), iterable, [])
 
-
+@curry
 def group_by(predicate, iterable):
-    return reduce(lambda groups, item: update(predicate(item), lambda group: (group or []) + [item], groups), iterable, {})
+    def accumulate(groups, item):
+        key = predicate(item)
+        if not key:
+            return groups
+        return update(key, lambda group: (group or []) + [item], groups)
+    return reduce(accumulate, iterable, {})
 
 def _get_repeating(iterable):
     visited = set()
