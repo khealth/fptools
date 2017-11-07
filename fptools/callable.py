@@ -1,5 +1,6 @@
 from inspect import signature, Parameter
 from functools import reduce, partial, wraps
+from logging import getLogger
 
 RESTRICTED_PARAMETER_KINDS = (
     Parameter.VAR_POSITIONAL, Parameter.KEYWORD_ONLY, Parameter.VAR_KEYWORD)
