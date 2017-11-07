@@ -6,9 +6,9 @@ pipenv install -e git+ssh://git@github.com/kang-health/fptools.git#egg=fptools
 
 ### Features
 
- - Performant
- - Simple and Pythonic
- - Lean
+ - Performant and lean
+ - Simple and pythonic
+ - Immutable
 
 ### Usage
 
