@@ -1,4 +1,4 @@
-from fptools.callable import curry, flow, noop, constant
+from fptools.callable import curry, flow, noop, constant, graceful
 from functools import partial
 
 def test_curry():
@@ -29,3 +29,16 @@ def test_noop():
 def test_constant():
   assert constant(4)() is 4
   assert constant(4)(1, 2, 3) is 4
+
+def test_graceful():
+  def f():
+    raise RuntimeError('Check check, 1, 1')
+
+  graceful_f = graceful(f)
+
+  try:
+    f()
+  except Exception as e:
+    assert e
+
+  assert graceful_f() is None
