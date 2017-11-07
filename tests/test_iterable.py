@@ -1,4 +1,7 @@
-from fptools.iterable import head, find, avg, flatten, group_by, intersection, chunk_by, chunk
+from fptools.iterable import compact, head, find, avg, flatten, group_by, intersection, chunk_by, chunk
+
+def test_compact():
+  assert tuple(compact((0, 1, 2, False, True))) == (1, 2, True)
 
 def test_head():
   assert head((1,)) is 1

@@ -4,6 +4,8 @@ from operator import add
 from fptools.callable import curry
 from fptools.dictionary import update
 
+def compact(iterable):
+    return filter(None, iterable)
 
 def head(iterable):
     try:
@@ -50,7 +52,7 @@ def _get_repeating(iterable):
 
 @curry
 def intersection(source, target):
-    yield from _get_repeating((*source, *target))
+    return _get_repeating((*source, *target))
 
 @curry
 def chunk_by(predicate, iterable):
@@ -73,4 +75,4 @@ def chunk(size, iterable):
     '''
     Creates a list of elements split into groups the length of size. If list can't be split evenly, the final chunk will be the remaining elements.
     '''
-    yield from chunk_by(lambda item, index: index // size, iterable)
+    return chunk_by(lambda item, index: index // size, iterable)
