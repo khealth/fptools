@@ -51,3 +51,17 @@ def constant(value):
     def constant_func(*args, **kwargs):
         return value
     return constant_func
+
+def graceful(func):
+    '''
+    Creates a functions that returns the result of invoking the given function or None if
+    it raised an exception.
+    '''
+    @wraps(func)
+    def wrapped(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            getLogger().error(f'An error has been raised while executing {func.__name__}', e)
+            return None
+    return wrapped
