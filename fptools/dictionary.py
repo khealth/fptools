@@ -1,4 +1,4 @@
-from collections import Iterable
+from collections import Iterable, Hashable
 from functools import reduce
 from fptools.callable import curry
 
@@ -7,7 +7,7 @@ def to_path(path):
     '''
     Converts value to a property path tuple.
     '''
-    if isinstance(path, str) or isinstance(path, int):
+    if isinstance(path, Hashable) and not isinstance(path, tuple):
         return (path,)
     elif isinstance(path, Iterable):
         return path
