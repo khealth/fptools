@@ -4,13 +4,16 @@
 pipenv install -e git+ssh://git@github.com/kang-health/fptools.git#egg=fptools
 ```
 
+### Features
+
+ - Performant
+ - Simple and Pythonic
+ - Lean
+
 ### Usage
 
 ```python
-from fptools import Dictionary
-
-_dict = { 'a': 1, 'b': 2 }
-new_dict = Dictionary.map_values(lambda x: x * 2, _dict)
+from fptools import Dictionary, Iterable, Callable, Sequence
 ```
 
 ### Develop
@@ -23,10 +26,4 @@ pipenv install --dev
 
 ```bash
 pipenv run pytest
-```
-
-### Build
-
-```bash
-python3 setup.py bdist_egg
 ```

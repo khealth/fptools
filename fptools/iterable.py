@@ -25,7 +25,11 @@ def avg(iterable):
 
 
 def flatten(iterable):
-    return reduce(lambda acc, item: acc + (flatten(item) if isinstance(item, Iterable) else [item]), iterable, [])
+    for item in iterable:
+        if isinstance(item, Iterable):
+            yield from flatten(item)
+        else:
+            yield item
 
 @curry
 def group_by(predicate, iterable):
@@ -46,4 +50,27 @@ def _get_repeating(iterable):
 
 @curry
 def intersection(source, target):
-    return tuple(_get_repeating((*source, *target)))
+    yield from _get_repeating((*source, *target))
+
+@curry
+def chunk_by(predicate, iterable):
+    last_identity = None
+    current_chunk = tuple()
+    for index, item in enumerate(iterable):
+        identity = predicate(item, index)
+        if identity is last_identity:
+            current_chunk = current_chunk + (item,)
+        else:
+            if current_chunk:
+                yield current_chunk
+            last_identity = identity
+            current_chunk = (item,)
+    if current_chunk:
+        yield current_chunk
+
+@curry
+def chunk(size, iterable):
+    '''
+    Creates a list of elements split into groups the length of size. If list can't be split evenly, the final chunk will be the remaining elements.
+    '''
+    yield from chunk_by(lambda item, index: index // size, iterable)

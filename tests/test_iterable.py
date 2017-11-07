@@ -1,4 +1,4 @@
-from fptools.iterable import head, find, avg, flatten, group_by, intersection
+from fptools.iterable import head, find, avg, flatten, group_by, intersection, chunk_by, chunk
 
 def test_head():
   assert head((1,)) is 1
@@ -16,7 +16,7 @@ def test_avg():
   assert avg((1, 2, 3)) == 2
 
 def test_flatten():
-  assert flatten((1, 2, 3, (4, 5))) == [1, 2, 3, 4, 5]
+  assert tuple(flatten((1, 2, 3, (4, 5)))) == (1, 2, 3, 4, 5)
 
 def test_group_by():
   assert group_by(lambda person: person['location'], PEOPLE) == {
@@ -30,4 +30,11 @@ def test_group_by():
   }
 
 def test_intersection():
-  assert intersection((1, 2), (2, 3)) == (2,)
+  assert tuple(intersection((1, 2), (2, 3))) == (2,)
+
+def test_chunk_by():
+  assert tuple(chunk_by(lambda item, index: item % 10, (10, 20, 15, 25, 30))) == ((10, 20), (15, 25), (30,))
+
+def test_chunk():
+  assert tuple(chunk(2, (1, 2, 3, 4))) == ((1, 2), (3, 4))
+  assert tuple(chunk(2, (1, 2, 3, 4, 5))) == ((1, 2), (3, 4), (5,))
