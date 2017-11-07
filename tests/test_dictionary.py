@@ -48,7 +48,7 @@ def is_dict():
 
 def test_map_keys_by_layer():
     assert map_keys_by_layer((
-        lambda first_level: first_level * 2,
-        lambda first_level: first_level * 3,
-        lambda first_level: first_level * 4,
+        lambda first_level_key: first_level_key * 2,
+        lambda second_level_key: second_level_key * 3,
+        lambda third_level_key: third_level_key * 4,
     ), {1: 2, 2: 3, 3: {10: {300: 'a'}}}) == {2: 2, 4: 3, 6: {30: {1200: 'a'}}}
