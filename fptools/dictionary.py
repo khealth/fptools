@@ -58,7 +58,6 @@ def update(path, modifier, _dict):
     '''
     This method is like set except that accepts updater to produce the value to set.
     '''
-    path = to_path(path)
     value = getitem(path, _dict)
     return setitem(path, modifier(value), _dict)
 
