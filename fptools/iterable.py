@@ -1,6 +1,7 @@
 from functools import reduce
 from collections import Iterable
 from operator import add
+from cardinality import count
 from fptools.callable import curry
 from fptools.dictionary import update
 
@@ -22,8 +23,8 @@ def find(comparator, iterable):
     return None
 
 
-def avg(iterable):
-    return reduce(add, iterable) / len(iterable)
+def mean(iterable):
+    return reduce(add, iterable) / count(iterable)
 
 
 def flatten(iterable):
