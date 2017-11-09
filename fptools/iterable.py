@@ -1,4 +1,5 @@
 from functools import reduce
+from itertools import tee
 from collections import Iterable
 from operator import add
 from cardinality import count
@@ -24,7 +25,8 @@ def find(comparator, iterable):
 
 
 def mean(iterable):
-    return reduce(add, iterable) / count(iterable)
+    to_sum, to_count = tee(iterable)
+    return reduce(add, to_sum) / count(to_count)
 
 
 def flatten(iterable):

@@ -1,4 +1,4 @@
-from fptools.iterable import compact, head, find, avg, flatten, group_by, intersection, chunk_by, chunk
+from fptools.iterable import compact, head, find, mean, flatten, group_by, intersection, chunk_by, chunk
 
 def test_compact():
   assert tuple(compact((0, 1, 2, False, True))) == (1, 2, True)
@@ -15,8 +15,8 @@ PEOPLE = (
 def test_find():
   assert find(lambda person: person['name'] == 'Alon', PEOPLE) is PEOPLE[0]
 
-def test_avg():
-  assert avg((1, 2, 3)) == 2
+def test_mean():
+  assert mean((1, 2, 3)) == 2
 
 def test_flatten():
   assert tuple(flatten((1, 2, 3, (4, 5)))) == (1, 2, 3, 4, 5)
