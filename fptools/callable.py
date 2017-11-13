@@ -52,17 +52,15 @@ def curry(_callable):
         return curried
 
     parameters = signature(_callable).parameters
+    defaultless_parameters = [p for p in parameters.values() if p.default is Parameter.empty]
     for parameter in parameters.values():
         if parameter.kind in _RESTRICTED_PARAMETER_KINDS:
             raise NotImplementedError(
                 'Curry can only be applied on functions with preknown number of parameters')
-        if parameter.default is not Parameter.empty:
-            raise NotImplementedError(
-                'Curry can only be applied on functions with defaultless parameters')
 
     @wraps(_callable)
     def x(*args, **kwargs):
-        if len(args) + len(kwargs) is len(parameters):
+        if len(args) + len(kwargs) >= len(defaultless_parameters):
             return _callable(*args, **kwargs)
         return partial(x, *args, **kwargs)
     return x

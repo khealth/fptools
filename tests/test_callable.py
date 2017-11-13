@@ -15,6 +15,13 @@ def test_curry():
     assert isinstance(curry(g)(2), partial)
     assert curry(g)(2, 3) is 7
 
+    @curry
+    def h(x, y, z=0):
+        return x * y * z
+
+    assert h(1, 2, 3) == 6
+    assert h(1, 2) == 0
+
     class Person:
 
         _name = None
