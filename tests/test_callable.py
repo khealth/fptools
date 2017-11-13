@@ -21,6 +21,9 @@ def test_curry():
 
     assert h(1, 2, 3) == 6
     assert h(1, 2) == 0
+    assert h(1)(2) == 0
+    assert h(1)(2, z=3) == 6
+    assert h(1, z=3)(2) == 6
 
     class Person:
 
