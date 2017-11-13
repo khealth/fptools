@@ -15,6 +15,43 @@ def test_curry():
     assert isinstance(curry(g)(2), partial)
     assert curry(g)(2, 3) is 7
 
+    class Person:
+
+        _name = None
+
+        def __init__(self, name):
+            self._name = name
+
+        @classmethod
+        def is_person(klass, item):
+            return isinstance(item, klass)
+
+        @staticmethod
+        def create(name):
+            return Person(name)
+
+        @property
+        def name(self):
+            return self._name
+
+        def greet(self):
+            print(f'hello my name is {self.name}')
+
+        def prefix_name(self, prefix):
+            return prefix + self.name
+
+    CurriedPerson = curry(Person)
+
+    p = CurriedPerson('Iddan')
+
+    assert type(p) is Person
+    assert type(CurriedPerson.create('Iddan')) is Person
+    assert p.name == 'Iddan'
+    assert CurriedPerson.is_person(p)
+    CurriedPerson.greet(p)
+    assert CurriedPerson.prefix_name('Yo ', p) == 'Yo Iddan'
+    assert p.prefix_name('Yo ') == 'Yo Iddan'
+
 
 def test_flow():
     f = flow((

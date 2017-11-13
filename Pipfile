@@ -13,6 +13,7 @@ cardinality = "*"
 [dev-packages]
 
 pytest = "*"
+ipython = "*"
 
 
 [requires]
