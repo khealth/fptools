@@ -8,6 +8,12 @@ def test_to_path():
 def test_getitem():
     assert getitem('key', {'key': 4}) is 4
     assert getitem(('key', 'subkey'), {'key': {'subkey': 4}}) is 4
+    assert getitem(('key'), {}) is None
+    assert getitem(('key', 'subkey'), {'key': {}}) is None
+    assert getitem(('key', 0), { 'key': ['item'] }) == 'item'
+    assert getitem(('key', 0), { 'key': [] }) == None
+    assert getitem(('key', 'subkey', 0), { 'key': { 'subkey': ['item'] } }) == 'item'
+    assert getitem(('key', 0, 'subkey'), { 'key': [{ 'subkey': 'item' }] }) == 'item'
 
 
 def test_setitem():

@@ -27,7 +27,7 @@ def getitem(path, collection):
     for key in path:
         try:
             value = operator.getitem(value, key)
-        except (KeyError, TypeError):
+        except (KeyError, TypeError, IndexError):
             return None
     return value
 
