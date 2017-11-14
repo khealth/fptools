@@ -8,5 +8,8 @@ setup(
     author='Iddan Aharonson',
     author_email='iddan@kanghealth.io',
     packages=['fptools'],
-    platforms="any"
+    install_requires=[
+        'cardinality',
+    ],
+    platforms="any",
 )
