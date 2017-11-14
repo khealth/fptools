@@ -23,7 +23,13 @@ def getitem(path, collection):
     Gets the value at path of collection
     '''
     path = to_path(path)
-    return reduce(lambda acc, item: operator.getitem(acc, item) if acc is not None else None, path, collection)
+    value = collection
+    for key in path:
+        try:
+            value = operator.getitem(value, key)
+        except (KeyError, TypeError):
+            return None
+    return value
 
 @curry
 def setitem(path, value, collection):
