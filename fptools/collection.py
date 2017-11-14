@@ -1,5 +1,6 @@
 import operator
 from collections import Iterable, Hashable
+from copy import copy
 from functools import reduce
 from fptools.callable import curry
 
@@ -17,45 +18,48 @@ def to_path(path):
 
 
 @curry
-def getitem(path, _dict):
+def getitem(path, collection):
     '''
-    Gets the value at path of dictionary
+    Gets the value at path of collection
     '''
     path = to_path(path)
-    return reduce(lambda acc, item: operator.getitem(acc, item) if acc is not None else None, path, _dict)
-
+    return reduce(lambda acc, item: operator.getitem(acc, item) if acc is not None else None, path, collection)
 
 @curry
 def setitem(path, value, collection):
     '''
-    Sets the value at path of dictionary. If a portion of path doesn't exist, it's created.
+    Sets the value at path of collection. If a portion of path doesn't exist, it's created.
     '''
     path = to_path(path)
     clone = copy(collection)
-    if len(path) > 1:
-      clone[path[0]] = value
+    key = path[0]
+    if len(path) == 1:
+        clone[key] = value
     else:
-      clone[path[0]] = setitem(path[1:], value, collection[path[0]])
+        try:
+            sub = collection[key]
+        except KeyError:
+            sub = {}
+        clone[key] = setitem(path[1:], value, sub)
+            
+    return clone
+
+@curry
+def delitem(path, collection):
+    path = to_path(path)
+    clone = copy(collection)
+    key = path[0]
+    if len(path) == 1:
+        del clone[key]
+    else:
+        clone[key] = delitem(path[1:], collection[key])
     return clone
 
 
 @curry
-def delitem(path, _dict):
-    path = to_path(path)
-    if len(path) > 1:
-        return {
-            **_dict,
-            path[0]: delitem(path[1:], _dict.get(path[0]))
-        }
-    new_dict = {**_dict}
-    del new_dict[path[0]]
-    return new_dict
-
-
-@curry
-def update(path, modifier, _dict):
+def update(path, modifier, collection):
     '''
     This method is like set except that accepts updater to produce the value to set.
     '''
-    value = getitem(path, _dict)
-    return setitem(path, modifier(value), _dict)
+    value = getitem(path, collection)
+    return setitem(path, modifier(value), collection)
