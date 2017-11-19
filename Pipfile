@@ -8,12 +8,14 @@ name = "pypi"
 [packages]
 
 cardinality = "*"
+pydocs = {git = "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/pydocs.git", editable = true}
 
 
 [dev-packages]
 
 pytest = "*"
 ipython = "*"
+pydocs = {git = "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/pydocs.git", editable = true}
 
 
 [requires]

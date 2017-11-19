@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1798631cdfc28903a0ee1dbe876c491a57c03e6a24e8b41627b90619baed1d2b"
+            "sha256": "b3535776c85438be97ba6a61843bb96a233b7e932458dbc2e9b450a7127d7584"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -34,6 +34,16 @@
                 "sha256:8fc223c1a1433842ea30ba2569a14d21144330094ab21e9c1801977fceeef1ea"
             ],
             "version": "==0.1.1"
+        },
+        "fptools": {
+            "editable": true,
+            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/fptools.git",
+            "ref": "aa8bf17c1cea9bcbc5d81ff44ffc3d1844af5221"
+        },
+        "pydocs": {
+            "editable": true,
+            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/pydocs.git",
+            "ref": "e7b7b63260559beb5825be052bc2564be0b1feff"
         }
     },
     "develop": {
@@ -128,10 +138,14 @@
         },
         "py": {
             "hashes": [
-                "sha256:2ccb79b01769d99115aa600d7eed99f524bf752bba8f041dc1c184853514655a",
-                "sha256:0f2d585d22050e90c7d293b6451c83db097df77871974d90efd5a30dc12fcde3"
+                "sha256:8cca5c229d225f8c1e3085be4fcf306090b00850fefad892f9d96c7b6e2f310f",
+                "sha256:ca18943e28235417756316bfada6cd96b23ce60dd532642690dcfdaba988a76d"
             ],
-            "version": "==1.4.34"
+            "version": "==1.5.2"
+        },
+        "pydocs": {
+            "editable": true,
+            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/pydocs.git"
         },
         "pygments": {
             "hashes": [
@@ -142,10 +156,10 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:81a25f36a97da3313e1125fce9e7bbbba565bc7fec3c5beb14c262ddab238ac1",
-                "sha256:27fa6617efc2869d3e969a3e75ec060375bfb28831ade8b5cdd68da3a741dc3c"
+                "sha256:241d7e7798d79192a123ceaf64c602b4d233eacf6d6e42ae27caa97f498b7dc6",
+                "sha256:6d5bd4f7113b444c55a3bbb5c738a3dd80d43563d063fc42dcb0aaefbdd78b81"
             ],
-            "version": "==3.2.3"
+            "version": "==3.2.5"
         },
         "scandir": {
             "hashes": [
