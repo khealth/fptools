@@ -44,10 +44,13 @@ def curry(_callable):
         for key, value in _callable.__dict__.items():
             if key in _CLASS_DEFAULT_PROPERTIES:
                 continue
-            if isinstance(value, classmethod):
-                setattr(curried, key, curry(getattr(_callable, key)))
-            if callable(value):
-                setattr(curried, key, curry(_apply_self_last(value)))
+            try:
+                if isinstance(value, classmethod):
+                    setattr(curried, key, curry(getattr(_callable, key)))
+                if callable(value):
+                    setattr(curried, key, curry(_apply_self_last(value)))
+            except NotImplementedError:
+                continue
 
         return curried
 
