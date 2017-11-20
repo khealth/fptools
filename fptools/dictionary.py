@@ -62,6 +62,14 @@ def update(path, modifier, _dict):
     return setitem(path, modifier(value), _dict)
 
 
+def extract(*keys, **aliases):
+    def extractor(_dict):
+        return {
+            **{ key: getitem(value, _dict) for key, value in aliases.items() },
+            **pick(keys, _dict)
+        }
+    return extractor
+
 @curry
 def pick(keys, _dict):
     '''
