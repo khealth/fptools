@@ -15,12 +15,6 @@ pipenv install -e git+https://github.com/kang-health/fptools.git#egg=fptools
  - Simple and pythonic
  - Immutable
 
-### Usage
-
-```python
-from fptools import Dictionary, Iterable, Callable, Sequence
-```
-
 ### Develop
 
 ```bash 
