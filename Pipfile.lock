@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b3535776c85438be97ba6a61843bb96a233b7e932458dbc2e9b450a7127d7584"
+            "sha256": "76db41b5bd4c47f82240ac3654219748a07669902695adc938fa4d13b5ebe03c"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -34,16 +34,6 @@
                 "sha256:8fc223c1a1433842ea30ba2569a14d21144330094ab21e9c1801977fceeef1ea"
             ],
             "version": "==0.1.1"
-        },
-        "fptools": {
-            "editable": true,
-            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/fptools.git",
-            "ref": "aa8bf17c1cea9bcbc5d81ff44ffc3d1844af5221"
-        },
-        "pydocs": {
-            "editable": true,
-            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/pydocs.git",
-            "ref": "5e990d32b0b29834f4abb893b18c6aaabbb91bdb"
         }
     },
     "develop": {
@@ -145,7 +135,7 @@
         },
         "pydocs": {
             "editable": true,
-            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/pydocs.git"
+            "git": "https://github.com/kang-health/pydocs.git"
         },
         "pygments": {
             "hashes": [
