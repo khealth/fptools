@@ -3,8 +3,8 @@ from itertools import tee
 from collections import Iterable
 from operator import add
 from cardinality import count
-from fptools.callable import curry
-from fptools.dictionary import update
+from .callable import curry
+from .collection import update
 
 def compact(iterable):
     return filter(None, iterable)

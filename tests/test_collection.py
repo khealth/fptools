@@ -19,6 +19,9 @@ def test_getitem():
 def test_setitem():
     assert setitem('key', 4, {}) == {'key': 4}
     assert setitem(('key', 'subkey'), 4, {}) == {'key': {'subkey': 4}}
+    assert setitem(('key', 0), 4, {}) == {'key': [4]}
+    assert setitem(('key', 1), 4, {}) == {'key': [None, 4]}
+    assert setitem(('key', 1), 4, { 'key': [1, 2] }) == {'key': [1, 4]}
 
 
 def test_delitem():

@@ -45,7 +45,10 @@ def setitem(path, value, collection):
         try:
             sub = collection[key]
         except KeyError:
-            sub = {}
+            if isinstance(path[1], int):
+                sub = [None] * (path[1] + 1)
+            else:
+                sub = {}
         clone[key] = setitem(path[1:], value, sub)
             
     return clone
