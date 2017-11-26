@@ -50,7 +50,7 @@
         "pydocs": {
             "editable": true,
             "git": "https://github.com/kang-health/pydocs.git",
-            "ref": "9110b4370311848f013f20b04b44e4f019c7959a"
+            "ref": "1ee53b567fbbbc6a7dae20579f48cc72c002026a"
         }
     },
     "develop": {
