@@ -39,6 +39,11 @@ _RESTRICTED_PARAMETER_KINDS = (
     Parameter.VAR_POSITIONAL, Parameter.KEYWORD_ONLY, Parameter.VAR_KEYWORD)
 
 class currymethod:
+    '''
+    Like curry but if the method was executed as a static method it will accept self as the last
+    argument.
+    '''
+
     def __init__(self, method):
         self.method = curry(method)
         
