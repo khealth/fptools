@@ -1,4 +1,4 @@
-from inspect import signature, Parameter, getargspec, isclass
+from inspect import signature, Parameter
 from functools import reduce, partial, wraps
 from logging import getLogger
 
@@ -12,44 +12,12 @@ def rename(newname):
 _RESTRICTED_PARAMETER_KINDS = (
     Parameter.VAR_POSITIONAL, Parameter.KEYWORD_ONLY, Parameter.VAR_KEYWORD)
 
-_CLASS_DEFAULT_PROPERTIES = (
-    '__module__', '__init__', '__dict__', '__weakref__', '__doc__')
-
-def _apply_self_last(method):
-    self_arg = getargspec(method)[0][0]
-    @wraps(method)
-    def wrap(*args, **kwargs):
-        if kwargs.get(self_arg):
-            return method(*args, **kwargs)
-        self = args[-1]
-        return method(self, *args[0:-1], **kwargs)
-    return wrap
-
 def curry(_callable):
     '''
     Creates a function that accepts arguments of func and either invokes func returning its result,
     if at least arity number of arguments have been provided, or returns a function that accepts
     the remaining func arguments, and so on.
     '''
-
-    if isclass(_callable):
-        @rename(_callable.__name__)
-        class curried(_callable):
-            def __new__(self, *args, **kwargs):
-                return _callable(*args, **kwargs)
-
-            def __init__():
-                pass
-
-        for key, value in _callable.__dict__.items():
-            if key in _CLASS_DEFAULT_PROPERTIES:
-                continue
-            if isinstance(value, classmethod):
-                setattr(curried, key, curry(getattr(_callable, key)))
-            if callable(value):
-                setattr(curried, key, curry(_apply_self_last(value)))
-
-        return curried
 
     parameters = signature(_callable).parameters.values()
     defaultless_parameters_len = len([p for p in parameters if p.default is Parameter.empty])
@@ -66,6 +34,34 @@ def curry(_callable):
             return _callable(*args, **kwargs)
         return partial(x, *args, **kwargs)
     return x
+
+_RESTRICTED_PARAMETER_KINDS = (
+    Parameter.VAR_POSITIONAL, Parameter.KEYWORD_ONLY, Parameter.VAR_KEYWORD)
+
+class currymethod:
+    def __init__(self, method):
+        self.method = curry(method)
+        
+        parameters = signature(method).parameters.values()
+        defaultless_parameters_len = len([p for p in parameters if p.default is Parameter.empty])
+        optionals_names = { p.name for p in parameters if p.default is not Parameter.empty }
+        for parameter in parameters:
+            if parameter.kind in _RESTRICTED_PARAMETER_KINDS:
+                raise NotImplementedError(
+                    'Curry can only be applied on functions with preknown number of parameters')
+
+        @wraps(method)
+        def x(*args, **kwargs):
+            non_optional_kwargs_len = len([k for k in kwargs if k not in optionals_names])
+            if len(args) + non_optional_kwargs_len >= defaultless_parameters_len:
+                return method(args[-1], *args[0:-1], **kwargs)
+            return partial(x, *args, **kwargs)
+        self.static = x
+    
+    def __get__(self, obj=None, objtype=None):
+        if obj:
+            return self.method(obj)
+        return self.static
 
 
 @curry

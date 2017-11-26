@@ -1,4 +1,4 @@
-from fptools.callable import curry, flow, noop, constant, graceful
+from fptools.callable import curry, currymethod, flow, noop, constant, graceful
 from functools import partial
 
 
@@ -25,42 +25,19 @@ def test_curry():
     assert h(1)(2, z=3) == 6
     assert h(1, z=3)(2) == 6
 
-    class Person:
+    class A:
+        @currymethod
+        def b(self, c, d, e):
+            return self, c, d, e
 
-        _name = None
+    a = A()
 
-        def __init__(self, name):
-            self._name = name
-
-        @classmethod
-        def is_person(klass, item):
-            return isinstance(item, klass)
-
-        @staticmethod
-        def create(name):
-            return Person(name)
-
-        @property
-        def name(self):
-            return self._name
-
-        def greet(self):
-            print(f'hello my name is {self.name}')
-
-        def prefix_name(self, prefix):
-            return prefix + self.name
-
-    CurriedPerson = curry(Person)
-
-    p = CurriedPerson('Iddan')
-
-    assert type(p) is Person
-    assert type(CurriedPerson.create('Iddan')) is Person
-    assert p.name == 'Iddan'
-    assert CurriedPerson.is_person(p)
-    CurriedPerson.greet(p)
-    assert CurriedPerson.prefix_name('Yo ', p) == 'Yo Iddan'
-    assert p.prefix_name('Yo ') == 'Yo Iddan'
+    assert A.b(1, 2, a, e=3) == (a, 1, 2, 3)
+    assert A.b(1)(2, a, e=3) == (a, 1, 2, 3)
+    assert A.b(1, 2, e=3)(a) == (a, 1, 2, 3)
+    assert a.b(1, 2, e=3) == (a, 1, 2, 3)
+    assert a.b(1, e=3)(2) == (a, 1, 2, 3)
+    assert a.b(1)(2, e=3) == (a, 1, 2, 3)
 
 
 def test_flow():
