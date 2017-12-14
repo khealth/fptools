@@ -68,3 +68,24 @@ def map_keys_by_layer(modifiers, _dict):
         return {modifier(key): map_keys_by_layer(modifiers_left, value) if is_dict(value) else value for key, value in _dict.items()}
     else:
         return map_keys(modifier, _dict)
+
+def __recur_branches(_dict, keys=tuple()):
+    for key, value in _dict.items():
+        path = keys + (key,)
+        yield path, value
+        if isinstance(value, dict):
+            yield from __recur_branches(value, path)
+
+def branches(_dict):
+    '''
+    Iterates each keys and value pair of the dictionary and it's descendent dicts
+    '''
+    yield from __recur_branches(_dict)
+
+def leaves(_dict):
+    '''
+    Like iterate_branches() but only yields non dict values
+    '''
+    for keys, value in branches(_dict):
+        if not isinstance(value, dict):
+            yield keys, value

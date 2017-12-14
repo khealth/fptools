@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0d5e79cfa3e94d55e6b906d7a0f0d8e2e4e9455ddbfc6397353adc953106359d"
+            "sha256": "76db41b5bd4c47f82240ac3654219748a07669902695adc938fa4d13b5ebe03c"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -34,23 +34,6 @@
                 "sha256:8fc223c1a1433842ea30ba2569a14d21144330094ab21e9c1801977fceeef1ea"
             ],
             "version": "==0.1.1"
-        },
-        "click": {
-            "hashes": [
-                "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d",
-                "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"
-            ],
-            "version": "==6.7"
-        },
-        "fptools": {
-            "editable": true,
-            "git": "https://5dcb24e7e3a8c7733c4e7d263df165dce0dc7017@github.com/kang-health/fptools.git",
-            "ref": "aa8bf17c1cea9bcbc5d81ff44ffc3d1844af5221"
-        },
-        "pydocs": {
-            "editable": true,
-            "git": "https://github.com/kang-health/pydocs.git",
-            "ref": "1ee53b567fbbbc6a7dae20579f48cc72c002026a"
         }
     },
     "develop": {
@@ -60,6 +43,13 @@
                 "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
             ],
             "version": "==0.1.0"
+        },
+        "attrs": {
+            "hashes": [
+                "sha256:e7d51b70f19a4da5fe6b3c9938983e0af3b91e230edc504bd73c443d98037063",
+                "sha256:c78f53e32d7cf36d8597c8a2c7e3c0ad210f97b9509e152e4c37fa80869f823c"
+            ],
+            "version": "==17.3.0"
         },
         "click": {
             "hashes": [
@@ -84,6 +74,14 @@
             ],
             "markers": "python_version == '2.7'",
             "version": "==1.1.6"
+        },
+        "funcsigs": {
+            "hashes": [
+                "sha256:330cc27ccbf7f1e992e69fef78261dc7c6569012cf397db8d3de0234e6c937ca",
+                "sha256:a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50"
+            ],
+            "markers": "python_version < '3.0'",
+            "version": "==1.0.2"
         },
         "ipython": {
             "hashes": [
@@ -135,6 +133,12 @@
             ],
             "version": "==0.7.4"
         },
+        "pluggy": {
+            "hashes": [
+                "sha256:7f8ae7f5bdf75671a718d2daf0a64b7885f74510bcd98b1a0bb420eb9a9d0cff"
+            ],
+            "version": "==0.6.0"
+        },
         "prompt-toolkit": {
             "hashes": [
                 "sha256:3f473ae040ddaa52b52f97f6b4a493cfa9f5920c255a12dc56a7d34397a398a4",
@@ -170,10 +174,10 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:241d7e7798d79192a123ceaf64c602b4d233eacf6d6e42ae27caa97f498b7dc6",
-                "sha256:6d5bd4f7113b444c55a3bbb5c738a3dd80d43563d063fc42dcb0aaefbdd78b81"
+                "sha256:72186b294cc88322a4427225fdb9240c95e3f01cc53c1ea4f4f79ffe39ff1955",
+                "sha256:6db1c070aa412c30647b6aeb13c55670f900cf00fbafa003cdde560c3f4a8d76"
             ],
-            "version": "==3.2.5"
+            "version": "==3.3.0"
         },
         "scandir": {
             "hashes": [
