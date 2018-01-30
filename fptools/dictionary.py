@@ -51,6 +51,13 @@ def map_keys(modifier, _dict):
     '''
     return {modifier(key): value for key, value in _dict.items()}
 
+
+@curry
+def apply_spec(spec, _mapping):
+    return {**_mapping, 
+            **{key: func(_mapping[key]) 
+               for key, func in spec.items()}}
+
 def is_dict(value):
     '''
     Matches if value is a dictionary
