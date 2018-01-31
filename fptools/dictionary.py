@@ -53,9 +53,9 @@ def map_keys(modifier, _dict):
 
 
 @curry
-def apply_spec(spec, _mapping):
-    return {**_mapping, 
-            **{key: func(_mapping[key]) 
+def apply_spec(spec, _dict):
+    return {**_dict, 
+            **{key: func(_dict[key]) 
                for key, func in spec.items()}}
 
 def is_dict(value):
