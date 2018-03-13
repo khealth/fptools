@@ -51,6 +51,13 @@ def map_keys(modifier, _dict):
     '''
     return {modifier(key): value for key, value in _dict.items()}
 
+
+@curry
+def apply_spec(spec, _dict):
+    return {**_dict, 
+            **{key: func(_dict[key]) 
+               for key, func in spec.items()}}
+
 def is_dict(value):
     '''
     Matches if value is a dictionary
@@ -69,18 +76,15 @@ def map_keys_by_layer(modifiers, _dict):
     else:
         return map_keys(modifier, _dict)
 
-def __recur_branches(_dict, keys=tuple()):
-    for key, value in _dict.items():
-        path = keys + (key,)
-        yield path, value
-        if isinstance(value, dict):
-            yield from __recur_branches(value, path)
-
 def branches(_dict):
     '''
     Iterates each keys and value pair of the dictionary and it's descendent dicts
     '''
-    yield from __recur_branches(_dict)
+    for key, value in _dict.items():
+        yield (key,), value
+        if isinstance(value, dict):
+            for path, subvalue in branches(value):
+                yield (key,) + path, subvalue
 
 def leaves(_dict):
     '''
