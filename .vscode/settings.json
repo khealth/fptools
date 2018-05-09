@@ -1,8 +1,0 @@
-{
-  "files.exclude": {
-    ".mypy_cache/": "explorerExcludedFiles",
-    "__pycache__/": "explorerExcludedFiles",
-    ".DS_Store": "explorerExcludedFiles",
-    "*.pyc": "explorerExcludedFiles"
-  }
-}
