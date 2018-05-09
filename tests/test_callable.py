@@ -1,5 +1,33 @@
-from fptools.callable import curry, currymethod, flow, noop, constant, graceful
+import warnings
 from functools import partial
+
+from fptools.callable import fullname, rename, identity, deprecated, curry, currymethod, flow, noop, constant, graceful
+
+
+def test_fullname():
+    assert fullname(partial) == 'functools.partial'
+
+
+def test_rename():
+    @rename('g')
+    def f(x):
+        return x
+    assert f.__name__ == 'g'
+
+
+def test_identity():
+    assert identity(1) == 1
+
+def test_deprecated():
+    @deprecated
+    def f(x):
+        return x
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        f(42)
+        assert len(w) == 1
+        assert issubclass(w[-1].category, DeprecationWarning)
+        assert "tests.test_callable.f is deprecated" == str(w[-1].message)
 
 
 def test_curry():

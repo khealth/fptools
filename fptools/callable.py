@@ -1,14 +1,50 @@
-from typing import Callable, TypeVar, Union, Any
+import warnings
+from typing import Callable, TypeVar, Union, Any, Iterable
 from inspect import signature, Parameter
 from functools import reduce, partial, wraps
+from inspect import getmodule
 from logging import getLogger
 
 
-def rename(newname):
-    def decorator(f):
+def fullname(func : Callable) -> str:
+    '''
+    Get full name of a function: the module it is declared in and it's name
+    '''
+    return '.'.join((getmodule(func).__name__, func.__name__))
+
+
+def rename(newname : str) -> Callable[[Callable], Callable]:
+    '''
+    Set a new name for a function
+    '''
+    def decorator(f : Callable) -> Callable:
         f.__name__ = newname
         return f
     return decorator
+
+
+T = TypeVar('T')
+
+
+def identity(arg : T) -> T:
+    '''
+    This function returns the first argument it receives.
+    '''
+    return arg
+
+
+def deprecated(func : Callable) -> Callable:
+    '''
+    Warn when using wrapped func
+    '''
+    func_name = fullname(func)
+
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        warnings.warn(f'{func_name} is deprecated', DeprecationWarning)
+        return func(*args, **kwargs)
+
+    return decorated
 
 
 _RESTRICTED_PARAMETER_KINDS = (
@@ -84,7 +120,7 @@ class currymethod:
 
 
 @curry
-def flow(funcs, value):
+def flow(funcs : Iterable[Callable], value):
     '''
     Creates a function that returns the result of invoking the given functions where each
     successive invocation is supplied the return value of the previous.
@@ -92,14 +128,14 @@ def flow(funcs, value):
     return reduce(lambda acc, func: func(acc), funcs, value)
 
 
-def noop(*args, **kwargs):
+def noop(*args, **kwargs) -> None:
     '''
     This method returns None
     '''
     return None
 
 
-def constant(value):
+def constant(value : T) -> Callable[..., T]:
     '''
     Creates a function that returns value.
     '''
@@ -108,7 +144,7 @@ def constant(value):
     return constant_func
 
 
-def graceful(func):
+def graceful(func : Callable) -> Callable:
     '''
     Creates a functions that returns the result of invoking the given function or None if
     it raised an exception.
