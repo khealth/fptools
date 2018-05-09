@@ -2,12 +2,12 @@ from fptools.dictionary import pick, omit, map_values, is_dict, map_keys_by_laye
 
 
 def test_pick():
-    assert pick(('foo', 'bar'), {'foo': 4, 'bar': 2, 'yo': 3}) == {
+    assert pick({'foo', 'bar'}, {'foo': 4, 'bar': 2, 'yo': 3}) == {
         'foo': 4, 'bar': 2}
 
 
 def test_omit():
-    assert omit(('foo', 'bar'), {'foo': 4, 'bar': 2, 'yo': 3}) == {'yo': 3}
+    assert omit({'foo', 'bar'}, {'foo': 4, 'bar': 2, 'yo': 3}) == {'yo': 3}
 
 
 def test_map_values():
