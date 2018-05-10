@@ -4,6 +4,7 @@ from inspect import signature, Parameter
 from functools import reduce, partial, wraps
 from inspect import getmodule
 from logging import getLogger
+from mypy_extensions import VarArg, KwArg
 
 
 def fullname(func : Callable) -> str:
@@ -47,10 +48,6 @@ def deprecated(func : Callable) -> Callable:
     return decorated
 
 
-_RESTRICTED_PARAMETER_KINDS = (
-    Parameter.VAR_POSITIONAL, Parameter.KEYWORD_ONLY, Parameter.VAR_KEYWORD)
-
-
 R = TypeVar('R')
 
 
@@ -61,28 +58,26 @@ def curry(_callable: Callable[..., R]) -> Union[R, Callable[..., Any]]:
     the remaining func arguments, and so on.
     '''
 
-    parameters = signature(_callable).parameters.values()
-    defaultless_parameters_len = len(
-        [p for p in parameters if p.default is Parameter.empty])
-    optionals_names = {
-        p.name for p in parameters if p.default is not Parameter.empty}
-    for parameter in parameters:
-        if parameter.kind in _RESTRICTED_PARAMETER_KINDS:
-            raise NotImplementedError(
-                'Curry can only be applied on functions with preknown number of parameters')
-
+    _signature = signature(_callable)
+    required_params = set()
+    
+    for name, parameter in _signature.parameters.items():
+        if parameter.kind is Parameter.VAR_POSITIONAL:
+            raise TypeError('Curry can not be applied on a function with var positional parameters (*args)')
+        if parameter.kind is not Parameter.VAR_KEYWORD and parameter.default is Parameter.empty:
+            required_params.add(name)
+    
     @wraps(_callable)
-    def x(*args, **kwargs):
-        non_optional_kwargs_len = len(
-            [k for k in kwargs if k not in optionals_names])
-        if len(args) + non_optional_kwargs_len >= defaultless_parameters_len:
-            return _callable(*args, **kwargs)
-        return partial(x, *args, **kwargs)
-    return x
+    def curried(*args, **kwargs) -> Union[R, Callable[..., Any]]:
+        bound = _signature.bind_partial(*args, **kwargs)
+        if required_params - set(bound.arguments.keys()):
+            return partial(curried, *args, **kwargs)
+        return _callable(*args, **kwargs)
+        
+    return curried
 
 
-_RESTRICTED_PARAMETER_KINDS = (
-    Parameter.VAR_POSITIONAL, Parameter.KEYWORD_ONLY, Parameter.VAR_KEYWORD)
+O = TypeVar('O', bound=object)
 
 
 class currymethod:
@@ -91,27 +86,36 @@ class currymethod:
     argument.
     '''
 
-    def __init__(self, method):
+    def __init__(self, method : Callable[[O, VarArg(), KwArg()], R]) -> None:
         self.method = curry(method)
 
-        parameters = signature(method).parameters.values()
-        defaultless_parameters_len = len(
-            [p for p in parameters if p.default is Parameter.empty])
-        optionals_names = {
-            p.name for p in parameters if p.default is not Parameter.empty}
-        for parameter in parameters:
-            if parameter.kind in _RESTRICTED_PARAMETER_KINDS:
-                raise NotImplementedError(
-                    'Curry can only be applied on functions with preknown number of parameters')
+        _signature = signature(method)
 
+        # Should have used find() but it's a loop dependency
+        self_param : Parameter
+        for parameter in _signature.parameters.values():
+            if parameter.kind in { Parameter.POSITIONAL_ONLY, Parameter.POSITIONAL_OR_KEYWORD }:
+                self_param = parameter
+                break
+
+        required_params = set()
+        
+        for name, parameter in _signature.parameters.items():
+            if parameter.kind is Parameter.VAR_POSITIONAL:
+                raise TypeError('Curry can not be applied on a function with var positional parameters (*args)')
+            if parameter.kind is not Parameter.VAR_KEYWORD and parameter.default is Parameter.empty:
+                required_params.add(name)
+        
         @wraps(method)
-        def x(*args, **kwargs):
-            non_optional_kwargs_len = len(
-                [k for k in kwargs if k not in optionals_names])
-            if len(args) + non_optional_kwargs_len >= defaultless_parameters_len:
-                return method(args[-1], *args[0:-1], **kwargs)
-            return partial(x, *args, **kwargs)
-        self.static = x
+        def static(*args, **kwargs) -> Union[R, Callable[[VarArg(), O, KwArg()], Any]]:
+            bound = _signature.bind_partial(*args, **kwargs)
+            if required_params - set(bound.arguments.keys()):
+                return partial(static, *args, **kwargs)
+            if self_param.name in kwargs:
+                return method(*args, **kwargs)
+            return method(args[-1], *args[0:-1], **kwargs)
+            
+        self.static = static
 
     def __get__(self, obj=None, objtype=None):
         if obj:
