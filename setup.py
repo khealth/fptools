@@ -10,6 +10,7 @@ setup(
     packages=['fptools'],
     install_requires=[
         'cardinality',
+        'mypy'
     ],
     platforms="any",
 )

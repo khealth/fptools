@@ -1,22 +1,19 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 cardinality = "*"
-
+mypy-extensions = "*"
 
 [dev-packages]
-
 pytest = "*"
 ipython = "*"
-pydocs = {git = "https://github.com/kang-health/pydocs.git", editable = true}
-
+rope = "*"
+pylint = "*"
+"autopep8" = "*"
+mypy = "*"
 
 [requires]
-
 python_version = "3.6"
