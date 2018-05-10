@@ -53,6 +53,7 @@ def test_curry():
     assert h(1)(2, z=3) == 6
     assert h(1, z=3)(2) == 6
 
+def test_currymethod():
     class A:
         @currymethod
         def b(self, c, d, e):
