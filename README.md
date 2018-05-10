@@ -1,4 +1,8 @@
-# fptools
+<div align="center">
+    <img src="assets/fptools.svg" height="140" alt="fptools logo">
+</div>
+
+<h1 align="center">fptools</h1>
 
 Functional programming tools for Python inspired by Lodash FP and an extension
 for Python standard functional libraries
