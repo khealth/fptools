@@ -31,16 +31,10 @@ def getitem(path, collection):
             return None
     return value
 
-@curry
-def setitem(path, value, collection):
-    '''
-    Sets the value at path of collection. If a portion of path doesn't exist, it's created.
-    '''
-    path = to_path(path)
-    clone = copy(collection)
+def _mutable_setitem(path, value, collection):
     key = path[0]
     if len(path) == 1:
-        clone[key] = value
+        collection[key] = value
     else:
         try:
             sub = collection[key]
@@ -49,26 +43,58 @@ def setitem(path, value, collection):
                 sub = [None] * (path[1] + 1)
             else:
                 sub = {}
-        clone[key] = setitem(path[1:], value, sub)
+        collection[key] = setitem(path[1:], value, sub)
             
-    return clone
+    return collection
+
+@curry
+def setitem(path, value, collection):
+    '''
+    Sets the value at path of collection. If a portion of path doesn't exist, it's created.
+    '''
+    path = to_path(path)
+    clone = copy(collection)
+    return _mutable_setitem(path, value, clone)
+
+
+def _mutable_delitem(path, collection):
+    item = path[0]
+    if len(path) == 1:
+        del collection[item]
+    else:
+        collection[item] = _mutable_delitem(path[1:], collection[item])
+    return collection
+
 
 @curry
 def delitem(path, collection):
     path = to_path(path)
     clone = copy(collection)
-    key = path[0]
-    if len(path) == 1:
-        del clone[key]
-    else:
-        clone[key] = delitem(path[1:], collection[key])
-    return clone
+    return _mutable_delitem(path, clone)
 
 
 @curry
 def update(path, modifier, collection):
     '''
-    This method is like set except that accepts updater to produce the value to set.
+    This method is like setitem except that it accepts an updater to produce the value to be set.
     '''
     value = getitem(path, collection)
     return setitem(path, modifier(value), collection)
+
+
+@curry
+def pick(paths, collection):
+    paths = map(to_path, paths)
+    clone = type(collection)()
+    for path in paths:
+        _mutable_setitem(path, getitem(path, collection), clone)
+    return clone
+
+
+@curry
+def omit(paths, collection):
+    paths = map(to_path, paths)
+    clone = copy(collection)
+    for path in paths:
+        _mutable_delitem(path, clone)
+    return clone
