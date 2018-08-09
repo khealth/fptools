@@ -30,9 +30,9 @@ def find(comparator, iterable):
 def find_index(comparator, iterable):
     index = 0
     for item in iterable:
-        index += 1
         if comparator(item):
             return index
+        index += 1
     return None
 
 
