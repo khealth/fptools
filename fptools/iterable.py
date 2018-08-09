@@ -6,8 +6,10 @@ from cardinality import count
 from .callable import curry
 from .collection import update
 
+
 def compact(iterable):
     return filter(None, iterable)
+
 
 def head(iterable):
     try:
@@ -24,6 +26,16 @@ def find(comparator, iterable):
     return None
 
 
+@curry
+def find_index(comparator, iterable):
+    index = 0
+    for item in iterable:
+        index += 1
+        if comparator(item):
+            return index
+    return None
+
+
 def mean(iterable):
     to_sum, to_count = tee(iterable)
     return reduce(add, to_sum) / count(to_count)
@@ -36,6 +48,7 @@ def flatten(iterable):
         else:
             yield item
 
+
 @curry
 def group_by(predicate, iterable):
     def accumulate(groups, item):
@@ -43,7 +56,9 @@ def group_by(predicate, iterable):
         if not key:
             return groups
         return update(key, lambda group: (group or []) + [item], groups)
+
     return reduce(accumulate, iterable, {})
+
 
 def _get_repeating(iterable):
     visited = set()
@@ -51,11 +66,13 @@ def _get_repeating(iterable):
         if item in visited:
             yield item
         else:
-            visited = { *visited, item }
+            visited = {*visited, item}
+
 
 @curry
 def intersection(source, target):
     return _get_repeating((*source, *target))
+
 
 @curry
 def chunk_by(predicate, iterable):
@@ -64,14 +81,15 @@ def chunk_by(predicate, iterable):
     for index, item in enumerate(iterable):
         identity = predicate(item, index)
         if identity is last_identity:
-            current_chunk = current_chunk + (item,)
+            current_chunk = current_chunk + (item, )
         else:
             if current_chunk:
                 yield current_chunk
             last_identity = identity
-            current_chunk = (item,)
+            current_chunk = (item, )
     if current_chunk:
         yield current_chunk
+
 
 @curry
 def chunk(size, iterable):
