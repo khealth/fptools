@@ -4,7 +4,6 @@ from collections import Iterable
 from operator import add
 from cardinality import count
 from .callable import curry
-from .collection import update
 
 
 def compact(iterable):
@@ -51,13 +50,18 @@ def flatten(iterable):
 
 @curry
 def group_by(predicate, iterable):
-    def accumulate(groups, item):
-        key = predicate(item)
-        if not key:
-            return groups
-        return update(key, lambda group: (group or []) + [item], groups)
+    groups = {}
 
-    return reduce(accumulate, iterable, {})
+    for item in iterable:
+        key = predicate(item)
+
+        if not key:
+            continue
+
+        group = groups.setdefault(key, [])
+        group.append(item)
+
+    return groups
 
 
 def _get_repeating(iterable):
