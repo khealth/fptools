@@ -1,8 +1,10 @@
 import operator
-from collections import Iterable, Hashable
+from typing import Union, Optional
+from collections.abc import Iterable, Hashable, MutableMapping, MutableSequence
 from copy import copy
 from functools import reduce
 from fptools.callable import curry
+
 
 def to_path(path):
     '''
@@ -31,6 +33,7 @@ def getitem(path, collection):
             return None
     return value
 
+
 @curry
 def setitem(path, value, collection):
     '''
@@ -50,8 +53,41 @@ def setitem(path, value, collection):
             else:
                 sub = {}
         clone[key] = setitem(path[1:], value, sub)
-            
+
     return clone
+
+
+def _get_new_collection_for_key(key):
+    if isinstance(key, int):
+        return []
+    return {}
+
+
+def mut_setitem(path, value, collection) -> None:
+    '''
+    Sets the value at path of collection. If a portion of path doesn't exist, it's created.
+    This methods modifies the given collection
+    '''
+    parent: Optional[Union[MutableSequence, MutableMapping]] = None
+    sub = collection
+    *initial, last = to_path(path)
+    for key_index, key in enumerate(initial):
+        try:
+            parent = sub
+            sub = parent[key]
+            if not isinstance(sub, (MutableMapping, MutableSequence)):
+                next_key = path[key_index + 1]
+                sub = _get_new_collection_for_key(next_key)
+                parent[key] = sub
+        except KeyError:
+            next_key = path[key_index + 1]
+            new_sub = _get_new_collection_for_key(next_key)
+            sub[key] = new_sub
+            parent = sub
+            sub = parent[key]
+
+    sub[last] = value
+
 
 @curry
 def delitem(path, collection):
