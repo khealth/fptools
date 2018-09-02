@@ -1,4 +1,4 @@
-from fptools.collection import to_path, getitem, hasitem, setitem, delitem, update
+from fptools.collection import to_path, getitem, hasitem, setitem, delitem, update, branches, leaves
 
 
 def test_to_path():
@@ -47,3 +47,28 @@ def test_update():
     assert update('key', lambda value: value * 2, {'key': 4}) == {'key': 8}
     assert update(('key', 'subkey'), lambda value: value * 2,
                   {'key': {'subkey': 4}}) == {'key': {'subkey': 8}}
+
+
+def test_branches():
+    assert list(branches({'a': 1})) == [(('a',), 1)]
+    assert list(branches({'a': {'b': {'c': 1}}})) == [
+        (('a',), {'b': {'c': 1}}),
+        (('a', 'b',), {'c': 1}),
+        (('a', 'b', 'c'), 1),
+    ]
+    assert list(branches([{'a': [1]}])) == [
+        ((0,), {'a': [1]}),
+        ((0, 'a'), [1]),
+        (((0, 'a', 0), 1)),
+    ]
+
+
+def test_leaves():
+    assert list(leaves({'a': 1})) == [(('a',), 1)]
+    assert list(leaves({'a': {'b': {'c': 1}}})) == [
+        (('a', 'b', 'c'), 1),
+    ]
+    assert list(leaves([1])) == [(((0,), 1))]
+    assert list(leaves([[1]])) == [(((0, 0), 1))]
+    assert list(leaves([{'a': 1}])) == [(((0, 'a'), 1))]
+    assert list(leaves([{'a': [1]}])) == [(((0, 'a', 0), 1))]
