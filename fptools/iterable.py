@@ -64,6 +64,16 @@ def group_by(predicate, iterable):
     return groups
 
 
+def key_by(iteratee, iterable):
+    keyed = {}
+
+    for item in iterable:
+        key = iteratee(keyed)
+        keyed[key] = item
+
+    return keyed
+
+
 def _get_repeating(iterable):
     visited = set()
     for item in iterable:

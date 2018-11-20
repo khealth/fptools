@@ -5,19 +5,6 @@ from .callable import curry
 from .collection import getitem
 
 
-def to_path(path):
-    '''
-    Converts value to a property path tuple.
-    '''
-    if isinstance(path, Hashable) and not isinstance(path, tuple):
-        return (path,)
-    elif isinstance(path, Iterable):
-        return path
-    else:
-        raise NotImplementedError(
-            f'{path} is not a path. A path must be an iterable or a string not a {type(path)}')
-
-
 def extract(*keys, **aliases):
     def extractor(_dict):
         return {
