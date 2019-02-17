@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de797b25-d761-44ee-8daf-6d621c2fcf20" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/documentation_generator/__main__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/documentation_generator/docs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/asset-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/service-worker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/static/css/main.b1293332.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/static/css/main.b1293332.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/static/js/main.450348e5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/static/js/main.450348e5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/collection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/iterable.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/iterable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_collection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +59,7 @@
     <option name="width" value="1680" />
     <option name="height" value="1050" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
