@@ -72,7 +72,7 @@ class App extends Component {
       <div className="App">
         <Navigation docs={docs} />
         <main>
-          <Doc {...docs} />
+          {docs.members.map(doc => <Doc {...doc } />)}
         </main>
       </div>
     );
