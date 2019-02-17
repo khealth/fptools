@@ -11,7 +11,7 @@ for Python standard functional libraries
 pipenv install -e git+https://github.com/kang-health/fptools.git#egg=fptools
 ```
 
-### [Documentation](https://kang-health.github.io/fptools/)
+### [Documentation](https://khealth.github.io/fptools/)
 
 ### Features
 
