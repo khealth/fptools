@@ -8,6 +8,7 @@ from typing import Any, TypeVar, Union, Iterable as IterableT, Callable, Mutable
 from cardinality import count
 from fptools.callable import curry
 from fptools.iterable import head
+from fptools.sequence import initial, last
 
 # This is actually Mapping x Iterable / str
 K = TypeVar('K')
@@ -105,13 +106,12 @@ def update(path: RawPath, modifier: Callable[[V], V], collection: MutableCollect
     return setitem(path, modifier(value), collection)
 
 
-from fptools.dictionary import items
-
-
 def branches(collection: Collection) -> Generator[Tuple[Path, Union[Collection, V]], None, None]:
     '''
     Iterates each path and value pair of the collection and it's descendent collections
     '''
+    from fptools.dictionary import items
+    
     if isinstance(collection, Mapping):
         iterator = items(collection)
     elif isinstance(collection, Iterable):
@@ -133,3 +133,31 @@ def leaves(collection: Collection) -> Generator[Tuple[Path, V], None, None]:
         if not isinstance(value,
                           (Mapping, Iterable)) or isinstance(value, str):
             yield keys, value
+
+
+# TODO resolve parent containment
+def pick(paths: IterableT[Path], collection: Collection) -> Collection:
+    '''
+    Creates a collection composed of the picked paths.
+    '''
+    paths = {to_path(path) for path in paths}
+    cursor = collection
+    has_cleared = set()
+    for path in paths:
+        value = getitem(path, collection)
+        parent_path = initial(path)
+        parent = getitem(parent_path, cursor)
+
+        if parent_path not in has_cleared:
+            parent = copy(parent)
+            parent.clear()
+            if parent_path:
+                setitem(parent_path, parent, cursor)
+            else:
+                cursor = parent
+
+            has_cleared.add(parent_path)
+
+        parent[last(path)] = value
+
+    return cursor

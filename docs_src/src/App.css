@@ -1,0 +1,52 @@
+.App {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App > nav {
+  width: 20em;
+  padding: 0 1em;
+}
+
+.App > main {
+  height: 100%;
+  overflow: auto;
+  flex: 1;
+}
+
+.App > main pre {
+  max-width: 50em;
+}
+
+.App > main p {
+  max-width: 40em;
+}
+
+.App > main pre {
+  white-space: pre-wrap;  
+}
+
+.App a {
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.App a:hover {
+  text-decoration: underline;
+}
+
+.App a:hover h5::after {
+  content: "¶";
+}
+
+.App > main .module > a h5 {
+  font-size: 1.25em;
+}
+
+.App pre {
+  background: #eee;
+  padding: 1em;
+  box-sizing: border-box;
+}

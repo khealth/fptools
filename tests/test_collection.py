@@ -1,4 +1,4 @@
-from fptools.collection import to_path, getitem, hasitem, setitem, delitem, update, branches, leaves
+from fptools.collection import to_path, getitem, hasitem, setitem, delitem, update, branches, leaves, pick
 
 
 def test_to_path():
@@ -72,3 +72,11 @@ def test_leaves():
     assert list(leaves([[1]])) == [(((0, 0), 1))]
     assert list(leaves([{'a': 1}])) == [(((0, 'a'), 1))]
     assert list(leaves([{'a': [1]}])) == [(((0, 'a', 0), 1))]
+
+
+def test_pick():
+    assert pick({'a'}, {'a': 1, 'b': 2}) == {'a': 1}
+    assert pick({'a', 'b'}, {'a': 1, 'b': 2, 'c': 3}) == {'a': 1, 'b': 2}
+    assert pick({('a', 'b')}, {'a': {'b': 1}}) == {'a': {'b': 1}}
+    assert pick({('a', 'b'), 'c'}, {'a': {'b': 1}, 'c': 3}) == {
+        'a': {'b': 1}, 'c': 3}

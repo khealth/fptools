@@ -1,0 +1,299 @@
+{
+    "type": "module",
+    "name": "fptools",
+    "doc": null,
+    "is_pkg": true,
+    "members": [
+        {
+            "type": "module",
+            "name": "fptools.callable",
+            "doc": null,
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "constant",
+                    "doc": "Creates a function that returns value.",
+                    "signature": "<Signature (value: ~T) -> Callable[..., ~T]>"
+                },
+                {
+                    "type": "function",
+                    "name": "curry",
+                    "doc": "Creates a function that accepts arguments of func and either invokes func returning its result,\nif at least arity number of arguments have been provided, or returns a function that accepts\nthe remaining func arguments, and so on.",
+                    "signature": "<Signature (_callable: Callable[..., ~R]) -> Union[~R, Callable[..., Any]]>"
+                },
+                {
+                    "type": "object",
+                    "name": "currymethod",
+                    "doc": "Like curry but if the method was executed as a static method it will accept self as the last\nargument."
+                },
+                {
+                    "type": "function",
+                    "name": "deprecated",
+                    "doc": "Warn when using wrapped func",
+                    "signature": "<Signature (func: Callable) -> Callable>"
+                },
+                {
+                    "type": "function",
+                    "name": "flow",
+                    "doc": "Creates a function that returns the result of invoking the given functions where each\nsuccessive invocation is supplied the return value of the previous.",
+                    "signature": "<Signature (funcs: Iterable[Callable], value)>"
+                },
+                {
+                    "type": "function",
+                    "name": "fullname",
+                    "doc": "Get full name of a function: the module it is declared in and it's name",
+                    "signature": "<Signature (func: Callable) -> str>"
+                },
+                {
+                    "type": "function",
+                    "name": "graceful",
+                    "doc": "Creates a functions that returns the result of invoking the given function or None if\nit raised an exception.",
+                    "signature": "<Signature (func: Callable) -> Callable>"
+                },
+                {
+                    "type": "function",
+                    "name": "identity",
+                    "doc": "This function returns the first argument it receives.",
+                    "signature": "<Signature (arg: ~T) -> ~T>"
+                },
+                {
+                    "type": "function",
+                    "name": "noop",
+                    "doc": "This method returns None",
+                    "signature": "<Signature (*args, **kwargs) -> None>"
+                },
+                {
+                    "type": "function",
+                    "name": "rename",
+                    "doc": "Set a new name for a function",
+                    "signature": "<Signature (newname: str) -> Callable[[Callable], Callable]>"
+                }
+            ],
+            "file": "/Users/iddan/fptools/fptools/callable.py"
+        },
+        {
+            "type": "module",
+            "name": "fptools.collection",
+            "doc": null,
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "branches",
+                    "doc": "Iterates each path and value pair of the collection and it's descendent collections",
+                    "signature": "<Signature (collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Generator[Tuple[Iterable[Union[str, int]], Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]], ~V]], NoneType, NoneType]>"
+                },
+                {
+                    "type": "function",
+                    "name": "delitem",
+                    "doc": null,
+                    "signature": "<Signature (path: Union[str, int, Iterable[Union[str, int]]], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]>"
+                },
+                {
+                    "type": "function",
+                    "name": "getitem",
+                    "doc": "Gets the value at path of collection",
+                    "signature": "<Signature (path: Union[str, int, Iterable[Union[str, int]]], collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> ~V>"
+                },
+                {
+                    "type": "function",
+                    "name": "hasitem",
+                    "doc": null,
+                    "signature": "<Signature (path: Union[str, int, Iterable[Union[str, int]]], collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> bool>"
+                },
+                {
+                    "type": "function",
+                    "name": "leaves",
+                    "doc": "Like branches() but only yields non collection values",
+                    "signature": "<Signature (collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Generator[Tuple[Iterable[Union[str, int]], ~V], NoneType, NoneType]>"
+                },
+                {
+                    "type": "function",
+                    "name": "pick",
+                    "doc": "Creates a collection composed of the picked paths.",
+                    "signature": "<Signature (paths: Iterable[Iterable[Union[str, int]]], collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]>"
+                },
+                {
+                    "type": "function",
+                    "name": "setitem",
+                    "doc": "Sets the value at path of collection. If a portion of path doesn't exist, it's created.",
+                    "signature": "<Signature (path: Union[str, int, Iterable[Union[str, int]]], value: ~V, collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]>"
+                },
+                {
+                    "type": "function",
+                    "name": "to_path",
+                    "doc": "Converts value to a property path tuple.",
+                    "signature": "<Signature (path: Union[str, int, Iterable[Union[str, int]]]) -> Iterable[Union[str, int]]>"
+                },
+                {
+                    "type": "function",
+                    "name": "update",
+                    "doc": "This method is like set except that accepts updater to produce the value to set.",
+                    "signature": "<Signature (path: Union[str, int, Iterable[Union[str, int]]], modifier: Callable[[~V], ~V], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]>"
+                }
+            ],
+            "file": "/Users/iddan/fptools/fptools/collection.py"
+        },
+        {
+            "type": "module",
+            "name": "fptools.dictionary",
+            "doc": null,
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "apply_spec",
+                    "doc": null,
+                    "signature": "<Signature (spec, _dict)>"
+                },
+                {
+                    "type": "function",
+                    "name": "extract",
+                    "doc": null,
+                    "signature": "<Signature (*keys, **aliases)>"
+                },
+                {
+                    "type": "function",
+                    "name": "is_dict",
+                    "doc": "Matches if value is a dictionary",
+                    "signature": "<Signature (value)>"
+                },
+                {
+                    "type": "function",
+                    "name": "items",
+                    "doc": "Like dict.items() but for any Mapping",
+                    "signature": "<Signature (mapping: Mapping[~K, ~V]) -> Generator[Tuple[~K, ~V], NoneType, NoneType]>"
+                },
+                {
+                    "type": "function",
+                    "name": "map_keys",
+                    "doc": "Creates a dictionary with the same values as _dict and keys generated by applying modifier(key) for each key.",
+                    "signature": "<Signature (modifier, _dict)>"
+                },
+                {
+                    "type": "function",
+                    "name": "map_keys_by_layer",
+                    "doc": "Creates a dictionary with the same values as _dict and keys generated by applying modifiers[level](key) for each level",
+                    "signature": "<Signature (modifiers, _dict)>"
+                },
+                {
+                    "type": "function",
+                    "name": "map_values",
+                    "doc": "Creates a dictionary with the same keys as _dict and values generated by applying modifier(val) for each value.",
+                    "signature": "<Signature (modifier, _dict)>"
+                },
+                {
+                    "type": "function",
+                    "name": "omit",
+                    "doc": null,
+                    "signature": "<Signature (keys, _dict)>"
+                },
+                {
+                    "type": "function",
+                    "name": "pick",
+                    "doc": "Creates an dictionary composed of the picked dictionary properties.",
+                    "signature": "<Signature (keys, _dict)>"
+                }
+            ],
+            "file": "/Users/iddan/fptools/fptools/dictionary.py"
+        },
+        {
+            "type": "module",
+            "name": "fptools.iterable",
+            "doc": null,
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "chunk",
+                    "doc": "Creates an iterable of elements split into groups the length of size.\nIf iterable can't be split evenly, the final chunk will be the remaining elements.",
+                    "signature": "<Signature (size, iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "chunk_by",
+                    "doc": null,
+                    "signature": "<Signature (predicate, iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "compact",
+                    "doc": "Creates an iterable with all falsey values removed.",
+                    "signature": "<Signature (iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "find",
+                    "doc": "Iterates over elements of iterable, returning the first element predicate returns truthy for.\nDefaults to None.",
+                    "signature": "<Signature (comparator, iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "find_index",
+                    "doc": "This method is like find() except that it returns the index of the first element predicate returns truthy for\ninstead of the element itself.",
+                    "signature": "<Signature (comparator, iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "flatten",
+                    "doc": "Flattens iterable a single level deep.",
+                    "signature": "<Signature (iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "group_by",
+                    "doc": "Creates an iterable composed of keys generated from the results of running each element of iterable thru iteratee.\nThe order of grouped values is determined by the order they occur in iterable. The corresponding value of each key\nis a list of elements responsible for generating the key. The iteratee is invoked with one argument: (value).",
+                    "signature": "<Signature (predicate, iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "head",
+                    "doc": "Gets the first element of iterable.\nDefaults to None.",
+                    "signature": "<Signature (iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "intersection",
+                    "doc": "Creates an iterable of unique values that are included in given source and target iterables using hash() for\ncomparisons. The order and references of result values are determined by the first iterable.",
+                    "signature": "<Signature (source, target)>"
+                },
+                {
+                    "type": "function",
+                    "name": "key_by",
+                    "doc": "Creates a dictionary composed of keys generated from the results of running each element of iterable thru iteratee.\nThe corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked\nwith one argument: (value).",
+                    "signature": "<Signature (iteratee, iterable)>"
+                },
+                {
+                    "type": "function",
+                    "name": "mean",
+                    "doc": "Computes the mean of the values in iterable.",
+                    "signature": "<Signature (iterable)>"
+                }
+            ],
+            "file": "/Users/iddan/fptools/fptools/iterable.py"
+        },
+        {
+            "type": "module",
+            "name": "fptools.sequence",
+            "doc": null,
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "initial",
+                    "doc": "Gets all but the last element of sequence.",
+                    "signature": "<Signature (sequence)>"
+                },
+                {
+                    "type": "function",
+                    "name": "last",
+                    "doc": "Gets the last element of sequence.",
+                    "signature": "<Signature (sequence)>"
+                }
+            ],
+            "file": "/Users/iddan/fptools/fptools/sequence.py"
+        }
+    ],
+    "file": "/Users/iddan/fptools/fptools/__init__.py"
+}

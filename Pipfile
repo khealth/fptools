@@ -14,6 +14,3 @@ rope = "*"
 pylint = "*"
 "autopep8" = "*"
 mypy = "*"
-
-[requires]
-python_version = "3.6"
