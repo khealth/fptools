@@ -8,20 +8,26 @@ const NavigationMenu = ({ module, members, filter }) => (
       if (filter && !doc.members && !doc.name.includes(filter)) {
         return null;
       }
-      const nameNode = !filter || !doc.name.includes(filter) ? doc.name : doc.name.split(filter).map((part, i, array) => {
-        if (i < array.length - 1) {
-          return [part, <b>{filter}</b>]
-        }
-        return part
-      })
+      const nameNode =
+        !filter || !doc.name.includes(filter)
+          ? doc.name
+          : doc.name.split(filter).map((part, i, array) => {
+              if (i < array.length - 1) {
+                return [part, <b key={i}>{filter}</b>];
+              }
+              return part;
+            });
+      const Tag = doc.members ? "h5" : "span";
       return (
-        <li>
-          <a href={"#" + getFullName({ ...doc, module })}>{nameNode}</a>
+        <li key={doc.name}>
+          <Tag>
+            <a href={"#" + getFullName({ ...doc, module })}>{nameNode}</a>
+          </Tag>
           {doc.members && (
             <NavigationMenu
               module={doc.name}
               members={doc.members}
-              filter={filter}
+              filter={doc.name.includes(filter) ? '' : filter}
             />
           )}
         </li>
@@ -34,12 +40,13 @@ const Navigation = ({ docs }) => {
   const [query, setQuery] = useState("");
   return (
     <nav>
+      <h3>{docs.name}</h3>
       <input
         type="search"
         value={query}
         onChange={e => setQuery(e.target.value)}
       />
-      <ul>{<NavigationMenu members={docs.members} filter={query} />}</ul>
+      <NavigationMenu members={docs.members} filter={query} />
     </nav>
   );
 };
@@ -52,12 +59,28 @@ const getFullName = ({ name, module, type }) =>
 const Doc = ({ module, name, type, doc, signature, is_pkg, members }) => {
   const fullName = getFullName({ name, module, type });
   return (
-    <div className={type}>
+    <div className={"item " + type}>
       <a id={fullName} href={"#" + fullName}>
-        <h5>{fullName}</h5>
+        {type === "module" ? (
+          <h4>{name}</h4>
+        ) : (
+          <pre>
+            {signature ? (
+              <>
+                {module && module + "."}
+                <b>{name}</b>
+                {signature}
+              </>
+            ) : (
+              <>
+                {module && module + "."}
+                <b>{name}</b>
+              </>
+            )}
+          </pre>
+        )}
       </a>
-      {signature && <pre>{signature}</pre>}
-      <p>{doc}</p>
+      {doc && <p>{doc}</p>}
       {members &&
         members.map(member => (
           <Doc key={member.name} module={name} {...member} />
@@ -72,7 +95,9 @@ class App extends Component {
       <div className="App">
         <Navigation docs={docs} />
         <main>
-          {docs.members.map(doc => <Doc {...doc } />)}
+          {docs.members.map(doc => (
+            <Doc key={doc.name} {...doc} />
+          ))}
         </main>
       </div>
     );

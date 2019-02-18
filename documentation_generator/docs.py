@@ -1,4 +1,5 @@
 import inspect
+import sys
 from types import ModuleType
 from dataclasses import dataclass, field
 import pkgutil
@@ -26,12 +27,10 @@ class FunctionDoc(Doc):
     signature: str
 
 
-def get_doc(name: str, obj) -> Doc:
-    doc = inspect.getdoc(obj)
-    if inspect.isfunction(obj):
-        return FunctionDoc(name, doc, signature=repr(inspect.signature(obj)))
-
-    return Doc(name, doc)
+@dataclass
+class ClassDoc(Doc):
+    type: str = field(init=False, default="class")
+    members: List[Doc]
 
 
 def get_documentation(module: ModuleType) -> ModuleDoc:
@@ -59,6 +58,26 @@ def get_documentation(module: ModuleType) -> ModuleDoc:
         is_pkg=is_pkg,
         members=member_docs,
     )
+
+
+def get_doc(name: str, obj) -> Doc:
+    doc = inspect.getdoc(obj)
+
+    if inspect.isclass(obj):
+        mro = inspect.getmro(obj)[1:]
+        mro_members = [(name, member) for cls in mro for name, member in inspect.getmembers(cls)] + inspect.getmembers(type(type(obj)))
+        members = [
+            Doc(name, None)
+            for name, member
+            in inspect.getmembers(obj)
+            if (name, member) not in mro_members
+        ]
+        return ClassDoc(name, doc, members)
+
+    if callable(obj):
+        return FunctionDoc(name, doc, signature=str(inspect.signature(obj)))
+
+    return Doc(name, doc)
 
 
 def iter_submodules(module: ModuleType) -> Generator[ModuleType, None, None]:

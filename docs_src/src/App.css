@@ -6,8 +6,52 @@
 }
 
 .App > nav {
-  width: 20em;
-  padding: 0 1em;
+  min-width: 15em;
+  height: 100%;
+  padding: 0 1em 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  color: #3b3b3b;
+}
+
+.App > nav a {
+  color: inherit;
+}
+
+.App > nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.App > nav ul li ul {
+  padding: 0 0 0 1em;
+  border-left: 1px solid #eee;
+  transition: border 0.25s;
+}
+
+.App > nav ul li ul:hover {
+  border-left: 2px solid rgb(219, 219, 219);
+  color: rgb(41, 41, 41);
+}
+
+.App > nav > ul h5 {
+  margin: 1.2em 0 .5em;
+  font: inherit;
+  font-size: 1.1em;
+}
+
+.App > nav ul {
+  margin-bottom: 1em;
+}
+
+.App > main .item {
+  margin-bottom: 2.5em;
+}
+
+.App > main .item h5 {
+  font: inherit;
 }
 
 .App > main {
@@ -37,8 +81,10 @@
   text-decoration: underline;
 }
 
-.App a:hover h5::after {
-  content: "¶";
+.App a:hover > *::after {
+  content: " ¶";
+  text-decoration: none;
+  display: inline-block;
 }
 
 .App > main .module > a h5 {

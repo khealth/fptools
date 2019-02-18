@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de797b25-d761-44ee-8daf-6d621c2fcf20" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs_src/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs_src/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs_src/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs_src/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs_src/src/docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs_src/src/docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation_generator/docs.py" beforeDir="false" afterPath="$PROJECT_DIR$/documentation_generator/docs.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,13 +16,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fptools/iterable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
+            <state relative-caret-position="862">
               <caret line="149" selection-start-line="149" selection-end-line="149" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fptools/callable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-970">
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/documentation_generator/docs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="103" column="6" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,6 +63,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>print</find>
+      <find>Doc</find>
+      <find>signature</find>
+      <find>ClassDoc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -50,8 +80,8 @@
         <option value="$PROJECT_DIR$/documentation/generate.py" />
         <option value="$PROJECT_DIR$/documentation_generator/generate.py" />
         <option value="$PROJECT_DIR$/documentation_generator/__main__.py" />
-        <option value="$PROJECT_DIR$/documentation_generator/docs.py" />
         <option value="$PROJECT_DIR$/fptools/iterable.py" />
+        <option value="$PROJECT_DIR$/documentation_generator/docs.py" />
       </list>
     </option>
   </component>
@@ -72,6 +102,11 @@
             <path>
               <item name="fptools" type="b2602c69:ProjectViewProjectNode" />
               <item name="fptools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fptools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fptools" type="462c0819:PsiDirectoryNode" />
+              <item name="documentation_generator" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -109,6 +144,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -135,15 +171,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fptools/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fptools/callable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/pkgutil.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -181,16 +208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documentation_generator/docs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="31" column="76" selection-start-line="31" selection-start-column="76" selection-end-line="31" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/documentation_generator/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -201,12 +218,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fptools/callable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-970">
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fptools/iterable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
+        <state relative-caret-position="862">
           <caret line="149" selection-start-line="149" selection-end-line="149" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documentation_generator/docs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="103" column="6" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
