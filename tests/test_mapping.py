@@ -1,4 +1,4 @@
-from fptools.dictionary import pick, omit, map_values, is_dict, map_keys_by_layer, items
+from fptools.mapping import pick, omit, map_values, is_dict, items
 
 
 def test_pick():
@@ -18,14 +18,6 @@ def test_map_values():
 def is_dict():
     assert is_dict(4) == False
     assert is_dict({}) == True
-
-
-def test_map_keys_by_layer():
-    assert map_keys_by_layer((
-        lambda first_level_key: first_level_key * 2,
-        lambda second_level_key: second_level_key * 3,
-        lambda third_level_key: third_level_key * 4,
-    ), {1: 2, 2: 3, 3: {10: {300: 'a'}}}) == {2: 2, 4: 3, 6: {30: {1200: 'a'}}}
 
 
 def test_items():

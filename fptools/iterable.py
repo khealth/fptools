@@ -1,19 +1,23 @@
 from functools import reduce
 from itertools import tee
-from collections import Iterable
+from collections.abc import Iterable
 from operator import add
 from cardinality import count
+from typing import Iterable, TypeVar, Callable, Optional, Union, Dict, List, Hashable, Tuple
 from .callable import curry
 
 
-def compact(iterable):
+T = TypeVar('T')
+
+
+def compact(iterable: Iterable[T]) -> Iterable[T]:
     """
     Creates an iterable with all falsey values removed.
     """
     return filter(None, iterable)
 
 
-def head(iterable):
+def head(iterable: Iterable[T]) -> T:
     """
     Gets the first element of iterable.
     Defaults to None.
@@ -25,7 +29,7 @@ def head(iterable):
 
 
 @curry
-def find(comparator, iterable):
+def find(comparator: Callable[[T], bool], iterable: Iterable[T]) -> Optional[T]:
     """
     Iterates over elements of iterable, returning the first element predicate returns truthy for.
     Defaults to None.
@@ -37,7 +41,7 @@ def find(comparator, iterable):
 
 
 @curry
-def find_index(comparator, iterable):
+def find_index(comparator: Callable[[T], bool], iterable: Iterable[T]) -> Optional[int]:
     """
     This method is like find() except that it returns the index of the first element predicate returns truthy for
     instead of the element itself.
@@ -50,7 +54,7 @@ def find_index(comparator, iterable):
     return None
 
 
-def mean(iterable):
+def mean(iterable: Iterable[T]) -> T:
     """
     Computes the mean of the values in iterable.
     """
@@ -58,7 +62,7 @@ def mean(iterable):
     return reduce(add, to_sum) / count(to_count)
 
 
-def flatten(iterable):
+def flatten(iterable: Iterable[Union[T, Iterable[T]]]) -> Iterable[T]:
     """
     Flattens iterable a single level deep.
     """
@@ -69,8 +73,11 @@ def flatten(iterable):
             yield item
 
 
+G = TypeVar('G')
+
+
 @curry
-def group_by(predicate, iterable):
+def group_by(predicate: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List[T]]:
     """
     Creates an iterable composed of keys generated from the results of running each element of iterable thru iteratee.
     The order of grouped values is determined by the order they occur in iterable. The corresponding value of each key
@@ -90,7 +97,7 @@ def group_by(predicate, iterable):
     return groups
 
 
-def key_by(iteratee, iterable):
+def key_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, T]:
     """
     Creates a dictionary composed of keys generated from the results of running each element of iterable thru iteratee.
     The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked
@@ -114,8 +121,11 @@ def _get_repeating(iterable):
             visited = {*visited, item}
 
 
+HashableItem = TypeVar('HashableItem', bound=Hashable)
+
+
 @curry
-def intersection(source, target):
+def intersection(source: Iterable[HashableItem], target: Iterable[HashableItem]) -> Iterable[HashableItem]:
     """
     Creates an iterable of unique values that are included in given source and target iterables using hash() for
     comparisons. The order and references of result values are determined by the first iterable.
@@ -123,27 +133,30 @@ def intersection(source, target):
     return _get_repeating((*source, *target))
 
 
+Identity = TypeVar('Identity')
+
+
 @curry
-def chunk_by(predicate, iterable):
+def chunk_by(predicate: Callable[[T, int], Identity], iterable: Iterable[T]) -> Iterable[Tuple[T, ...]]:
     last_identity = None
     current_chunk = tuple()
     for index, item in enumerate(iterable):
         identity = predicate(item, index)
         if identity is last_identity:
-            current_chunk = current_chunk + (item, )
+            current_chunk = current_chunk + (item,)
         else:
             if current_chunk:
                 yield current_chunk
             last_identity = identity
-            current_chunk = (item, )
+            current_chunk = (item,)
     if current_chunk:
         yield current_chunk
 
 
 @curry
-def chunk(size, iterable):
-    '''
+def chunk(size: int, iterable: Iterable[T]) -> Iterable[Tuple[T, ...]]:
+    """
     Creates an iterable of elements split into groups the length of size.
     If iterable can't be split evenly, the final chunk will be the remaining elements.
-    '''
+    """
     return chunk_by(lambda item, index: index // size, iterable)
