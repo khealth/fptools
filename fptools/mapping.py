@@ -40,7 +40,7 @@ def pick(_items: Iterable[Hashable], mapping: MutableMapping[K, V]) -> MutableMa
     """
     next_mapping = create_empty(mapping)
     for item in _items:
-        next_mapping[item] = mapping[item]
+        next_mapping[item] = mapping.get(item)
     return next_mapping
 
 
@@ -51,7 +51,7 @@ def omit(_items: Iterable[Hashable], mapping: MutableMapping[K, V]) -> MutableMa
     """
     next_mapping = copy(mapping)
     for item in _items:
-        del next_mapping[item]
+        next_mapping.pop(item, None)
     return next_mapping
 
 
