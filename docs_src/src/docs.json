@@ -14,7 +14,7 @@
                     "type": "function",
                     "name": "constant",
                     "doc": "Creates a function that returns value.",
-                    "signature": "(value: ~T) -> Callable[..., ~T]"
+                    "signature": "(value: ~Value) -> Callable[..., ~Value]"
                 },
                 {
                     "type": "function",
@@ -73,7 +73,7 @@
                     "type": "function",
                     "name": "deprecated",
                     "doc": "Warn when using wrapped func",
-                    "signature": "(func: Callable) -> Callable"
+                    "signature": "(func: ~T) -> ~T"
                 },
                 {
                     "type": "function",
@@ -91,7 +91,7 @@
                     "type": "function",
                     "name": "graceful",
                     "doc": "Creates a functions that returns the result of invoking the given function or None if\nit raised an exception.",
-                    "signature": "(func: Callable) -> Callable"
+                    "signature": "(func: ~T) -> ~T"
                 },
                 {
                     "type": "function",
@@ -109,7 +109,7 @@
                     "type": "function",
                     "name": "rename",
                     "doc": "Set a new name for a function",
-                    "signature": "(newname: str) -> Callable[[Callable], Callable]"
+                    "signature": "(new_name: str) -> Callable[[~T], ~T]"
                 }
             ],
             "file": "/Users/iddan/fptools/fptools/callable.py"
@@ -124,121 +124,58 @@
                     "type": "function",
                     "name": "branches",
                     "doc": "Iterates each path and value pair of the collection and it's descendent collections",
-                    "signature": "(collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Generator[Tuple[Iterable[Union[str, int]], Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]], ~V]], NoneType, NoneType]"
+                    "signature": "(collection: Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Generator[Tuple[Sequence[Union[Hashable, int]], Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]], ~V]], NoneType, NoneType]"
                 },
                 {
                     "type": "function",
                     "name": "delitem",
                     "doc": null,
-                    "signature": "(path: Union[str, int, Iterable[Union[str, int]]], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
+                    "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
                 },
                 {
                     "type": "function",
                     "name": "getitem",
                     "doc": "Gets the value at path of collection",
-                    "signature": "(path: Union[str, int, Iterable[Union[str, int]]], collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> ~V"
+                    "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], collection: Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> ~V"
                 },
                 {
                     "type": "function",
                     "name": "hasitem",
                     "doc": null,
-                    "signature": "(path: Union[str, int, Iterable[Union[str, int]]], collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> bool"
+                    "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], collection: Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> bool"
                 },
                 {
                     "type": "function",
                     "name": "leaves",
                     "doc": "Like branches() but only yields non collection values",
-                    "signature": "(collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Generator[Tuple[Iterable[Union[str, int]], ~V], NoneType, NoneType]"
+                    "signature": "(collection: Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Generator[Tuple[Sequence[Union[Hashable, int]], ~V], NoneType, NoneType]"
                 },
                 {
                     "type": "function",
                     "name": "pick",
                     "doc": "Creates a collection composed of the picked paths.",
-                    "signature": "(paths: Iterable[Iterable[Union[str, int]]], collection: Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Union[Mapping[~K, Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]"
+                    "signature": "(paths: Iterable[Union[Hashable, int, Sequence[Union[Hashable, int]]]], collection: Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]"
                 },
                 {
                     "type": "function",
                     "name": "setitem",
                     "doc": "Sets the value at path of collection. If a portion of path doesn't exist, it's created.",
-                    "signature": "(path: Union[str, int, Iterable[Union[str, int]]], value: ~V, collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
+                    "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], value: ~V, collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
                 },
                 {
                     "type": "function",
                     "name": "to_path",
                     "doc": "Converts value to a property path tuple.",
-                    "signature": "(path: Union[str, int, Iterable[Union[str, int]]]) -> Iterable[Union[str, int]]"
+                    "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]]) -> Sequence[Union[Hashable, int]]"
                 },
                 {
                     "type": "function",
                     "name": "update",
                     "doc": "This method is like set except that accepts updater to produce the value to set.",
-                    "signature": "(path: Union[str, int, Iterable[Union[str, int]]], modifier: Callable[[~V], ~V], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
+                    "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], modifier: Callable[[~V], ~V], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
                 }
             ],
             "file": "/Users/iddan/fptools/fptools/collection.py"
-        },
-        {
-            "type": "module",
-            "name": "fptools.dictionary",
-            "doc": null,
-            "is_pkg": false,
-            "members": [
-                {
-                    "type": "function",
-                    "name": "apply_spec",
-                    "doc": null,
-                    "signature": "(spec, _dict)"
-                },
-                {
-                    "type": "function",
-                    "name": "extract",
-                    "doc": null,
-                    "signature": "(*keys, **aliases)"
-                },
-                {
-                    "type": "function",
-                    "name": "is_dict",
-                    "doc": "Matches if value is a dictionary",
-                    "signature": "(value)"
-                },
-                {
-                    "type": "function",
-                    "name": "items",
-                    "doc": "Like dict.items() but for any Mapping",
-                    "signature": "(mapping: Mapping[~K, ~V]) -> Generator[Tuple[~K, ~V], NoneType, NoneType]"
-                },
-                {
-                    "type": "function",
-                    "name": "map_keys",
-                    "doc": "Creates a dictionary with the same values as _dict and keys generated by applying modifier(key) for each key.",
-                    "signature": "(modifier, _dict)"
-                },
-                {
-                    "type": "function",
-                    "name": "map_keys_by_layer",
-                    "doc": "Creates a dictionary with the same values as _dict and keys generated by applying modifiers[level](key) for each level",
-                    "signature": "(modifiers, _dict)"
-                },
-                {
-                    "type": "function",
-                    "name": "map_values",
-                    "doc": "Creates a dictionary with the same keys as _dict and values generated by applying modifier(val) for each value.",
-                    "signature": "(modifier, _dict)"
-                },
-                {
-                    "type": "function",
-                    "name": "omit",
-                    "doc": null,
-                    "signature": "(keys, _dict)"
-                },
-                {
-                    "type": "function",
-                    "name": "pick",
-                    "doc": "Creates an dictionary composed of the picked dictionary properties.",
-                    "signature": "(keys, _dict)"
-                }
-            ],
-            "file": "/Users/iddan/fptools/fptools/dictionary.py"
         },
         {
             "type": "module",
@@ -250,70 +187,205 @@
                     "type": "function",
                     "name": "chunk",
                     "doc": "Creates an iterable of elements split into groups the length of size.\nIf iterable can't be split evenly, the final chunk will be the remaining elements.",
-                    "signature": "(size, iterable)"
+                    "signature": "(size: int, iterable: Iterable[~T]) -> Iterable[Tuple[~T, ...]]"
                 },
                 {
                     "type": "function",
                     "name": "chunk_by",
                     "doc": null,
-                    "signature": "(predicate, iterable)"
+                    "signature": "(predicate: Callable[[~T, int], ~Identity], iterable: Iterable[~T]) -> Iterable[Tuple[~T, ...]]"
                 },
                 {
                     "type": "function",
                     "name": "compact",
                     "doc": "Creates an iterable with all falsey values removed.",
-                    "signature": "(iterable)"
+                    "signature": "(iterable: Iterable[~T]) -> Iterable[~T]"
                 },
                 {
                     "type": "function",
                     "name": "find",
                     "doc": "Iterates over elements of iterable, returning the first element predicate returns truthy for.\nDefaults to None.",
-                    "signature": "(comparator, iterable)"
+                    "signature": "(comparator: Callable[[~T], bool], iterable: Iterable[~T]) -> Union[~T, NoneType]"
                 },
                 {
                     "type": "function",
                     "name": "find_index",
                     "doc": "This method is like find() except that it returns the index of the first element predicate returns truthy for\ninstead of the element itself.",
-                    "signature": "(comparator, iterable)"
+                    "signature": "(comparator: Callable[[~T], bool], iterable: Iterable[~T]) -> Union[int, NoneType]"
                 },
                 {
                     "type": "function",
                     "name": "flatten",
                     "doc": "Flattens iterable a single level deep.",
-                    "signature": "(iterable)"
+                    "signature": "(iterable: Iterable[Union[~T, Iterable[~T]]]) -> Iterable[~T]"
                 },
                 {
                     "type": "function",
                     "name": "group_by",
                     "doc": "Creates an iterable composed of keys generated from the results of running each element of iterable thru iteratee.\nThe order of grouped values is determined by the order they occur in iterable. The corresponding value of each key\nis a list of elements responsible for generating the key. The iteratee is invoked with one argument: (value).",
-                    "signature": "(predicate, iterable)"
+                    "signature": "(predicate: Callable[[~T], ~G], iterable: Iterable[~T]) -> Dict[~G, List[~T]]"
                 },
                 {
                     "type": "function",
                     "name": "head",
                     "doc": "Gets the first element of iterable.\nDefaults to None.",
-                    "signature": "(iterable)"
+                    "signature": "(iterable: Iterable[~T]) -> ~T"
                 },
                 {
                     "type": "function",
                     "name": "intersection",
                     "doc": "Creates an iterable of unique values that are included in given source and target iterables using hash() for\ncomparisons. The order and references of result values are determined by the first iterable.",
-                    "signature": "(source, target)"
+                    "signature": "(source: Iterable[~HashableItem], target: Iterable[~HashableItem]) -> Iterable[~HashableItem]"
                 },
                 {
                     "type": "function",
                     "name": "key_by",
                     "doc": "Creates a dictionary composed of keys generated from the results of running each element of iterable thru iteratee.\nThe corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked\nwith one argument: (value).",
-                    "signature": "(iteratee, iterable)"
+                    "signature": "(iteratee: Callable[[~T], ~G], iterable: Iterable[~T]) -> Dict[~G, ~T]"
                 },
                 {
                     "type": "function",
                     "name": "mean",
                     "doc": "Computes the mean of the values in iterable.",
-                    "signature": "(iterable)"
+                    "signature": "(iterable: Iterable[~T]) -> ~T"
+                },
+                {
+                    "type": "function",
+                    "name": "uniq",
+                    "doc": "Returns a duplicate-free version of an iterable, using hash for equality\ncomparisons, in which only the first occurrence of each element is kept.\nThe order of result values is determined by the order they occur in the\niterable.",
+                    "signature": "(iterable: Iterable[~T]) -> Iterable[~T]"
+                },
+                {
+                    "type": "function",
+                    "name": "uniq_by",
+                    "doc": "This function is like uniq except that it accepts iteratee which is invoked\nfor each element in array to generate the criterion by which uniqueness is\ncomputed. The order of result values is determined by the order they occur\nin the array. The iteratee is invoked with one argument: (value).",
+                    "signature": "(key: Callable[[~T], Hashable], iterable: Iterable[~T]) -> Iterable[~T]"
                 }
             ],
             "file": "/Users/iddan/fptools/fptools/iterable.py"
+        },
+        {
+            "type": "module",
+            "name": "fptools.mapping",
+            "doc": null,
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "create_empty",
+                    "doc": "Create a new mapping of the type of given mapping",
+                    "signature": "(mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
+                },
+                {
+                    "type": "function",
+                    "name": "extract",
+                    "doc": null,
+                    "signature": "(*keys: ~K, **aliases: ~K2)"
+                },
+                {
+                    "type": "function",
+                    "name": "is_dict",
+                    "doc": "Matches if value is a dictionary",
+                    "signature": "(value)"
+                },
+                {
+                    "type": "class",
+                    "name": "items",
+                    "doc": "Mapping.items() for Mapping like objects that don't implement items()",
+                    "members": [
+                        {
+                            "type": "object",
+                            "name": "__annotations__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__contains__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__dict__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__doc__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__init__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__init_subclass__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__iter__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__len__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__module__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__subclasshook__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__weakref__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "_abc_impl",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "_from_iterable",
+                            "doc": null
+                        }
+                    ]
+                },
+                {
+                    "type": "function",
+                    "name": "map_keys",
+                    "doc": "Creates a dictionary with the same values as _dict and keys generated by applying modifier(key) for each key.",
+                    "signature": "(modifier: Callable[[~K], ~K2], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K2, ~V]"
+                },
+                {
+                    "type": "function",
+                    "name": "map_values",
+                    "doc": "Creates a dictionary with the same keys as _dict and values generated by applying modifier(val) for each value.",
+                    "signature": "(modifier: Callable[[~V], ~V2], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V2]"
+                },
+                {
+                    "type": "function",
+                    "name": "omit",
+                    "doc": "Creates a mapping without the omitted mapping items.",
+                    "signature": "(_items: Iterable[Hashable], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
+                },
+                {
+                    "type": "function",
+                    "name": "pick",
+                    "doc": "Creates a mapping composed of the picked mapping items.",
+                    "signature": "(_items: Iterable[Hashable], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
+                }
+            ],
+            "file": "/Users/iddan/fptools/fptools/mapping.py"
         },
         {
             "type": "module",
@@ -323,15 +395,33 @@
             "members": [
                 {
                     "type": "function",
+                    "name": "create_empty",
+                    "doc": "Create a new sequence of the type of given sequence",
+                    "signature": "(sequence: MutableSequence[~T]) -> MutableSequence[~T]"
+                },
+                {
+                    "type": "function",
                     "name": "initial",
                     "doc": "Gets all but the last element of sequence.",
-                    "signature": "(sequence)"
+                    "signature": "(sequence: Sequence[~T]) -> ~T"
                 },
                 {
                     "type": "function",
                     "name": "last",
                     "doc": "Gets the last element of sequence.",
-                    "signature": "(sequence)"
+                    "signature": "(sequence: Sequence[~T]) -> ~T"
+                },
+                {
+                    "type": "function",
+                    "name": "omit",
+                    "doc": "The opposite of pick; this method creates a sequence composed of the items that are not omitted.",
+                    "signature": "(items: Iterable[int], sequence: MutableSequence[~T]) -> MutableSequence[~T]"
+                },
+                {
+                    "type": "function",
+                    "name": "pick",
+                    "doc": "Creates a sequence composed of the picked sequence items.",
+                    "signature": "(items: Iterable[int], sequence: MutableSequence[~T]) -> MutableSequence[~T]"
                 }
             ],
             "file": "/Users/iddan/fptools/fptools/sequence.py"

@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de797b25-d761-44ee-8daf-6d621c2fcf20" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/fptools/mapping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fptools.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fptools.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs_src/node_modules/gh-pages/.cache/git@github.com!kang-health!fptools.git/fptools/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs_src/node_modules/gh-pages/.cache/git@github.com!kang-health!fptools.git/fptools/collection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs_src/node_modules/gh-pages/.cache/git@github.com!kang-health!fptools.git/tests/test_dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs_src/node_modules/gh-pages/.cache/git@github.com!kang-health!fptools.git/tests/test_dictionary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/callable.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/callable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/collection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/dictionary.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/iterable.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/iterable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fptools/sequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/fptools/sequence.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_collection.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_collection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_mapping.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_sequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_sequence.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fptools/iterable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="156" column="56" selection-start-line="156" selection-start-column="56" selection-end-line="156" selection-end-column="56" />
+            <state relative-caret-position="727">
+              <caret line="156" column="71" lean-forward="true" selection-start-line="156" selection-start-column="71" selection-end-line="156" selection-end-column="71" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -253,9 +242,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_tests - 2019.02.24 at 10h 11m 32s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_tests - 2019.02.24 at 10h 13m 19s.xml">
       <configuration name="pytest in tests" configurationId="tests" />
     </history-entry>
@@ -283,18 +269,20 @@
     <history-entry file="pytest_for_test_collection_test_pick - 2019.02.24 at 10h 20m 04s.xml">
       <configuration name="pytest for test_collection.test_pick" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_in_tests - 2019.02.24 at 10h 30m 41s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19710669" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19710669" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32967034" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -457,8 +445,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fptools/iterable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="156" column="56" selection-start-line="156" selection-start-column="56" selection-end-line="156" selection-end-column="56" />
+        <state relative-caret-position="727">
+          <caret line="156" column="71" lean-forward="true" selection-start-line="156" selection-start-column="71" selection-end-line="156" selection-end-column="71" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
