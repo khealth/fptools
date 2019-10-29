@@ -62,6 +62,15 @@ def hasitem(path: RawPath, collection: Collection) -> bool:
     return True
 
 
+def _safe_setitem(item, value, collection):
+    try:
+        collection[item] = value
+    except IndexError:
+        for i in range(len(collection), item + 1):
+            collection.insert(i, None)
+        collection[item] = value
+
+
 @curry
 def setitem(path: RawPath, value: V, collection: MutableCollection) -> MutableCollection:
     """
@@ -71,13 +80,20 @@ def setitem(path: RawPath, value: V, collection: MutableCollection) -> MutableCo
     clone = copy(collection)
     key = head(path)
     if count(path) == 1:
-        clone[key] = value
+        _safe_setitem(key, value, clone)
     else:
         try:
             sub = collection[key]
         except KeyError:
             if isinstance(path[1], int):
-                sub = [None] * (path[1] + 1)
+                sub = []
+            else:
+                sub = {}
+        except IndexError:
+            for i in range(len(clone), key + 1):
+                clone.insert(i, None)
+            if isinstance(path[1], int):
+                sub = []
             else:
                 sub = {}
         clone[key] = setitem(path[1:], value, sub)
@@ -139,28 +155,36 @@ def _pick(path_tree, collection):
     items = path_tree.keys()
     if isinstance(collection, Sequence):
         next_collection = sequence_pick(items, collection)
+        for i, item in enumerate(sorted(items)):
+            if isinstance(path_tree[item], dict):
+                next_collection[i] = _pick(path_tree[item], next_collection[i])
     elif isinstance(collection, Mapping):
         next_collection = mapping_pick(items, collection)
+        for item in items:
+            if isinstance(path_tree[item], dict):
+                next_collection[item] = _pick(path_tree[item], next_collection[item])
     else:
         raise NotImplementedError
-    for item in items:
-        if item not in path_tree:
-            continue
-        if isinstance(path_tree[item], dict):
-            next_collection[item] = _pick(path_tree[item], collection[item])
-        else:
-            next_collection[item] = collection[item]
     return next_collection
 
 
-def pick(paths: IterableT[Path], collection: Collection) -> Collection:
+def _create_path_tree(paths):
+    tree = {}
+    for path in paths:
+        cursor = tree
+        path = to_path(path)
+        for item in path[:-1]:
+            if item not in cursor:
+                cursor[item] = {}
+            cursor = cursor[item]
+        cursor[path[-1]] = True
+    return tree
+
+
+def pick(paths: IterableT[RawPath], collection: Collection) -> Collection:
     """
     Creates a collection composed of the picked paths.
     """
-    path_tree = {}
-
-    for path in map(to_path, paths):
-        path_tree = setitem(path, True, path_tree)
-
+    path_tree = _create_path_tree(paths)
     return _pick(path_tree, collection)
 
