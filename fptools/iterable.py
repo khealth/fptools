@@ -160,3 +160,34 @@ def chunk(size: int, iterable: Iterable[T]) -> Iterable[Tuple[T, ...]]:
     If iterable can't be split evenly, the final chunk will be the remaining elements.
     """
     return chunk_by(lambda item, index: index // size, iterable)
+
+
+def uniq(iterable: Iterable[T]) -> Iterable[T]:
+    '''
+    Returns a duplicate-free version of an iterable, using hash for equality
+    comparisons, in which only the first occurrence of each element is kept.
+    The order of result values is determined by the order they occur in the
+    iterable.
+    '''
+    seen = set()
+    for item in iterable:
+        if item in seen:
+            continue
+        seen.add(item)
+        yield item
+
+
+def uniq_by(key: Callable[[T], Hashable], iterable: Iterable[T]) -> Iterable[T]:
+    '''
+    This function is like uniq except that it accepts iteratee which is invoked
+    for each element in array to generate the criterion by which uniqueness is
+    computed. The order of result values is determined by the order they occur
+    in the array. The iteratee is invoked with one argument: (value).
+    '''
+    seen = set()
+    for item in iterable:
+        k = key(item)
+        if k in seen:
+            continue
+        seen.add(k)
+        yield item

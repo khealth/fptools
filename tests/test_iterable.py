@@ -1,4 +1,4 @@
-from fptools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk
+from fptools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq
 
 
 def test_compact():
@@ -59,3 +59,8 @@ def test_chunk_by():
 def test_chunk():
     assert tuple(chunk(2, (1, 2, 3, 4))) == ((1, 2), (3, 4))
     assert tuple(chunk(2, (1, 2, 3, 4, 5))) == ((1, 2), (3, 4), (5, ))
+
+
+def test_uniq():
+    assert tuple(uniq((1, 2, 3))) == (1, 2, 3)
+    assert tuple(uniq((1, 2, 2, 3))) == (1, 2, 3)
