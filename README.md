@@ -8,27 +8,27 @@ Functional programming tools for Python inspired by Lodash FP and an extension
 for Python standard functional libraries
 
 ```bash
-pipenv install -e git+https://github.com/kang-health/fptools.git#egg=fptools
+poetry add --git git+https://github.com/kang-health/fptools.git#egg=fptools
 ```
 
 ### [Documentation](https://khealth.github.io/fptools/)
 
 ### Features
 
- - Performant and lean
- - Simple and pythonic
- - Immutable
+- Performant and lean
+- Simple and pythonic
+- Immutable
 
 ### Develop
 
-```bash 
-export PIPENV_VENV_IN_PROJECT=1;
-pipenv --python 3.6;
-pipenv install --dev;
+```bash
+poetry config settings.virtualenvs.in-project true;
+poetry config settings.virtualenvs.path .venv;
+poetry install;
 ```
 
 ### Test
 
 ```bash
-pipenv run pytest
+poetry run pytest;
 ```
