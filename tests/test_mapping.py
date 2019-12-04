@@ -1,9 +1,15 @@
-from fptools.mapping import create_empty, pick, omit, map_keys, map_values, is_dict, items
+from fptools.mapping import create_empty, pick, omit, map_keys, map_values, is_dict, items, extract
 
 
 def test_create_empty():
     assert create_empty({ "a": 1 }) == {}
     assert create_empty({}) == {}
+
+
+def test_extract():
+    base = {"a": 1, "b": 2}
+    res = extract("a", c="b")(base)
+    assert res == {"a": 1, "c": 2}
 
 
 def test_pick():
