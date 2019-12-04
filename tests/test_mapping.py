@@ -18,7 +18,7 @@ def test_pick():
 
 
 def test_omit():
-    assert omit({'foo', 'bar'}, {'foo': 4, 'bar': 2, 'yo': 3}) == {'yo': 3}
+    assert omit({'foo', 'bar', 'non_existing'}, {'foo': 4, 'bar': 2, 'yo': 3}) == {'yo': 3}
 
 
 def test_map_values():
