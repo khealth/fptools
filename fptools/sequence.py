@@ -48,5 +48,8 @@ def omit(items: Iterable[int], sequence: MutableSequence[T]) -> MutableSequence[
     """
     next_sequence = copy(sequence)
     for item in sorted(items, reverse=True):
-        del next_sequence[item]
+        try:
+            del next_sequence[item]
+        except IndexError:
+            continue
     return next_sequence
