@@ -3,7 +3,7 @@ from itertools import tee
 from collections.abc import Iterable
 from operator import add
 from cardinality import count
-from typing import Iterable, TypeVar, Callable, Optional, Union, Dict, List, Hashable, Tuple
+from typing import Iterable, TypeVar, Callable, Optional, Union, Dict, List, Hashable, Tuple, Set
 from .callable import curry
 
 
@@ -186,7 +186,7 @@ def uniq_by(key: Callable[[T], Hashable], iterable: Iterable[T]) -> Iterable[T]:
     computed. The order of result values is determined by the order they occur
     in the array. The iteratee is invoked with one argument: (value).
     '''
-    seen = set()
+    seen: Set[T] = set()
     for item in iterable:
         k = key(item)
         if k in seen:
