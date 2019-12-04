@@ -3,6 +3,7 @@ from fptools.collection import to_path, getitem, hasitem, setitem, delitem, upda
 
 def test_to_path():
     assert to_path('key') == ('key',)
+    assert to_path(1) == (1,)
     assert to_path(('key',)) == ('key',)
 
 
