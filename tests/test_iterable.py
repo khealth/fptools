@@ -1,4 +1,4 @@
-from fptools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq
+from fptools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by
 
 
 def test_compact():
@@ -7,18 +7,26 @@ def test_compact():
 
 def test_head():
     assert head((1, )) is 1
+    assert head(()) is None
 
 
-PEOPLE = ({
-    'name': 'Alon',
-    'location': 'New York City'
-}, {
-    'name': 'Lior',
-    'location': 'Tel Aviv'
-}, {
-    'name': 'Ariel',
-    'location': 'Tel Aviv'
-})
+PEOPLE = (
+    {
+        'name': 'Alon',
+        'location': 'New York City'
+    },
+    {
+        'name': 'Lior',
+        'location': 'Tel Aviv'
+    },
+    {
+        'name': 'Ariel',
+        'location': 'Tel Aviv'
+    },
+    {
+        'name': 'Aviv'
+    }
+)
 
 
 def test_find():
@@ -40,9 +48,16 @@ def test_flatten():
 
 
 def test_group_by():
-    assert group_by(lambda person: person['location'], PEOPLE) == {
+    assert group_by(lambda person: person.get('location'), PEOPLE) == {
         'Tel Aviv': [PEOPLE[1], PEOPLE[2]],
-        'New York City': [PEOPLE[0]]
+        'New York City': [PEOPLE[0]],
+    }
+
+
+def test_key_by():
+    assert key_by(lambda person: person.get('location'), PEOPLE) == {
+        'Tel Aviv': PEOPLE[2],
+        'New York City': PEOPLE[0],
     }
 
 

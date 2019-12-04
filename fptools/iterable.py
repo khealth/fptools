@@ -106,7 +106,9 @@ def key_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, T]:
     keyed = {}
 
     for item in iterable:
-        key = iteratee(keyed)
+        key = iteratee(item)
+        if key is None:
+            continue
         keyed[key] = item
 
     return keyed

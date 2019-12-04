@@ -4,13 +4,14 @@ from collections.abc import ItemsView
 from .callable import curry
 
 
+M = TypeVar("M", bound=MutableMapping)
 K = TypeVar('K')
 V = TypeVar('V')
 K2 = TypeVar('K2')
 V2 = TypeVar('V2')
 
 
-def create_empty(mapping: MutableMapping[K, V]) -> MutableMapping[K, V]:
+def create_empty(mapping: M) -> M:
     """
     Create a new mapping of the type of given mapping
     """
@@ -41,13 +42,16 @@ def pick(_items: Iterable[Hashable], mapping: MutableMapping[K, V]) -> MutableMa
 
 
 @curry
-def omit(_items: Iterable[Hashable], mapping: MutableMapping[K, V]) -> MutableMapping[K, V]:
+def omit(_items: Iterable[K], mapping: MutableMapping[K, V]) -> MutableMapping[K, V]:
     """
     Creates a mapping without the omitted mapping items.
     """
     next_mapping = copy(mapping)
     for item in _items:
-        next_mapping.pop(item, None)
+        try:
+            next_mapping.pop(item)
+        except KeyError:
+            continue
     return next_mapping
 
 
