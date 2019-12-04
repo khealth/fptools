@@ -1,4 +1,4 @@
-from typing import TypeVar, Sequence, MutableSequence, Iterable
+from typing import TypeVar, Sequence, MutableSequence, Iterable, Optional
 from copy import copy
 
 T = TypeVar('T')
@@ -15,14 +15,14 @@ def create_empty(sequence: MutableSequence[T]) -> MutableSequence[T]:
         next_sequence.clear()
 
 
-def initial(sequence: Sequence[T]) -> T:
+def initial(sequence: Sequence[T]) -> Sequence[T]:
     """
     Gets all but the last element of sequence.
     """
     return sequence[:-1]
 
 
-def last(sequence: Sequence[T]) -> T:
+def last(sequence: Sequence[T]) -> Optional[T]:
     """
     Gets the last element of sequence.
     """
