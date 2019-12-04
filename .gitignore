@@ -6,3 +6,5 @@ __pycache__/
 .ropeproject/
 .pytest_cache/
 .venv
+htmlcov
+.coverage
