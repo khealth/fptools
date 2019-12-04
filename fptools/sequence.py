@@ -13,6 +13,7 @@ def create_empty(sequence: MutableSequence[T]) -> MutableSequence[T]:
     except TypeError:
         next_sequence = copy(sequence)
         next_sequence.clear()
+        return next_sequence
 
 
 def initial(sequence: Sequence[T]) -> Sequence[T]:
