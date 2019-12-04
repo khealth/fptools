@@ -1,4 +1,9 @@
-from fptools.mapping import pick, omit, map_values, is_dict, items
+from fptools.mapping import create_empty, pick, omit, map_keys, map_values, is_dict, items
+
+
+def test_create_empty():
+    assert create_empty({ "a": 1 }) == {}
+    assert create_empty({}) == {}
 
 
 def test_pick():
@@ -15,14 +20,21 @@ def test_map_values():
                       {'a': 1, 'b': 2}) == {'a': 2, 'b': 4}
 
 
-def is_dict():
+def test_map_keys():
+    assert map_keys(lambda value: value * 2,
+                    {'a': 1, 'b': 2}) == {'aa': 1, 'bb': 2}
+
+
+def test_is_dict():
     assert is_dict(4) == False
     assert is_dict({}) == True
 
 
 def test_items():
-    assert list(items({'a': 1, 'b': 2, 'c': 3})) == [
+    _items = items({'a': 1, 'b': 2, 'c': 3})
+    assert list(_items) == [
         ('a', 1),
         ('b', 2),
         ('c', 3)
     ]
+    assert ("a" in _items) is True

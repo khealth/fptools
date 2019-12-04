@@ -1,4 +1,4 @@
-from typing import Mapping, MutableMapping, TypeVar, Generator, Tuple, Iterable, Hashable, Callable
+from typing import Generic, Mapping, MutableMapping, TypeVar, Generator, Tuple, Iterable, Hashable, Callable
 from copy import copy
 from collections.abc import ItemsView
 from .callable import curry
@@ -14,11 +14,7 @@ def create_empty(mapping: MutableMapping[K, V]) -> MutableMapping[K, V]:
     """
     Create a new mapping of the type of given mapping
     """
-    try:
-        return type(mapping)()
-    except TypeError:
-        next_sequence = copy(mapping)
-        next_sequence.clear()
+    return type(mapping)()
 
 
 def extract(*keys: K, **aliases: K2):
@@ -84,7 +80,7 @@ def is_dict(value):
     return isinstance(value, dict)
 
 
-class items(ItemsView):
+class items(ItemsView, Generic[K, V]):
     """
     Mapping.items() for Mapping like objects that don't implement items()
     """
