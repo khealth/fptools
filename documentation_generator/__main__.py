@@ -12,6 +12,6 @@ if len(sys.argv) < 2:
 module_name = sys.argv[1]
 
 module = importlib.import_module(module_name)
-documentation = get_documentation(module)
+documentation = get_documentation(module) # mypy: ignore
 
 json.dump(asdict(documentation), sys.stdout, indent=4)

@@ -1,16 +1,16 @@
-import inspect
 import sys
+import inspect
+import pkgutil
 from types import ModuleType
 from dataclasses import dataclass, field
-import pkgutil
-from typing import List, Generator, TypeVar, ClassVar
+from typing import List, Generator, TypeVar, ClassVar, Optional
 
 
 @dataclass
 class Doc:
     type: str = field(init=False, default="object")
     name: str
-    doc: str
+    doc: Optional[str]
 
 
 @dataclass
@@ -33,7 +33,12 @@ class ClassDoc(Doc):
     members: List[Doc]
 
 
-def get_documentation(module: ModuleType) -> ModuleDoc:
+class ModuleTypeWithPath(ModuleType):
+    __path__: str
+
+
+def get_documentation(module: ModuleTypeWithPath) -> ModuleDoc:
+    member_docs: List[Doc]
     is_pkg = is_package(module)
 
     member_docs = [
@@ -49,7 +54,7 @@ def get_documentation(module: ModuleType) -> ModuleDoc:
             for submodule
             in iter_submodules(module)
         ]
-        member_docs = submodule_docs + member_docs
+        member_docs = [*submodule_docs, *member_docs]
 
     return ModuleDoc(
         name=module.__name__,
@@ -65,7 +70,9 @@ def get_doc(name: str, obj) -> Doc:
 
     if inspect.isclass(obj):
         mro = inspect.getmro(obj)[1:]
-        mro_members = [(name, member) for cls in mro for name, member in inspect.getmembers(cls)] + inspect.getmembers(type(type(obj)))
+        mro_cls_members = [(name, member) for cls in mro for name, member in inspect.getmembers(cls)]
+        cls_members = inspect.getmembers(type(type(obj)))
+        mro_members = mro_cls_members + cls_members
         members = [
             Doc(name, None)
             for name, member
@@ -80,7 +87,7 @@ def get_doc(name: str, obj) -> Doc:
     return Doc(name, doc)
 
 
-def iter_submodules(module: ModuleType) -> Generator[ModuleType, None, None]:
+def iter_submodules(module: ModuleTypeWithPath) -> Generator[ModuleTypeWithPath, None, None]:
     """
     Iterate through all submodules of given module
     """

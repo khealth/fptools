@@ -274,7 +274,7 @@
                     "type": "function",
                     "name": "create_empty",
                     "doc": "Create a new mapping of the type of given mapping",
-                    "signature": "(mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
+                    "signature": "(mapping: ~M) -> ~M"
                 },
                 {
                     "type": "function",
@@ -296,6 +296,11 @@
                         {
                             "type": "object",
                             "name": "__annotations__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__class_getitem__",
                             "doc": null
                         },
                         {
@@ -340,6 +345,16 @@
                         },
                         {
                             "type": "object",
+                            "name": "__orig_bases__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__parameters__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
                             "name": "__subclasshook__",
                             "doc": null
                         },
@@ -376,7 +391,7 @@
                     "type": "function",
                     "name": "omit",
                     "doc": "Creates a mapping without the omitted mapping items.",
-                    "signature": "(_items: Iterable[Hashable], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
+                    "signature": "(_items: Iterable[~K], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
                 },
                 {
                     "type": "function",
@@ -403,13 +418,13 @@
                     "type": "function",
                     "name": "initial",
                     "doc": "Gets all but the last element of sequence.",
-                    "signature": "(sequence: Sequence[~T]) -> ~T"
+                    "signature": "(sequence: Sequence[~T]) -> Sequence[~T]"
                 },
                 {
                     "type": "function",
                     "name": "last",
                     "doc": "Gets the last element of sequence.",
-                    "signature": "(sequence: Sequence[~T]) -> ~T"
+                    "signature": "(sequence: Sequence[~T]) -> Union[~T, NoneType]"
                 },
                 {
                     "type": "function",
