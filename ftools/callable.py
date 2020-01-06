@@ -11,7 +11,10 @@ def fullname(func: Callable) -> str:
     """
     Get full name of a function: the module it is declared in and it's name
     """
-    return '.'.join((getmodule(func).__name__, func.__name__))
+    module = getmodule(func)
+    if module is None:
+        return func.__name__
+    return '.'.join((module.__name__, func.__name__))
 
 
 T = TypeVar('T', bound=Callable)
@@ -47,13 +50,10 @@ def deprecated(func: T) -> T:
         warnings.warn(f'{func_name} is deprecated', DeprecationWarning)
         return func(*args, **kwargs)
 
-    return decorated
+    return decorated # type: ignore
 
 
-R = TypeVar('R')
-
-
-def curry(_callable: Callable[..., R]) -> Union[R, Callable[..., Any]]:
+def curry(_callable: Callable):
     """
     Creates a function that accepts arguments of func and either invokes func returning its result,
     if at least arity number of arguments have been provided, or returns a function that accepts
@@ -70,7 +70,7 @@ def curry(_callable: Callable[..., R]) -> Union[R, Callable[..., Any]]:
             required_params.add(name)
 
     @wraps(_callable)
-    def curried(*args, **kwargs) -> Union[R, Callable[..., Any]]:
+    def curried(*args, **kwargs):
         bound = _signature.bind_partial(*args, **kwargs)
         if required_params - set(bound.arguments.keys()):
             return partial(curried, *args, **kwargs)
@@ -88,7 +88,7 @@ class currymethod:
     argument.
     """
 
-    def __init__(self, method: Callable[[O, VarArg(), KwArg()], R]) -> None:
+    def __init__(self, method: Callable) -> None:
         self.method = curry(method)
 
         _signature = signature(method)
@@ -109,7 +109,7 @@ class currymethod:
                 required_params.add(name)
 
         @wraps(method)
-        def static(*args, **kwargs) -> Union[R, Callable[[VarArg(), O, KwArg()], Any]]:
+        def static(*args, **kwargs):
             bound = _signature.bind_partial(*args, **kwargs)
             if required_params - set(bound.arguments.keys()):
                 return partial(static, *args, **kwargs)
@@ -169,4 +169,4 @@ def graceful(func: T) -> T:
             getLogger().error(f'An error has been raised while executing {func.__name__}: ' + repr(e))
             return None
 
-    return wrapped
+    return wrapped # type: ignore
