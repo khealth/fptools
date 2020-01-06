@@ -54,12 +54,16 @@ def find_index(comparator: Callable[[T], bool], iterable: Iterable[T]) -> Option
     return None
 
 
-def mean(iterable: Iterable[T]) -> T:
+Number = TypeVar("Number", bound=Union[int, float])
+
+
+def mean(iterable: Iterable[Number]) -> float:
     """
     Computes the mean of the values in iterable.
     """
     to_sum, to_count = tee(iterable)
-    return reduce(add, to_sum) / count(to_count)
+    _sum = reduce(add, to_sum)
+    return _sum / count(to_count)
 
 
 def flatten(iterable: Iterable[Union[T, Iterable[T]]]) -> Iterable[T]:
