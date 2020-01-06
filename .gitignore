@@ -8,4 +8,6 @@ __pycache__/
 .venv
 htmlcov
 .coverage
-ftools.egg-info
+*.egg-info
+*.whl
+*.tar.gz
