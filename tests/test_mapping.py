@@ -1,4 +1,4 @@
-from fptools.mapping import create_empty, pick, omit, map_keys, map_values, is_dict, items, extract
+from ftools.mapping import create_empty, pick, omit, map_keys, map_values, is_dict, items, extract
 
 
 def test_create_empty():

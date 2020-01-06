@@ -6,10 +6,10 @@ from copy import copy
 from typing import TypeVar, Union, Iterable as IterableT, Callable, MutableSequence, Mapping, MutableMapping, Generator, \
     Tuple, Hashable, Sequence
 from cardinality import count
-from fptools.callable import curry
-from fptools.iterable import head
-from fptools.sequence import pick as sequence_pick
-from fptools.mapping import pick as mapping_pick
+from .callable import curry
+from .iterable import head
+from .sequence import pick as sequence_pick
+from .mapping import pick as mapping_pick
 
 # This is actually Mapping x Iterable / str
 Item = Union[Hashable, int]
@@ -126,7 +126,7 @@ def branches(collection: Collection) -> Generator[Tuple[Path, Union[Collection, 
     """
     Iterates each path and value pair of the collection and it's descendent collections
     """
-    from fptools.mapping import items
+    from .mapping import items
 
     if isinstance(collection, Mapping):
         iterator = items(collection)

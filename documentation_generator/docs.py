@@ -1,8 +1,12 @@
+import io
 import sys
+import json
 import inspect
 import pkgutil
+import importlib
 from types import ModuleType
-from dataclasses import dataclass, field
+from typing import TextIO
+from dataclasses import dataclass, field, asdict
 from typing import List, Generator, TypeVar, ClassVar, Optional
 
 
@@ -33,26 +37,35 @@ class ClassDoc(Doc):
     members: List[Doc]
 
 
-class ModuleTypeWithPath(ModuleType):
+class _ModuleTypeWithPath(ModuleType):
     __path__: str
 
 
-def get_documentation(module: ModuleTypeWithPath) -> ModuleDoc:
+def get_documentation(module_name: str) -> ModuleDoc:
+    module = importlib.import_module(module_name)
+    return _get_documentation_for_module(module)
+
+
+def dump_documentation(documentation: ModuleDoc, file: TextIO) -> None:
+    json.dump(asdict(documentation), file, indent=4)
+
+
+def _get_documentation_for_module(module) -> ModuleDoc:
     member_docs: List[Doc]
-    is_pkg = is_package(module)
+    is_pkg = _is_package(module)
 
     member_docs = [
-        get_doc(name, member)
+        _get_doc(name, member)
         for name, member
-        in get_module_members(module)
+        in _get_module_members(module)
         if not isinstance(member, TypeVar) and not name.startswith('_')
     ]
 
     if is_pkg:
         submodule_docs = [
-            get_documentation(submodule)
+            _get_documentation_for_module(submodule)
             for submodule
-            in iter_submodules(module)
+            in _iter_submodules(module)
         ]
         member_docs = [*submodule_docs, *member_docs]
 
@@ -65,7 +78,7 @@ def get_documentation(module: ModuleTypeWithPath) -> ModuleDoc:
     )
 
 
-def get_doc(name: str, obj) -> Doc:
+def _get_doc(name: str, obj) -> Doc:
     doc = inspect.getdoc(obj)
 
     if inspect.isclass(obj):
@@ -87,7 +100,7 @@ def get_doc(name: str, obj) -> Doc:
     return Doc(name, doc)
 
 
-def iter_submodules(module: ModuleTypeWithPath) -> Generator[ModuleTypeWithPath, None, None]:
+def _iter_submodules(module: _ModuleTypeWithPath) -> Generator[_ModuleTypeWithPath, None, None]:
     """
     Iterate through all submodules of given module
     """
@@ -101,14 +114,14 @@ def iter_submodules(module: ModuleTypeWithPath) -> Generator[ModuleTypeWithPath,
         yield getattr(with_submodules, name)
 
 
-def get_module_members(module: ModuleType):
+def _get_module_members(module: ModuleType):
     """
     Like inspect.get_members() but only returns members defined in module
     """
     return inspect.getmembers(module, lambda item: inspect.getmodule(item) is module)
 
 
-def is_package(module: ModuleType) -> bool:
+def _is_package(module: ModuleType) -> bool:
     """
     Returns whether a module is a package.
     https://docs.python.org/3/reference/import.html:

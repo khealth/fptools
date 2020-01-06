@@ -8,4 +8,4 @@ __pycache__/
 .venv
 htmlcov
 .coverage
-fptools.egg-info
+ftools.egg-info

@@ -1,14 +1,14 @@
 <div align="center">
-    <img src="assets/fptools.svg" height="140" alt="fptools logo">
+    <img src="assets/logo.svg" height="140" alt="ftools logo">
 </div>
 
-<h1 align="center">fptools</h1>
+<h1 align="center">ftools</h1>
 
 Functional programming tools for Python inspired by Lodash FP and an extension
 for Python standard functional libraries
 
 ```bash
-poetry add --git git+https://github.com/kang-health/fptools.git#egg=fptools
+pip install ftools
 ```
 
 ### [Documentation](https://khealth.github.io/fptools/)

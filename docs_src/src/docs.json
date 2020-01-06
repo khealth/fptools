@@ -1,12 +1,12 @@
 {
     "type": "module",
-    "name": "fptools",
+    "name": "ftools",
     "doc": null,
     "is_pkg": true,
     "members": [
         {
             "type": "module",
-            "name": "fptools.callable",
+            "name": "ftools.callable",
             "doc": null,
             "is_pkg": false,
             "members": [
@@ -112,11 +112,11 @@
                     "signature": "(new_name: str) -> Callable[[~T], ~T]"
                 }
             ],
-            "file": "/Users/iddan/fptools/fptools/callable.py"
+            "file": "/Users/iddan/fptools/ftools/callable.py"
         },
         {
             "type": "module",
-            "name": "fptools.collection",
+            "name": "ftools.collection",
             "doc": null,
             "is_pkg": false,
             "members": [
@@ -175,11 +175,11 @@
                     "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], modifier: Callable[[~V], ~V], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
                 }
             ],
-            "file": "/Users/iddan/fptools/fptools/collection.py"
+            "file": "/Users/iddan/fptools/ftools/collection.py"
         },
         {
             "type": "module",
-            "name": "fptools.iterable",
+            "name": "ftools.iterable",
             "doc": null,
             "is_pkg": false,
             "members": [
@@ -262,11 +262,11 @@
                     "signature": "(key: Callable[[~T], Hashable], iterable: Iterable[~T]) -> Iterable[~T]"
                 }
             ],
-            "file": "/Users/iddan/fptools/fptools/iterable.py"
+            "file": "/Users/iddan/fptools/ftools/iterable.py"
         },
         {
             "type": "module",
-            "name": "fptools.mapping",
+            "name": "ftools.mapping",
             "doc": null,
             "is_pkg": false,
             "members": [
@@ -400,11 +400,11 @@
                     "signature": "(_items: Iterable[Hashable], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
                 }
             ],
-            "file": "/Users/iddan/fptools/fptools/mapping.py"
+            "file": "/Users/iddan/fptools/ftools/mapping.py"
         },
         {
             "type": "module",
-            "name": "fptools.sequence",
+            "name": "ftools.sequence",
             "doc": null,
             "is_pkg": false,
             "members": [
@@ -439,8 +439,8 @@
                     "signature": "(items: Iterable[int], sequence: MutableSequence[~T]) -> MutableSequence[~T]"
                 }
             ],
-            "file": "/Users/iddan/fptools/fptools/sequence.py"
+            "file": "/Users/iddan/fptools/ftools/sequence.py"
         }
     ],
-    "file": "/Users/iddan/fptools/fptools/__init__.py"
+    "file": "/Users/iddan/fptools/ftools/__init__.py"
 }

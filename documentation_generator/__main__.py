@@ -1,17 +1,14 @@
 import sys
-import importlib
-import json
 from dataclasses import asdict
-from .docs import get_documentation
+from .docs import get_documentation, dump_documentation
 
-if len(sys.argv) < 2:
-    sys.stderr.write("Not enough arguments.\n")
-    sys.stderr.write("python -m documentation_generator [module]\n")
-    exit(1)
+if __name__ == "__main__":
+    module_name = sys.argv[1]
 
-module_name = sys.argv[1]
+    if len(sys.argv) < 2:
+        sys.stderr.write("Not enough arguments.\n")
+        sys.stderr.write("python -m documentation_generator [module]\n")
+        exit(1)
 
-module = importlib.import_module(module_name)
-documentation = get_documentation(module) # mypy: ignore
-
-json.dump(asdict(documentation), sys.stdout, indent=4)
+    documentation = get_documentation(module_name)
+    dump_documentation(documentation, sys.stdout)

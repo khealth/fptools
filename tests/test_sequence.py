@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence
-from fptools.sequence import initial, last, pick, omit, create_empty
+from ftools.sequence import initial, last, pick, omit, create_empty
 
 
 def test_initial():

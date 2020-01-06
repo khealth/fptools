@@ -1,4 +1,4 @@
-from fptools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by
+from ftools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by
 
 
 def test_compact():

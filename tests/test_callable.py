@@ -1,7 +1,7 @@
 import warnings
 from functools import partial
 
-from fptools.callable import fullname, rename, identity, deprecated, curry, currymethod, flow, noop, constant, graceful
+from ftools.callable import fullname, rename, identity, deprecated, curry, currymethod, flow, noop, constant, graceful
 
 
 def test_fullname():

@@ -1,4 +1,4 @@
-from fptools.collection import to_path, getitem, hasitem, setitem, delitem, update, branches, leaves, pick
+from ftools.collection import to_path, getitem, hasitem, setitem, delitem, update, branches, leaves, pick
 
 
 def test_to_path():
