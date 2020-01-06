@@ -1,4 +1,5 @@
-from ftools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by, flat_group_by
+import pytest
+from ftools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by, flat_group_by, index_of
 
 
 def test_compact():
@@ -96,3 +97,14 @@ def test_uniq():
 def test_uniq_by():
     assert tuple(uniq_by(lambda item: item % 2, (1, 2, 3))) == (1, 2)
     assert tuple(uniq_by(lambda item: item % 2, (1, 2, 2, 3))) == (1, 2)
+
+
+@pytest.mark.parametrize("iterable, item, index", (
+    pytest.param(range(0, 100), 0, 0),
+    pytest.param(range(0, 100), 1, 1),
+    pytest.param(["a", "b", "c"], "a", 0),
+    pytest.param(["a", "b", "c"], "b", 1),
+))
+def test_index_of(iterable, item, index):
+    assert index == index_of(item, iterable)
+

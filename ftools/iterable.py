@@ -228,3 +228,13 @@ def uniq_by(key: Callable[[T], Key], iterable: Iterable[T]) -> Iterable[T]:
             continue
         seen.add(k)
         yield item
+
+
+def index_of(item: T, iterable: Iterable[T]) -> Optional[int]:
+    """
+    Returns index of item in given iterable. Like list.index() but for any iterable
+    """
+    for index, _item in enumerate(iterable):
+        if _item == item:
+            return index
+    return None
