@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ftools"
-version = "0.2.3"
+version = "0.2.4"
 description = "Functional programming utilities"
 authors = ["Iddan Aaronsohn <mail@aniddan.com>"]
 license = "MIT"
