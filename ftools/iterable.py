@@ -17,7 +17,7 @@ def compact(iterable: Iterable[T]) -> Iterable[T]:
     return filter(None, iterable)
 
 
-def head(iterable: Iterable[T]) -> T:
+def head(iterable: Iterable[T]) -> Optional[T]:
     """
     Gets the first element of iterable.
     Defaults to None.
@@ -83,7 +83,7 @@ def group_by(predicate: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List
     The order of grouped values is determined by the order they occur in iterable. The corresponding value of each key
     is a list of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
     """
-    groups = {}
+    groups: Dict[G, List[T]] = {}
 
     for item in iterable:
         key = predicate(item)
@@ -141,7 +141,7 @@ Identity = TypeVar('Identity')
 @curry
 def chunk_by(predicate: Callable[[T, int], Identity], iterable: Iterable[T]) -> Iterable[Tuple[T, ...]]:
     last_identity = None
-    current_chunk = tuple()
+    current_chunk: Tuple[T, ...] = tuple()
     for index, item in enumerate(iterable):
         identity = predicate(item, index)
         if identity is last_identity:
@@ -171,7 +171,7 @@ def uniq(iterable: Iterable[T]) -> Iterable[T]:
     The order of result values is determined by the order they occur in the
     iterable.
     '''
-    seen = set()
+    seen: Set[T] = set()
     for item in iterable:
         if item in seen:
             continue
@@ -179,14 +179,17 @@ def uniq(iterable: Iterable[T]) -> Iterable[T]:
         yield item
 
 
-def uniq_by(key: Callable[[T], Hashable], iterable: Iterable[T]) -> Iterable[T]:
+Key = TypeVar("Key", bound=Hashable)
+
+
+def uniq_by(key: Callable[[T], Key], iterable: Iterable[T]) -> Iterable[T]:
     '''
     This function is like uniq except that it accepts iteratee which is invoked
     for each element in array to generate the criterion by which uniqueness is
     computed. The order of result values is determined by the order they occur
     in the array. The iteratee is invoked with one argument: (value).
     '''
-    seen: Set[T] = set()
+    seen: Set[Key] = set()
     for item in iterable:
         k = key(item)
         if k in seen:
