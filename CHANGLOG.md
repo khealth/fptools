@@ -1,3 +1,7 @@
+# 0.2.6
+
+- Add `index_of()`
+
 # 0.2.5
 
 - Add `flat_group_by()`
