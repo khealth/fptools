@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from functools import reduce
 from itertools import tee
 from collections.abc import Iterable
@@ -81,16 +82,16 @@ G = TypeVar('G')
 
 
 @curry
-def group_by(predicate: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List[T]]:
+def group_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List[T]]:
     """
-    Creates an iterable composed of keys generated from the results of running each element of iterable thru iteratee.
+    Creates a dict composed of keys generated from the results of running each element of iterable thru iteratee.
     The order of grouped values is determined by the order they occur in iterable. The corresponding value of each key
     is a list of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
     """
     groups: Dict[G, List[T]] = {}
 
     for item in iterable:
-        key = predicate(item)
+        key = iteratee(item)
 
         if not key:
             continue
@@ -99,6 +100,33 @@ def group_by(predicate: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List
         group.append(item)
 
     return groups
+
+
+@dataclass
+class FlatGroupBy(Iterable[Tuple[G, T]]):
+    iteratee: Callable[[T], G]
+    iterable: Iterable[T]
+
+    def __iter__(self):
+        return (
+            (group, item)
+            for group, items in group_by(self.iteratee, self.iterable).items()
+            for item in items
+        )
+    
+    def __repr__(self) -> str:
+        return f"flat_group_by({self.iteratee}, {self.iterable})"
+
+
+@curry
+def flat_group_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Iterable[Tuple[G, T]]:
+    """
+    Creates an iterable of tuples of group and item generated from the results of running each element of iterable thru iteratee.
+    The order of grouped values is determined by the order they occur in iterable. The iteratee is invoked with one argument: (value).
+    Like group_by but returns an iterable of tuples of group and item.
+    Resembles SQL's group_by().
+    """
+    return FlatGroupBy(iteratee, iterable)
 
 
 def key_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, T]:

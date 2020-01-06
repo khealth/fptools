@@ -1,4 +1,4 @@
-from ftools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by
+from ftools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by, flat_group_by
 
 
 def test_compact():
@@ -52,6 +52,18 @@ def test_group_by():
         'Tel Aviv': [PEOPLE[1], PEOPLE[2]],
         'New York City': [PEOPLE[0]],
     }
+
+
+def test_flat_group_by():
+    iteratee = lambda person: person.get("location")
+    groups = flat_group_by(iteratee, PEOPLE)
+    # Order of groups is not expected. Sort by location
+    sorted_groups = sorted(groups, key=lambda entry: entry[0])
+    assert sorted_groups == [
+        ('New York City', PEOPLE[0]),
+        ('Tel Aviv', PEOPLE[1]),
+        ('Tel Aviv', PEOPLE[2]),
+    ]
 
 
 def test_key_by():
