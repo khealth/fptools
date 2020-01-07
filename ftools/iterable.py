@@ -4,11 +4,22 @@ from itertools import tee
 from collections.abc import Iterable
 from operator import add
 from cardinality import count
-from typing import Iterable, TypeVar, Callable, Optional, Union, Dict, List, Hashable, Tuple, Set
+from typing import (
+    Iterable,
+    TypeVar,
+    Callable,
+    Optional,
+    Union,
+    Dict,
+    List,
+    Hashable,
+    Tuple,
+    Set,
+)
 from .callable import curry
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def compact(iterable: Iterable[T]) -> Iterable[T]:
@@ -78,7 +89,7 @@ def flatten(iterable: Iterable[Union[T, Iterable[T]]]) -> Iterable[T]:
             yield item
 
 
-G = TypeVar('G')
+G = TypeVar("G")
 
 
 @curry
@@ -113,13 +124,15 @@ class FlatGroupBy(Iterable[Tuple[G, T]]):
             for group, items in group_by(self.iteratee, self.iterable).items()
             for item in items
         )
-    
+
     def __repr__(self) -> str:
         return f"flat_group_by({self.iteratee}, {self.iterable})"
 
 
 @curry
-def flat_group_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Iterable[Tuple[G, T]]:
+def flat_group_by(
+    iteratee: Callable[[T], G], iterable: Iterable[T]
+) -> Iterable[Tuple[G, T]]:
     """
     Creates an iterable of tuples of group and item generated from the results of running each element of iterable thru iteratee.
     The order of grouped values is determined by the order they occur in iterable. The iteratee is invoked with one argument: (value).
@@ -155,11 +168,13 @@ def _get_repeating(iterable):
             visited = {*visited, item}
 
 
-HashableItem = TypeVar('HashableItem', bound=Hashable)
+HashableItem = TypeVar("HashableItem", bound=Hashable)
 
 
 @curry
-def intersection(source: Iterable[HashableItem], target: Iterable[HashableItem]) -> Iterable[HashableItem]:
+def intersection(
+    source: Iterable[HashableItem], target: Iterable[HashableItem]
+) -> Iterable[HashableItem]:
     """
     Creates an iterable of unique values that are included in given source and target iterables using hash() for
     comparisons. The order and references of result values are determined by the first iterable.
@@ -167,11 +182,13 @@ def intersection(source: Iterable[HashableItem], target: Iterable[HashableItem])
     return _get_repeating((*source, *target))
 
 
-Identity = TypeVar('Identity')
+Identity = TypeVar("Identity")
 
 
 @curry
-def chunk_by(predicate: Callable[[T, int], Identity], iterable: Iterable[T]) -> Iterable[Tuple[T, ...]]:
+def chunk_by(
+    predicate: Callable[[T, int], Identity], iterable: Iterable[T]
+) -> Iterable[Tuple[T, ...]]:
     last_identity = None
     current_chunk: Tuple[T, ...] = tuple()
     for index, item in enumerate(iterable):
@@ -197,12 +214,12 @@ def chunk(size: int, iterable: Iterable[T]) -> Iterable[Tuple[T, ...]]:
 
 
 def uniq(iterable: Iterable[T]) -> Iterable[T]:
-    '''
+    """
     Returns a duplicate-free version of an iterable, using hash for equality
     comparisons, in which only the first occurrence of each element is kept.
     The order of result values is determined by the order they occur in the
     iterable.
-    '''
+    """
     seen: Set[T] = set()
     for item in iterable:
         if item in seen:
@@ -215,12 +232,12 @@ Key = TypeVar("Key", bound=Hashable)
 
 
 def uniq_by(key: Callable[[T], Key], iterable: Iterable[T]) -> Iterable[T]:
-    '''
+    """
     This function is like uniq except that it accepts iteratee which is invoked
     for each element in array to generate the criterion by which uniqueness is
     computed. The order of result values is determined by the order they occur
     in the array. The iteratee is invoked with one argument: (value).
-    '''
+    """
     seen: Set[Key] = set()
     for item in iterable:
         k = key(item)

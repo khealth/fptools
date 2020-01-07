@@ -1,27 +1,41 @@
 import warnings
 from functools import partial
 
-from ftools.callable import fullname, rename, identity, deprecated, curry, currymethod, flow, noop, constant, graceful
+from ftools.callable import (
+    fullname,
+    rename,
+    identity,
+    deprecated,
+    curry,
+    currymethod,
+    flow,
+    noop,
+    constant,
+    graceful,
+)
 
 
 def test_fullname():
-    assert fullname(partial) == 'functools.partial'
+    assert fullname(partial) == "functools.partial"
 
 
 def test_rename():
-    @rename('g')
+    @rename("g")
     def f(x):
         return x
-    assert f.__name__ == 'g'
+
+    assert f.__name__ == "g"
 
 
 def test_identity():
     assert identity(1) == 1
 
+
 def test_deprecated():
     @deprecated
     def f(x):
         return x
+
     with warnings.catch_warnings(record=True) as w:
         warnings.simplefilter("always")
         f(42)
@@ -34,7 +48,7 @@ def test_curry():
     def f(x):
         return x * 2
 
-    assert curry(f).__name__ is 'f'
+    assert curry(f).__name__ is "f"
     assert curry(f)(2) is 4
 
     def g(x, y):
@@ -53,6 +67,7 @@ def test_curry():
     assert h(1)(2, z=3) == 6
     assert h(1, z=3)(2) == 6
 
+
 def test_currymethod():
     class A:
         @currymethod
@@ -70,10 +85,7 @@ def test_currymethod():
 
 
 def test_flow():
-    f = flow((
-        lambda n: n * 2,
-        str,
-    ))
+    f = flow((lambda n: n * 2, str,))
     assert f(4) == str(4 * 2)
 
 
@@ -89,7 +101,8 @@ def test_constant():
 
 def test_graceful():
     def f():
-        raise RuntimeError('Check check, 1, 1')
+        raise RuntimeError("Check check, 1, 1")
+
     graceful_f = graceful(f)
     try:
         f()

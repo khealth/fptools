@@ -3,8 +3,19 @@
 import operator
 from collections.abc import Mapping, Iterable
 from copy import copy
-from typing import TypeVar, Union, Iterable as IterableT, Callable, MutableSequence, Mapping, MutableMapping, Generator, \
-    Tuple, Hashable, Sequence
+from typing import (
+    TypeVar,
+    Union,
+    Iterable as IterableT,
+    Callable,
+    MutableSequence,
+    Mapping,
+    MutableMapping,
+    Generator,
+    Tuple,
+    Hashable,
+    Sequence,
+)
 from cardinality import count
 from .callable import curry
 from .iterable import head
@@ -13,12 +24,15 @@ from .mapping import pick as mapping_pick
 
 # This is actually Mapping x Iterable / str
 Item = Union[Hashable, int]
-K = TypeVar('K')
-V = TypeVar('V')
-Collection = Union[Mapping[Item, Union['Collection', V]],
-                   IterableT[Union['Collection', V]]]
-MutableCollection = Union[MutableMapping[K, Union['MutableCollection', V]],
-                          MutableSequence[Union['MutableCollection', V]]]
+K = TypeVar("K")
+V = TypeVar("V")
+Collection = Union[
+    Mapping[Item, Union["Collection", V]], IterableT[Union["Collection", V]]
+]
+MutableCollection = Union[
+    MutableMapping[K, Union["MutableCollection", V]],
+    MutableSequence[Union["MutableCollection", V]],
+]
 
 RawPath = Union[Item, Sequence[Item]]
 Path = Sequence[Item]
@@ -72,7 +86,9 @@ def _safe_setitem(item, value, collection):
 
 
 @curry
-def setitem(path: RawPath, value: V, collection: MutableCollection) -> MutableCollection:
+def setitem(
+    path: RawPath, value: V, collection: MutableCollection
+) -> MutableCollection:
     """
     Sets the value at path of collection. If a portion of path doesn't exist, it's created.
     """
@@ -114,7 +130,9 @@ def delitem(path: RawPath, collection: MutableCollection) -> MutableCollection:
 
 
 @curry
-def update(path: RawPath, modifier: Callable[[V], V], collection: MutableCollection) -> MutableCollection:
+def update(
+    path: RawPath, modifier: Callable[[V], V], collection: MutableCollection
+) -> MutableCollection:
     """
     This method is like set except that accepts updater to produce the value to set.
     """
@@ -122,7 +140,9 @@ def update(path: RawPath, modifier: Callable[[V], V], collection: MutableCollect
     return setitem(path, modifier(value), collection)
 
 
-def branches(collection: Collection) -> Generator[Tuple[Path, Union[Collection, V]], None, None]:
+def branches(
+    collection: Collection,
+) -> Generator[Tuple[Path, Union[Collection, V]], None, None]:
     """
     Iterates each path and value pair of the collection and it's descendent collections
     """
@@ -135,8 +155,7 @@ def branches(collection: Collection) -> Generator[Tuple[Path, Union[Collection, 
 
     for key, value in iterator:
         yield (key,), value
-        if isinstance(value,
-                      (Mapping, Iterable)) and not isinstance(value, str):
+        if isinstance(value, (Mapping, Iterable)) and not isinstance(value, str):
             for path, subvalue in branches(value):
                 yield (key,) + path, subvalue
 
@@ -146,8 +165,7 @@ def leaves(collection: Collection) -> Generator[Tuple[Path, V], None, None]:
     Like branches() but only yields non collection values
     """
     for keys, value in branches(collection):
-        if not isinstance(value,
-                          (Mapping, Iterable)) or isinstance(value, str):
+        if not isinstance(value, (Mapping, Iterable)) or isinstance(value, str):
             yield keys, value
 
 
@@ -187,4 +205,3 @@ def pick(paths: IterableT[RawPath], collection: Collection) -> Collection:
     """
     path_tree = _create_path_tree(paths)
     return _pick(path_tree, collection)
-

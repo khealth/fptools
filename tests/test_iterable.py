@@ -1,5 +1,21 @@
 import pytest
-from ftools.iterable import compact, head, find, find_index, mean, flatten, group_by, intersection, chunk_by, chunk, uniq, key_by, uniq_by, flat_group_by, index_of
+from ftools.iterable import (
+    compact,
+    head,
+    find,
+    find_index,
+    mean,
+    flatten,
+    group_by,
+    intersection,
+    chunk_by,
+    chunk,
+    uniq,
+    key_by,
+    uniq_by,
+    flat_group_by,
+    index_of,
+)
 
 
 def test_compact():
@@ -7,37 +23,26 @@ def test_compact():
 
 
 def test_head():
-    assert head((1, )) is 1
+    assert head((1,)) is 1
     assert head(()) is None
 
 
 PEOPLE = (
-    {
-        'name': 'Alon',
-        'location': 'New York City'
-    },
-    {
-        'name': 'Lior',
-        'location': 'Tel Aviv'
-    },
-    {
-        'name': 'Ariel',
-        'location': 'Tel Aviv'
-    },
-    {
-        'name': 'Aviv'
-    }
+    {"name": "Alon", "location": "New York City"},
+    {"name": "Lior", "location": "Tel Aviv"},
+    {"name": "Ariel", "location": "Tel Aviv"},
+    {"name": "Aviv"},
 )
 
 
 def test_find():
-    assert find(lambda person: person['name'] == 'Alon', PEOPLE) is PEOPLE[0]
-    assert find(lambda person: person['name'] == 'Iddan', PEOPLE) is None
+    assert find(lambda person: person["name"] == "Alon", PEOPLE) is PEOPLE[0]
+    assert find(lambda person: person["name"] == "Iddan", PEOPLE) is None
 
 
 def test_find_index():
-    assert find_index(lambda person: person['name'] == 'Alon', PEOPLE) is 0
-    assert find_index(lambda person: person['name'] == 'Iddan', PEOPLE) is None
+    assert find_index(lambda person: person["name"] == "Alon", PEOPLE) is 0
+    assert find_index(lambda person: person["name"] == "Iddan", PEOPLE) is None
 
 
 def test_mean():
@@ -49,9 +54,9 @@ def test_flatten():
 
 
 def test_group_by():
-    assert group_by(lambda person: person.get('location'), PEOPLE) == {
-        'Tel Aviv': [PEOPLE[1], PEOPLE[2]],
-        'New York City': [PEOPLE[0]],
+    assert group_by(lambda person: person.get("location"), PEOPLE) == {
+        "Tel Aviv": [PEOPLE[1], PEOPLE[2]],
+        "New York City": [PEOPLE[0]],
     }
 
 
@@ -61,32 +66,34 @@ def test_flat_group_by():
     # Order of groups is not expected. Sort by location
     sorted_groups = sorted(groups, key=lambda entry: entry[0])
     assert sorted_groups == [
-        ('New York City', PEOPLE[0]),
-        ('Tel Aviv', PEOPLE[1]),
-        ('Tel Aviv', PEOPLE[2]),
+        ("New York City", PEOPLE[0]),
+        ("Tel Aviv", PEOPLE[1]),
+        ("Tel Aviv", PEOPLE[2]),
     ]
 
 
 def test_key_by():
-    assert key_by(lambda person: person.get('location'), PEOPLE) == {
-        'Tel Aviv': PEOPLE[2],
-        'New York City': PEOPLE[0],
+    assert key_by(lambda person: person.get("location"), PEOPLE) == {
+        "Tel Aviv": PEOPLE[2],
+        "New York City": PEOPLE[0],
     }
 
 
 def test_intersection():
-    assert tuple(intersection((1, 2), (2, 3))) == (2, )
+    assert tuple(intersection((1, 2), (2, 3))) == (2,)
 
 
 def test_chunk_by():
-    assert tuple(
-        chunk_by(lambda item, index: item % 10,
-                 (10, 20, 15, 25, 30))) == ((10, 20), (15, 25), (30, ))
+    assert tuple(chunk_by(lambda item, index: item % 10, (10, 20, 15, 25, 30))) == (
+        (10, 20),
+        (15, 25),
+        (30,),
+    )
 
 
 def test_chunk():
     assert tuple(chunk(2, (1, 2, 3, 4))) == ((1, 2), (3, 4))
-    assert tuple(chunk(2, (1, 2, 3, 4, 5))) == ((1, 2), (3, 4), (5, ))
+    assert tuple(chunk(2, (1, 2, 3, 4, 5))) == ((1, 2), (3, 4), (5,))
 
 
 def test_uniq():
@@ -99,12 +106,14 @@ def test_uniq_by():
     assert tuple(uniq_by(lambda item: item % 2, (1, 2, 2, 3))) == (1, 2)
 
 
-@pytest.mark.parametrize("iterable, item, index", (
-    pytest.param(range(0, 100), 0, 0),
-    pytest.param(range(0, 100), 1, 1),
-    pytest.param(["a", "b", "c"], "a", 0),
-    pytest.param(["a", "b", "c"], "b", 1),
-))
+@pytest.mark.parametrize(
+    "iterable, item, index",
+    (
+        pytest.param(range(0, 100), 0, 0),
+        pytest.param(range(0, 100), 1, 1),
+        pytest.param(["a", "b", "c"], "a", 0),
+        pytest.param(["a", "b", "c"], "b", 1),
+    ),
+)
 def test_index_of(iterable, item, index):
     assert index == index_of(item, iterable)
-

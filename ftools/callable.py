@@ -13,10 +13,10 @@ def fullname(func: Callable) -> str:
     module = getmodule(func)
     if module is None:
         return func.__name__
-    return '.'.join((module.__name__, func.__name__))
+    return ".".join((module.__name__, func.__name__))
 
 
-T = TypeVar('T', bound=Callable)
+T = TypeVar("T", bound=Callable)
 
 
 def rename(new_name: str) -> Callable[[T], T]:
@@ -46,10 +46,10 @@ def deprecated(func: T) -> T:
 
     @wraps(func)
     def decorated(*args, **kwargs):
-        warnings.warn(f'{func_name} is deprecated', DeprecationWarning)
+        warnings.warn(f"{func_name} is deprecated", DeprecationWarning)
         return func(*args, **kwargs)
 
-    return decorated # type: ignore
+    return decorated  # type: ignore
 
 
 def curry(_callable: Callable):
@@ -64,8 +64,13 @@ def curry(_callable: Callable):
 
     for name, parameter in _signature.parameters.items():
         if parameter.kind is Parameter.VAR_POSITIONAL:
-            raise TypeError('Curry can not be applied on a function with var positional parameters (*args)')
-        if parameter.kind is not Parameter.VAR_KEYWORD and parameter.default is Parameter.empty:
+            raise TypeError(
+                "Curry can not be applied on a function with var positional parameters (*args)"
+            )
+        if (
+            parameter.kind is not Parameter.VAR_KEYWORD
+            and parameter.default is Parameter.empty
+        ):
             required_params.add(name)
 
     @wraps(_callable)
@@ -78,7 +83,7 @@ def curry(_callable: Callable):
     return curried
 
 
-O = TypeVar('O', bound=object)
+O = TypeVar("O", bound=object)
 
 
 class currymethod:
@@ -95,7 +100,10 @@ class currymethod:
         # Should have used find() but it's a loop dependency
         self_param: Parameter
         for parameter in _signature.parameters.values():
-            if parameter.kind in {Parameter.POSITIONAL_ONLY, Parameter.POSITIONAL_OR_KEYWORD}:
+            if parameter.kind in {
+                Parameter.POSITIONAL_ONLY,
+                Parameter.POSITIONAL_OR_KEYWORD,
+            }:
                 self_param = parameter
                 break
 
@@ -103,8 +111,13 @@ class currymethod:
 
         for name, parameter in _signature.parameters.items():
             if parameter.kind is Parameter.VAR_POSITIONAL:
-                raise TypeError('Curry can not be applied on a function with var positional parameters (*args)')
-            if parameter.kind is not Parameter.VAR_KEYWORD and parameter.default is Parameter.empty:
+                raise TypeError(
+                    "Curry can not be applied on a function with var positional parameters (*args)"
+                )
+            if (
+                parameter.kind is not Parameter.VAR_KEYWORD
+                and parameter.default is Parameter.empty
+            ):
                 required_params.add(name)
 
         @wraps(method)
@@ -140,10 +153,10 @@ def noop(*_, **__) -> None:
     return None
 
 
-Value = TypeVar('Value')
+Value = TypeVar("Value")
 
 
-def constant(value: Value ) -> Callable[..., Value]:
+def constant(value: Value) -> Callable[..., Value]:
     """
     Creates a function that returns value.
     """
@@ -165,7 +178,9 @@ def graceful(func: T) -> T:
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            getLogger().error(f'An error has been raised while executing {func.__name__}: ' + repr(e))
+            getLogger().error(
+                f"An error has been raised while executing {func.__name__}: " + repr(e)
+            )
             return None
 
-    return wrapped # type: ignore
+    return wrapped  # type: ignore

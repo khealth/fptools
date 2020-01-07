@@ -56,16 +56,14 @@ def _get_documentation_for_module(module) -> ModuleDoc:
 
     member_docs = [
         _get_doc(name, member)
-        for name, member
-        in _get_module_members(module)
-        if not isinstance(member, TypeVar) and not name.startswith('_')
+        for name, member in _get_module_members(module)
+        if not isinstance(member, TypeVar) and not name.startswith("_")
     ]
 
     if is_pkg:
         submodule_docs = [
             _get_documentation_for_module(submodule)
-            for submodule
-            in _iter_submodules(module)
+            for submodule in _iter_submodules(module)
         ]
         member_docs = [*submodule_docs, *member_docs]
 
@@ -83,13 +81,14 @@ def _get_doc(name: str, obj) -> Doc:
 
     if inspect.isclass(obj):
         mro = inspect.getmro(obj)[1:]
-        mro_cls_members = [(name, member) for cls in mro for name, member in inspect.getmembers(cls)]
+        mro_cls_members = [
+            (name, member) for cls in mro for name, member in inspect.getmembers(cls)
+        ]
         cls_members = inspect.getmembers(type(type(obj)))
         mro_members = mro_cls_members + cls_members
         members = [
             Doc(name, None)
-            for name, member
-            in inspect.getmembers(obj)
+            for name, member in inspect.getmembers(obj)
             if (name, member) not in mro_members
         ]
         return ClassDoc(name, doc, members)
@@ -100,14 +99,14 @@ def _get_doc(name: str, obj) -> Doc:
     return Doc(name, doc)
 
 
-def _iter_submodules(module: _ModuleTypeWithPath) -> Generator[_ModuleTypeWithPath, None, None]:
+def _iter_submodules(
+    module: _ModuleTypeWithPath,
+) -> Generator[_ModuleTypeWithPath, None, None]:
     """
     Iterate through all submodules of given module
     """
     submodule_names = [
-        modname
-        for importer, modname, ispkg
-        in pkgutil.iter_modules(module.__path__)
+        modname for importer, modname, ispkg in pkgutil.iter_modules(module.__path__)
     ]
     with_submodules = __import__(module.__name__, fromlist=submodule_names)
     for name in submodule_names:

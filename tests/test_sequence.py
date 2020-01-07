@@ -10,6 +10,7 @@ class NoInitMutableSequence(MutableSequence):
     """
     Test sequence is a sequence that can 
     """
+
     def __init__(self, *items):
         if len(items) == 0:
             raise TypeError
