@@ -17,6 +17,7 @@ pytest = "^5.3"
 pytest-cov = "^2.8"
 pytest-xdist = "^1.30"
 rope = "^0.14.0"
+black = "^19.10b0"
 
 [build-system]
 requires = ["poetry>=1.0.0"]
