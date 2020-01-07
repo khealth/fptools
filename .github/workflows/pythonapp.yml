@@ -17,7 +17,8 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install;
+          source $HOME/.poetry/env;
       - name: Check formatting with Black
         run: |
           poetry run black --check .
