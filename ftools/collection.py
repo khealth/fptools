@@ -5,7 +5,7 @@ Utilities for collection
 # A collection in this context is Mapping or Iterable that is not a str
 
 import operator
-from collections.abc import Mapping, Iterable
+from collections import abc
 from copy import copy
 from typing import (
     TypeVar,
@@ -46,7 +46,7 @@ def to_path(path: RawPath) -> Path:
     """
     Converts value to a property path tuple.
     """
-    if isinstance(path, Iterable):
+    if isinstance(path, abc.Iterable):
         if isinstance(path, str):
             return (path,)
         return path
@@ -70,6 +70,9 @@ def getitem(path: RawPath, collection: Collection) -> V:
 
 @curry
 def hasitem(path: RawPath, collection: Collection) -> bool:
+    """
+    Returns whether path exists in collection
+    """
     path = to_path(path)
     value = collection
     for key in path:
@@ -123,6 +126,9 @@ def setitem(
 
 @curry
 def delitem(path: RawPath, collection: MutableCollection) -> MutableCollection:
+    """
+    Deletes given path from collection
+    """
     path = to_path(path)
     clone = copy(collection)
     key = head(path)
@@ -152,14 +158,14 @@ def branches(
     """
     from .mapping import items
 
-    if isinstance(collection, Mapping):
+    if isinstance(collection, abc.Mapping):
         iterator = items(collection)
-    elif isinstance(collection, Iterable):
+    elif isinstance(collection, abc.Iterable):
         iterator = enumerate(collection)
 
     for key, value in iterator:
         yield (key,), value
-        if isinstance(value, (Mapping, Iterable)) and not isinstance(value, str):
+        if isinstance(value, (abc.Mapping, abc.Iterable)) and not isinstance(value, str):
             for path, subvalue in branches(value):
                 yield (key,) + path, subvalue
 
@@ -169,18 +175,18 @@ def leaves(collection: Collection) -> Generator[Tuple[Path, V], None, None]:
     Like branches() but only yields non collection values
     """
     for keys, value in branches(collection):
-        if not isinstance(value, (Mapping, Iterable)) or isinstance(value, str):
+        if not isinstance(value, (abc.Mapping, abc.Iterable)) or isinstance(value, str):
             yield keys, value
 
 
 def _pick(path_tree, collection):
     items = path_tree.keys()
-    if isinstance(collection, Sequence):
+    if isinstance(collection, abc.Sequence):
         next_collection = sequence_pick(items, collection)
         for i, item in enumerate(sorted(items)):
             if isinstance(path_tree[item], dict):
                 next_collection[i] = _pick(path_tree[item], next_collection[i])
-    elif isinstance(collection, Mapping):
+    elif isinstance(collection, abc.Mapping):
         next_collection = mapping_pick(items, collection)
         for item in items:
             if isinstance(path_tree[item], dict):

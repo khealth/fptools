@@ -28,9 +28,9 @@ def rename(new_name: str) -> Callable[[T], T]:
     Set a new name for a function
     """
 
-    def decorator(f: T) -> T:
-        f.__name__ = new_name
-        return f
+    def decorator(func: T) -> T:
+        func.__name__ = new_name
+        return func
 
     return decorator
 

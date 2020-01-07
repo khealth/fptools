@@ -189,6 +189,10 @@ Identity = TypeVar("Identity")
 def chunk_by(
     predicate: Callable[[T, int], Identity], iterable: Iterable[T]
 ) -> Iterable[Tuple[T, ...]]:
+    """
+    Creates an iterable of chunks of iterable defined by the identity returned
+    by given predicate function
+    """
     last_identity = None
     current_chunk: Tuple[T, ...] = tuple()
     for index, item in enumerate(iterable):
