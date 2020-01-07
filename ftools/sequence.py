@@ -1,3 +1,7 @@
+"""
+Utilities for sequences
+"""
+
 from typing import TypeVar, Sequence, MutableSequence, Iterable, Optional
 from copy import copy
 

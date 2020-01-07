@@ -1,3 +1,7 @@
+"""
+Utilities for iterables
+"""
+
 from dataclasses import dataclass
 from functools import reduce
 from itertools import tee
@@ -55,8 +59,8 @@ def find(comparator: Callable[[T], bool], iterable: Iterable[T]) -> Optional[T]:
 @curry
 def find_index(comparator: Callable[[T], bool], iterable: Iterable[T]) -> Optional[int]:
     """
-    This method is like find() except that it returns the index of the first element predicate returns truthy for
-    instead of the element itself.
+    This method is like find() except that it returns the index of the first element predicate
+    returns truthy for instead of the element itself.
     """
     index = 0
     for item in iterable:
@@ -95,9 +99,11 @@ G = TypeVar("G")
 @curry
 def group_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List[T]]:
     """
-    Creates a dict composed of keys generated from the results of running each element of iterable thru iteratee.
-    The order of grouped values is determined by the order they occur in iterable. The corresponding value of each key
-    is a list of elements responsible for generating the key. The iteratee is invoked with one argument: (value).
+    Creates a dict composed of keys generated from the results of running each
+    element of iterable thru iteratee. The order of grouped values is determined
+    by the order they occur in iterable. The corresponding value of each key is
+    a list of elements responsible for generating the key. The iteratee is
+    invoked with one argument: (value).
     """
     groups: Dict[G, List[T]] = {}
 
@@ -134,19 +140,21 @@ def flat_group_by(
     iteratee: Callable[[T], G], iterable: Iterable[T]
 ) -> Iterable[Tuple[G, T]]:
     """
-    Creates an iterable of tuples of group and item generated from the results of running each element of iterable thru iteratee.
-    The order of grouped values is determined by the order they occur in iterable. The iteratee is invoked with one argument: (value).
-    Like group_by but returns an iterable of tuples of group and item.
-    Resembles SQL's group_by().
+    Creates an iterable of tuples of group and item generated from the results
+    of running each element of iterable thru iteratee. The order of grouped
+    values is determined by the order they occur in iterable. The iteratee is
+    invoked with one argument: (value). Like group_by but returns an iterable of
+    tuples of group and item. Resembles SQL's group_by().
     """
     return FlatGroupBy(iteratee, iterable)
 
 
 def key_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, T]:
     """
-    Creates a dictionary composed of keys generated from the results of running each element of iterable thru iteratee.
-    The corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked
-    with one argument: (value).
+    Creates a dictionary composed of keys generated from the results of running
+    each element of iterable thru iteratee. The corresponding value of each key
+    is the last element responsible for generating the key. The iteratee is
+    invoked with one argument: (value).
     """
     keyed = {}
 
@@ -176,8 +184,9 @@ def intersection(
     source: Iterable[HashableItem], target: Iterable[HashableItem]
 ) -> Iterable[HashableItem]:
     """
-    Creates an iterable of unique values that are included in given source and target iterables using hash() for
-    comparisons. The order and references of result values are determined by the first iterable.
+    Creates an iterable of unique values that are included in given source and
+    target iterables using hash() for comparisons. The order and references of
+    result values are determined by the first iterable.
     """
     return _get_repeating((*source, *target))
 

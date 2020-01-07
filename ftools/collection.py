@@ -1,3 +1,7 @@
+"""
+Utilities for collection
+"""
+
 # A collection in this context is Mapping or Iterable that is not a str
 
 import operator

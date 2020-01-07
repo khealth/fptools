@@ -1,3 +1,7 @@
+"""
+Utilities for callables
+"""
+
 import warnings
 from typing import Callable, TypeVar, Iterable
 from inspect import signature, Parameter
