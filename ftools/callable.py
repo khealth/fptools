@@ -1,10 +1,9 @@
 import warnings
-from typing import Callable, TypeVar, Union, Any, Iterable
+from typing import Callable, TypeVar, Iterable
 from inspect import signature, Parameter
 from functools import reduce, partial, wraps
 from inspect import getmodule
 from logging import getLogger
-from mypy_extensions import VarArg, KwArg
 
 
 def fullname(func: Callable) -> str:
@@ -134,7 +133,7 @@ def flow(funcs: Iterable[Callable], value):
     return reduce(lambda acc, func: func(acc), funcs, value)
 
 
-def noop(*args, **kwargs) -> None:
+def noop(*_, **__) -> None:
     """
     This method returns None
     """
@@ -149,7 +148,7 @@ def constant(value: Value ) -> Callable[..., Value]:
     Creates a function that returns value.
     """
 
-    def constant_func(*args, **kwargs):
+    def constant_func(*_, **__):
         return value
 
     return constant_func

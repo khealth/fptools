@@ -1,4 +1,4 @@
-from typing import Generic, Mapping, MutableMapping, TypeVar, Generator, Tuple, Iterable, Hashable, Callable, Optional, cast, Union
+from typing import Generic, Mapping, MutableMapping, TypeVar, Generator, Tuple, Iterable, Callable, Optional, cast, Union
 from copy import copy
 from collections.abc import ItemsView
 from .callable import curry
