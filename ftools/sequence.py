@@ -5,7 +5,7 @@ Utilities for sequences
 from typing import TypeVar, Sequence, MutableSequence, Iterable, Optional
 from copy import copy
 
-T = TypeVar("T")
+T = TypeVar("T") #pylint: disable=invalid-name
 
 
 def create_empty(sequence: MutableSequence[T]) -> MutableSequence[T]:

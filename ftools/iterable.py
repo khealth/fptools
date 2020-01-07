@@ -14,7 +14,7 @@ from cardinality import count
 
 from .callable import curry
 
-T = TypeVar("T")
+T = TypeVar("T") #pylint: disable=invalid-name
 
 
 def compact(iterable: Iterable[T]) -> Iterable[T]:
@@ -84,7 +84,7 @@ def flatten(iterable: Iterable[Union[T, Iterable[T]]]) -> Iterable[T]:
             yield item
 
 
-G = TypeVar("G")
+G = TypeVar("G") #pylint: disable=invalid-name
 
 
 @curry
@@ -112,6 +112,9 @@ def group_by(iteratee: Callable[[T], G], iterable: Iterable[T]) -> Dict[G, List[
 
 @dataclass
 class FlatGroupBy(Iterable[Tuple[G, T]]):
+    """
+    The iterable object returned by flat_group_by()
+    """
     iteratee: Callable[[T], G]
     iterable: Iterable[T]
 

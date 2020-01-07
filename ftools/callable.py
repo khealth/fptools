@@ -3,11 +3,10 @@ Utilities for callables
 """
 
 import warnings
-from typing import Callable, TypeVar, Iterable
-from inspect import signature, Parameter
-from functools import reduce, partial, wraps
-from inspect import getmodule
+from functools import partial, reduce, wraps
+from inspect import Parameter, getmodule, signature
 from logging import getLogger
+from typing import Callable, Iterable, Type, TypeVar
 
 
 def fullname(func: Callable) -> str:
@@ -20,7 +19,7 @@ def fullname(func: Callable) -> str:
     return ".".join((module.__name__, func.__name__))
 
 
-T = TypeVar("T", bound=Callable)
+T = TypeVar("T", bound=Callable) #pylint: disable=invalid-name
 
 
 def rename(new_name: str) -> Callable[[T], T]:
@@ -87,10 +86,10 @@ def curry(_callable: Callable):
     return curried
 
 
-O = TypeVar("O", bound=object)
+O = TypeVar("O", bound=object) #pylint: disable=invalid-name
 
 
-class currymethod:
+class currymethod: #pylint: disable=too-few-public-methods,invalid-name
     """
     Like curry but if the method was executed as a static method it will accept self as the last
     argument.
@@ -171,7 +170,7 @@ def constant(value: Value) -> Callable[..., Value]:
     return constant_func
 
 
-def graceful(func: T) -> T:
+def graceful(func: T, exception_type: Type[Exception] = Exception) -> T:
     """
     Creates a functions that returns the result of invoking the given function or None if
     it raised an exception.
@@ -181,9 +180,9 @@ def graceful(func: T) -> T:
     def wrapped(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except Exception as e:
+        except exception_type as exception: # pylint: disable=broad-except
             getLogger().error(
-                f"An error has been raised while executing {func.__name__}: " + repr(e)
+                f"An exception has been raised while executing {func.__name__}: " + repr(exception)
             )
             return None
 

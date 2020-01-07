@@ -20,9 +20,9 @@ from collections.abc import ItemsView
 from .callable import curry
 
 
-M = TypeVar("M", bound=MutableMapping)
-K = TypeVar("K")
-V = TypeVar("V")
+M = TypeVar("M", bound=MutableMapping) #pylint: disable=invalid-name
+K = TypeVar("K") #pylint: disable=invalid-name
+V = TypeVar("V") #pylint: disable=invalid-name
 K2 = TypeVar("K2")
 V2 = TypeVar("V2")
 
@@ -41,7 +41,7 @@ def extract(*keys: K, **aliases: K2):
     in the mapping and values for keys listed in aliases under the parameter
     names provided
     """
-    from .collection import getitem # pylint: disable=cyclic-import
+    from .collection import getitem # pylint: disable=cyclic-import,import-outside-toplevel
 
     def extractor(mapping: Mapping[K, V]) -> Mapping[Union[K, str], V2]:
         return {
@@ -114,14 +114,14 @@ def is_dict(value):
     return isinstance(value, dict)
 
 
-class items(ItemsView, Generic[K, V]): # pylint: disable=invalid-name
+class items(ItemsView, Generic[K, V]): # pylint: disable=invalid-name,too-many-ancestors
     """
     Mapping.items() for Mapping like objects that don't implement items()
     """
 
     _mapping: Mapping[K, V]
 
-    def __init__(self, mapping: Mapping[K, V]):
+    def __init__(self, mapping: Mapping[K, V]): # pylint: disable=super-init-not-called
         self._mapping = mapping
 
     def __len__(self):
