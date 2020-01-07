@@ -9,13 +9,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
     - name: Install dependencies
-      run: |
-        poetry install
+      uses: abatilo/actions-poetry@v1.1.0
+      with:
+        python: 3.8.0
+        poetry_version: 0.12.17
+        args: install
     - name: Check formatting with Black
       run: |
         poetry run black --check .
