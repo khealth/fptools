@@ -27,8 +27,24 @@ poetry config settings.virtualenvs.path .venv;
 poetry install;
 ```
 
-### Test
+#### Lint
+
+```bash
+poetry run pylint ftools;
+```
+
+#### Format
+
+```bash
+poetry run black .;
+```
+
+#### Test
 
 ```bash
 poetry run pytest;
 ```
+
+#### Publish new version
+
+Contact @iddan
