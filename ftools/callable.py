@@ -19,7 +19,7 @@ def fullname(func: Callable) -> str:
     return ".".join((module.__name__, func.__name__))
 
 
-T = TypeVar("T", bound=Callable) #pylint: disable=invalid-name
+T = TypeVar("T", bound=Callable)  # pylint: disable=invalid-name
 
 
 def rename(new_name: str) -> Callable[[T], T]:
@@ -86,10 +86,10 @@ def curry(_callable: Callable):
     return curried
 
 
-O = TypeVar("O", bound=object) #pylint: disable=invalid-name
+O = TypeVar("O", bound=object)  # pylint: disable=invalid-name
 
 
-class currymethod: #pylint: disable=too-few-public-methods,invalid-name
+class currymethod:  # pylint: disable=too-few-public-methods,invalid-name
     """
     Like curry but if the method was executed as a static method it will accept self as the last
     argument.
@@ -180,9 +180,10 @@ def graceful(func: T, exception_type: Type[Exception] = Exception) -> T:
     def wrapped(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except exception_type as exception: # pylint: disable=broad-except
+        except exception_type as exception:  # pylint: disable=broad-except
             getLogger().error(
-                f"An exception has been raised while executing {func.__name__}: " + repr(exception)
+                f"An exception has been raised while executing {func.__name__}: "
+                + repr(exception)
             )
             return None
 

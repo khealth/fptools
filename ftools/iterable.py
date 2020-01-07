@@ -7,14 +7,24 @@ from dataclasses import dataclass
 from functools import reduce
 from itertools import tee
 from operator import add
-from typing import (Callable, Dict, Hashable, Iterable, List, Optional, Set,
-                    Tuple, TypeVar, Union)
+from typing import (
+    Callable,
+    Dict,
+    Hashable,
+    Iterable,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    TypeVar,
+    Union,
+)
 
 from cardinality import count
 
 from .callable import curry
 
-T = TypeVar("T") #pylint: disable=invalid-name
+T = TypeVar("T")  # pylint: disable=invalid-name
 
 
 def compact(iterable: Iterable[T]) -> Iterable[T]:
@@ -84,7 +94,7 @@ def flatten(iterable: Iterable[Union[T, Iterable[T]]]) -> Iterable[T]:
             yield item
 
 
-G = TypeVar("G") #pylint: disable=invalid-name
+G = TypeVar("G")  # pylint: disable=invalid-name
 
 
 @curry
@@ -115,6 +125,7 @@ class FlatGroupBy(Iterable[Tuple[G, T]]):
     """
     The iterable object returned by flat_group_by()
     """
+
     iteratee: Callable[[T], G]
     iterable: Iterable[T]
 

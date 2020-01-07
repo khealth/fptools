@@ -28,8 +28,8 @@ from .mapping import pick as mapping_pick
 
 # This is actually Mapping x Iterable / str
 Item = Union[Hashable, int]
-K = TypeVar("K") #pylint: disable=invalid-name
-V = TypeVar("V") #pylint: disable=invalid-name
+K = TypeVar("K")  # pylint: disable=invalid-name
+V = TypeVar("V")  # pylint: disable=invalid-name
 Collection = Union[
     Mapping[Item, Union["Collection", V]], IterableT[Union["Collection", V]]
 ]
@@ -156,7 +156,7 @@ def branches(
     """
     Iterates each path and value pair of the collection and it's descendent collections
     """
-    from .mapping import items # pylint: disable=import-outside-toplevel
+    from .mapping import items  # pylint: disable=import-outside-toplevel
 
     if isinstance(collection, abc.Mapping):
         iterator = items(collection)
@@ -165,7 +165,9 @@ def branches(
 
     for key, value in iterator:
         yield (key,), value
-        if isinstance(value, (abc.Mapping, abc.Iterable)) and not isinstance(value, str):
+        if isinstance(value, (abc.Mapping, abc.Iterable)) and not isinstance(
+            value, str
+        ):
             for path, subvalue in branches(value):
                 yield (key,) + path, subvalue
 
