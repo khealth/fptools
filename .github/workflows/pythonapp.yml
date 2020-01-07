@@ -14,11 +14,10 @@ jobs:
           python-version: 3.8
       - name: Install Poetry
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+          pip install poetry
       - name: Install dependencies
         run: |
-          poetry install;
-          source $HOME/.poetry/env;
+          poetry install
       - name: Check formatting with Black
         run: |
           poetry run black --check .
