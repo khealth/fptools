@@ -2,26 +2,17 @@
 Utilities for iterables
 """
 
+from collections import abc
 from dataclasses import dataclass
 from functools import reduce
 from itertools import tee
-from collections.abc import Iterable
 from operator import add
-from cardinality import count
-from typing import (
-    Iterable,
-    TypeVar,
-    Callable,
-    Optional,
-    Union,
-    Dict,
-    List,
-    Hashable,
-    Tuple,
-    Set,
-)
-from .callable import curry
+from typing import (Callable, Dict, Hashable, Iterable, List, Optional, Set,
+                    Tuple, TypeVar, Union)
 
+from cardinality import count
+
+from .callable import curry
 
 T = TypeVar("T")
 
@@ -87,7 +78,7 @@ def flatten(iterable: Iterable[Union[T, Iterable[T]]]) -> Iterable[T]:
     Flattens iterable a single level deep.
     """
     for item in iterable:
-        if isinstance(item, Iterable):
+        if isinstance(item, abc.Iterable):
             yield from flatten(item)
         else:
             yield item

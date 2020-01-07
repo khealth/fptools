@@ -41,7 +41,7 @@ def extract(*keys: K, **aliases: K2):
     in the mapping and values for keys listed in aliases under the parameter
     names provided
     """
-    from .collection import getitem
+    from .collection import getitem # pylint: disable=cyclic-import
 
     def extractor(mapping: Mapping[K, V]) -> Mapping[Union[K, str], V2]:
         return {
@@ -114,7 +114,7 @@ def is_dict(value):
     return isinstance(value, dict)
 
 
-class items(ItemsView, Generic[K, V]):
+class items(ItemsView, Generic[K, V]): # pylint: disable=invalid-name
     """
     Mapping.items() for Mapping like objects that don't implement items()
     """
