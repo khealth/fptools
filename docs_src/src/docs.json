@@ -7,7 +7,7 @@
         {
             "type": "module",
             "name": "ftools.callable",
-            "doc": null,
+            "doc": "Utilities for callables",
             "is_pkg": false,
             "members": [
                 {
@@ -20,7 +20,7 @@
                     "type": "function",
                     "name": "curry",
                     "doc": "Creates a function that accepts arguments of func and either invokes func returning its result,\nif at least arity number of arguments have been provided, or returns a function that accepts\nthe remaining func arguments, and so on.",
-                    "signature": "(_callable: Callable[..., ~R]) -> Union[~R, Callable[..., Any]]"
+                    "signature": "(_callable: Callable)"
                 },
                 {
                     "type": "class",
@@ -91,7 +91,7 @@
                     "type": "function",
                     "name": "graceful",
                     "doc": "Creates a functions that returns the result of invoking the given function or None if\nit raised an exception.",
-                    "signature": "(func: ~T) -> ~T"
+                    "signature": "(func: ~T, exception_type: Type[Exception] = <class 'Exception'>) -> ~T"
                 },
                 {
                     "type": "function",
@@ -103,7 +103,7 @@
                     "type": "function",
                     "name": "noop",
                     "doc": "This method returns None",
-                    "signature": "(*args, **kwargs) -> None"
+                    "signature": "(*_, **__) -> None"
                 },
                 {
                     "type": "function",
@@ -112,12 +112,12 @@
                     "signature": "(new_name: str) -> Callable[[~T], ~T]"
                 }
             ],
-            "file": "/Users/iddan/fptools/ftools/callable.py"
+            "file": "/Users/iddan/ftools/ftools/callable.py"
         },
         {
             "type": "module",
             "name": "ftools.collection",
-            "doc": null,
+            "doc": "Utilities for collection",
             "is_pkg": false,
             "members": [
                 {
@@ -129,7 +129,7 @@
                 {
                     "type": "function",
                     "name": "delitem",
-                    "doc": null,
+                    "doc": "Deletes given path from collection",
                     "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
                 },
                 {
@@ -141,7 +141,7 @@
                 {
                     "type": "function",
                     "name": "hasitem",
-                    "doc": null,
+                    "doc": "Returns whether path exists in collection",
                     "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], collection: Union[Mapping[Union[Hashable, int], Union[ForwardRef('Collection'), ~V]], Iterable[Union[ForwardRef('Collection'), ~V]]]) -> bool"
                 },
                 {
@@ -175,14 +175,116 @@
                     "signature": "(path: Union[Hashable, int, Sequence[Union[Hashable, int]]], modifier: Callable[[~V], ~V], collection: Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]) -> Union[MutableMapping[~K, Union[ForwardRef('MutableCollection'), ~V]], MutableSequence[Union[ForwardRef('MutableCollection'), ~V]]]"
                 }
             ],
-            "file": "/Users/iddan/fptools/ftools/collection.py"
+            "file": "/Users/iddan/ftools/ftools/collection.py"
         },
         {
             "type": "module",
             "name": "ftools.iterable",
-            "doc": null,
+            "doc": "Utilities for iterables",
             "is_pkg": false,
             "members": [
+                {
+                    "type": "class",
+                    "name": "FlatGroupBy",
+                    "doc": "The iterable object returned by flat_group_by()",
+                    "members": [
+                        {
+                            "type": "object",
+                            "name": "__abstractmethods__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__annotations__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__class_getitem__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__dataclass_fields__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__dataclass_params__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__dict__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__doc__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__eq__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__hash__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__init__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__init_subclass__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__iter__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__module__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__orig_bases__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__parameters__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__repr__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__subclasshook__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "__weakref__",
+                            "doc": null
+                        },
+                        {
+                            "type": "object",
+                            "name": "_abc_impl",
+                            "doc": null
+                        }
+                    ]
+                },
                 {
                     "type": "function",
                     "name": "chunk",
@@ -192,7 +294,7 @@
                 {
                     "type": "function",
                     "name": "chunk_by",
-                    "doc": null,
+                    "doc": "Creates an iterable of chunks of iterable defined by the identity returned\nby given predicate function",
                     "signature": "(predicate: Callable[[~T, int], ~Identity], iterable: Iterable[~T]) -> Iterable[Tuple[~T, ...]]"
                 },
                 {
@@ -210,8 +312,14 @@
                 {
                     "type": "function",
                     "name": "find_index",
-                    "doc": "This method is like find() except that it returns the index of the first element predicate returns truthy for\ninstead of the element itself.",
+                    "doc": "This method is like find() except that it returns the index of the first element predicate\nreturns truthy for instead of the element itself.",
                     "signature": "(comparator: Callable[[~T], bool], iterable: Iterable[~T]) -> Union[int, NoneType]"
+                },
+                {
+                    "type": "function",
+                    "name": "flat_group_by",
+                    "doc": "Creates an iterable of tuples of group and item generated from the results\nof running each element of iterable thru iteratee. The order of grouped\nvalues is determined by the order they occur in iterable. The iteratee is\ninvoked with one argument: (value). Like group_by but returns an iterable of\ntuples of group and item. Resembles SQL's group_by().",
+                    "signature": "(iteratee: Callable[[~T], ~G], iterable: Iterable[~T]) -> Iterable[Tuple[~G, ~T]]"
                 },
                 {
                     "type": "function",
@@ -222,32 +330,38 @@
                 {
                     "type": "function",
                     "name": "group_by",
-                    "doc": "Creates an iterable composed of keys generated from the results of running each element of iterable thru iteratee.\nThe order of grouped values is determined by the order they occur in iterable. The corresponding value of each key\nis a list of elements responsible for generating the key. The iteratee is invoked with one argument: (value).",
-                    "signature": "(predicate: Callable[[~T], ~G], iterable: Iterable[~T]) -> Dict[~G, List[~T]]"
+                    "doc": "Creates a dict composed of keys generated from the results of running each\nelement of iterable thru iteratee. The order of grouped values is determined\nby the order they occur in iterable. The corresponding value of each key is\na list of elements responsible for generating the key. The iteratee is\ninvoked with one argument: (value).",
+                    "signature": "(iteratee: Callable[[~T], ~G], iterable: Iterable[~T]) -> Dict[~G, List[~T]]"
                 },
                 {
                     "type": "function",
                     "name": "head",
                     "doc": "Gets the first element of iterable.\nDefaults to None.",
-                    "signature": "(iterable: Iterable[~T]) -> ~T"
+                    "signature": "(iterable: Iterable[~T]) -> Union[~T, NoneType]"
+                },
+                {
+                    "type": "function",
+                    "name": "index_of",
+                    "doc": "Returns index of item in given iterable. Like list.index() but for any iterable",
+                    "signature": "(item: ~T, iterable: Iterable[~T]) -> Union[int, NoneType]"
                 },
                 {
                     "type": "function",
                     "name": "intersection",
-                    "doc": "Creates an iterable of unique values that are included in given source and target iterables using hash() for\ncomparisons. The order and references of result values are determined by the first iterable.",
+                    "doc": "Creates an iterable of unique values that are included in given source and\ntarget iterables using hash() for comparisons. The order and references of\nresult values are determined by the first iterable.",
                     "signature": "(source: Iterable[~HashableItem], target: Iterable[~HashableItem]) -> Iterable[~HashableItem]"
                 },
                 {
                     "type": "function",
                     "name": "key_by",
-                    "doc": "Creates a dictionary composed of keys generated from the results of running each element of iterable thru iteratee.\nThe corresponding value of each key is the last element responsible for generating the key. The iteratee is invoked\nwith one argument: (value).",
+                    "doc": "Creates a dictionary composed of keys generated from the results of running\neach element of iterable thru iteratee. The corresponding value of each key\nis the last element responsible for generating the key. The iteratee is\ninvoked with one argument: (value).",
                     "signature": "(iteratee: Callable[[~T], ~G], iterable: Iterable[~T]) -> Dict[~G, ~T]"
                 },
                 {
                     "type": "function",
                     "name": "mean",
                     "doc": "Computes the mean of the values in iterable.",
-                    "signature": "(iterable: Iterable[~T]) -> ~T"
+                    "signature": "(iterable: Iterable[~Number]) -> float"
                 },
                 {
                     "type": "function",
@@ -259,15 +373,15 @@
                     "type": "function",
                     "name": "uniq_by",
                     "doc": "This function is like uniq except that it accepts iteratee which is invoked\nfor each element in array to generate the criterion by which uniqueness is\ncomputed. The order of result values is determined by the order they occur\nin the array. The iteratee is invoked with one argument: (value).",
-                    "signature": "(key: Callable[[~T], Hashable], iterable: Iterable[~T]) -> Iterable[~T]"
+                    "signature": "(key: Callable[[~T], ~Key], iterable: Iterable[~T]) -> Iterable[~T]"
                 }
             ],
-            "file": "/Users/iddan/fptools/ftools/iterable.py"
+            "file": "/Users/iddan/ftools/ftools/iterable.py"
         },
         {
             "type": "module",
             "name": "ftools.mapping",
-            "doc": null,
+            "doc": "Utilities for mappings",
             "is_pkg": false,
             "members": [
                 {
@@ -279,7 +393,7 @@
                 {
                     "type": "function",
                     "name": "extract",
-                    "doc": null,
+                    "doc": "For given keys and aliases creates an extractor function that receives a\nmapping and returns a new mapping with the listed keys with their values\nin the mapping and values for keys listed in aliases under the parameter\nnames provided",
                     "signature": "(*keys: ~K, **aliases: ~K2)"
                 },
                 {
@@ -378,13 +492,13 @@
                 {
                     "type": "function",
                     "name": "map_keys",
-                    "doc": "Creates a dictionary with the same values as _dict and keys generated by applying modifier(key) for each key.",
+                    "doc": "Creates a dictionary with the same values as _dict and keys generated by\napplying modifier(key) for each key.",
                     "signature": "(modifier: Callable[[~K], ~K2], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K2, ~V]"
                 },
                 {
                     "type": "function",
                     "name": "map_values",
-                    "doc": "Creates a dictionary with the same keys as _dict and values generated by applying modifier(val) for each value.",
+                    "doc": "Creates a dictionary with the same keys as _dict and values generated by\napplying modifier(val) for each value.",
                     "signature": "(modifier: Callable[[~V], ~V2], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V2]"
                 },
                 {
@@ -397,15 +511,15 @@
                     "type": "function",
                     "name": "pick",
                     "doc": "Creates a mapping composed of the picked mapping items.",
-                    "signature": "(_items: Iterable[Hashable], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, ~V]"
+                    "signature": "(_items: Iterable[~K], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, Union[~V, NoneType]]"
                 }
             ],
-            "file": "/Users/iddan/fptools/ftools/mapping.py"
+            "file": "/Users/iddan/ftools/ftools/mapping.py"
         },
         {
             "type": "module",
             "name": "ftools.sequence",
-            "doc": null,
+            "doc": "Utilities for sequences",
             "is_pkg": false,
             "members": [
                 {
@@ -439,8 +553,8 @@
                     "signature": "(items: Iterable[int], sequence: MutableSequence[~T]) -> MutableSequence[~T]"
                 }
             ],
-            "file": "/Users/iddan/fptools/ftools/sequence.py"
+            "file": "/Users/iddan/ftools/ftools/sequence.py"
         }
     ],
-    "file": "/Users/iddan/fptools/ftools/__init__.py"
+    "file": "/Users/iddan/ftools/ftools/__init__.py"
 }
