@@ -365,6 +365,18 @@
                 },
                 {
                     "type": "function",
+                    "name": "starfilter",
+                    "doc": "Make an iterator that computes the function using arguments obtained from\nthe iterable. Used instead of filter() when argument parameters are already\ngrouped in tuples from a single iterable (the data has been \u201cpre-zipped\u201d).\nThe difference between filter() and starfilter() parallels the distinction\nbetween function(a,b) and function(*c)",
+                    "signature": "(function: Callable[[~T], bool], iterable: Iterable[Iterable[~T]]) -> Iterable[~T]"
+                },
+                {
+                    "type": "function",
+                    "name": "starreduce",
+                    "doc": "Make an iterator that computes the function using arguments obtained from\nthe iterable. Used instead of reduce() when argument parameters are already\ngrouped in tuples from a single iterable (the data has been \u201cpre-zipped\u201d).\nThe difference between reduce() and starreduce() parallels the distinction\nbetween function(a,b) and function(*c)",
+                    "signature": "(function: Callable[[~A, ~T], ~A], iterable: Iterable[Iterable[~T]], initial: ~A) -> ~A"
+                },
+                {
+                    "type": "function",
                     "name": "uniq",
                     "doc": "Returns a duplicate-free version of an iterable, using hash for equality\ncomparisons, in which only the first occurrence of each element is kept.\nThe order of result values is determined by the order they occur in the\niterable.",
                     "signature": "(iterable: Iterable[~T]) -> Iterable[~T]"
