@@ -14,6 +14,7 @@ from typing import (
     Optional,
     cast,
     Union,
+    Dict
 )
 from copy import copy
 from collections.abc import ItemsView
@@ -66,12 +67,22 @@ def pick(
     return next_mapping
 
 
+def _omit_new_dictionary(_items: Iterable[K], mapping: MutableMapping[K, V]) -> Dict[K, V]:
+    """
+    Like omit but always return a dictionary regardless of mapping type.
+    """
+    return {key: value for key, value in mapping.items() if key not in _items}
+
+
 @curry
 def omit(_items: Iterable[K], mapping: MutableMapping[K, V]) -> MutableMapping[K, V]:
     """
     Creates a mapping without the omitted mapping items.
     """
-    next_mapping = copy(mapping)
+    try:
+        next_mapping = copy(mapping)
+    except TypeError:
+        return _omit_new_dictionary(_items, mapping)
     for item in _items:
         try:
             next_mapping.pop(item)

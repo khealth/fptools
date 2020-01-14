@@ -1,3 +1,4 @@
+from types import MappingProxyType
 from ftools.mapping import (
     create_empty,
     pick,
@@ -27,6 +28,13 @@ def test_pick():
 
 def test_omit():
     assert omit({"foo", "bar", "non_existing"}, {"foo": 4, "bar": 2, "yo": 3}) == {
+        "yo": 3
+    }
+
+
+def test_omit_immutable():
+    mapping = MappingProxyType({"foo": 4, "bar": 2, "yo": 3})
+    assert omit({"foo", "bar", "non_existing"}, mapping) == {
         "yo": 3
     }
 
