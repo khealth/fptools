@@ -273,3 +273,28 @@ def index_of(item: T, iterable: Iterable[T]) -> Optional[int]:
         if _item == item:
             return index
     return None
+
+
+A = TypeVar("A") # pylint: disable=invalid-name
+
+
+def starreduce(function: Callable[[A, T], A], iterable: Iterable[Iterable[T]], initial: A) -> A:
+    """
+    Make an iterator that computes the function using arguments obtained from
+    the iterable. Used instead of reduce() when argument parameters are already
+    grouped in tuples from a single iterable (the data has been “pre-zipped”).
+    The difference between reduce() and starreduce() parallels the distinction
+    between function(a,b) and function(*c)
+    """
+    return reduce(lambda acc, item: function(acc, *item), iterable, initial)
+
+
+def starfilter(function: Callable[[T], bool], iterable: Iterable[Iterable[T]]) -> Iterable[T]:
+    """
+    Make an iterator that computes the function using arguments obtained from
+    the iterable. Used instead of filter() when argument parameters are already
+    grouped in tuples from a single iterable (the data has been “pre-zipped”).
+    The difference between filter() and starfilter() parallels the distinction
+    between function(a,b) and function(*c)
+    """
+    return filter(lambda item: function(*item), iterable) # type: ignore
