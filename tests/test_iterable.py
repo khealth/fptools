@@ -16,7 +16,8 @@ from ftools.iterable import (
     flat_group_by,
     index_of,
     starfilter,
-    starreduce
+    starreduce,
+    partition
 )
 
 
@@ -142,3 +143,10 @@ def test_starfilter():
         (1, 2, 3),
         (7, 8, 9)
     ]
+
+
+def test_partition():
+    data = [1, 2, 3]
+    matching, non_matching = partition(lambda x: x % 2 == 0, data)
+    assert list(matching) == [2]
+    assert list(non_matching) == [1, 3]

@@ -298,3 +298,19 @@ def starfilter(function: Callable[[T], bool], iterable: Iterable[Iterable[T]]) -
     between function(a,b) and function(*c)
     """
     return filter(lambda item: function(*item), iterable) # type: ignore
+
+
+def partition(predicate: Callable[[T], bool], iterable: Iterable[T]) -> Tuple[Iterable[T], Iterable[T]]:
+    """
+    Partition given iterable items to two iterables: of items matching the
+    predicate function and items that do not.
+    """
+    matching: List[T] = []
+    non_matching: List[T] = []
+    for item in iterable:
+        if predicate(item):
+            matching.append(item)
+        else:
+            non_matching.append(item)
+    return matching, non_matching
+            
