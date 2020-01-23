@@ -6,6 +6,7 @@ import warnings
 from functools import partial, reduce, wraps
 from inspect import Parameter, getmodule, signature
 from logging import getLogger
+from time import time
 from typing import Callable, Iterable, Type, TypeVar
 
 
@@ -205,5 +206,28 @@ def once(_callable):
         result = _callable(*args, **kwargs)
         called = True
         return result
+
+    return decorated
+
+@curry
+def debounce(wait, func, leading=False, trailing=True):
+    """
+    Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked. The debounced function comes with a cancel method to cancel delayed func invocations and a flush method to immediately invoke them. Provide options to indicate whether func should be invoked on the leading and/or trailing edge of the wait timeout. The func is invoked with the last arguments provided to the debounced function. Subsequent calls to the debounced function return the result of the last func invocation.
+    """
+    invoked = None
+    value = None
+
+    def decorated(*args, **kwargs):
+        nonlocal value
+        nonlocal invoked
+        if invoked is None:
+            invoked = time()
+            if leading:
+                value = func(*args, **kwargs)
+        if (time() - invoked) * 1000 >= wait:
+            invoked = None
+            if trailing:
+                value = func(*args, **kwargs)
+        return value
 
     return decorated
