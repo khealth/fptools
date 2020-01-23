@@ -1,5 +1,6 @@
 import warnings
 from functools import partial
+from unittest.mock import MagicMock
 
 from ftools.callable import (
     fullname,
@@ -12,6 +13,7 @@ from ftools.callable import (
     noop,
     constant,
     graceful,
+    once
 )
 
 
@@ -109,3 +111,12 @@ def test_graceful():
     except Exception as e:
         assert e
     assert graceful_f() is None
+
+
+def test_once():
+    f = MagicMock()
+    once_f = once(f)
+    once_f()
+    once_f()
+    f.assert_called_once()
+    

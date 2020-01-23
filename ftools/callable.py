@@ -188,3 +188,22 @@ def graceful(func: T, exception_type: Type[Exception] = Exception) -> T:
             return None
 
     return wrapped  # type: ignore
+
+def once(_callable):
+    """
+    Creates a callable that is restricted to be called once. Repeat calls to the callable return the value of the first call.
+    """
+    result = None
+    called = False
+
+    @wraps(_callable)
+    def decorated(*args, **kwargs):
+        nonlocal result
+        nonlocal called
+        if called:
+            return result
+        result = _callable(*args, **kwargs)
+        called = True
+        return result
+
+    return decorated
