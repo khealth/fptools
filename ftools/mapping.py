@@ -67,6 +67,35 @@ def pick(
     return next_mapping
 
 
+@curry
+def pick_by_value(
+    predicate: Callable[[V], bool], mapping: MutableMapping[K, V]
+) -> MutableMapping[K, Optional[V]]:
+    """
+    Creates a mapping composed of the picked mapping items.
+    """
+    next_mapping = cast(MutableMapping[K, Optional[V]], create_empty(mapping))
+    for key in mapping:
+        value = mapping[key]
+        if predicate(value):
+            next_mapping[key] = value
+    return next_mapping
+
+
+@curry
+def pick_by_key(
+    predicate: Callable[[K], bool], mapping: MutableMapping[K, V]
+) -> MutableMapping[K, Optional[V]]:
+    """
+    Creates a mapping composed of the picked mapping items.
+    """
+    next_mapping = cast(MutableMapping[K, Optional[V]], create_empty(mapping))
+    for key in mapping:
+        if predicate(key):
+            next_mapping[key] = mapping[key]
+    return next_mapping
+
+
 def _omit_new_dictionary(_items: Iterable[K], mapping: MutableMapping[K, V]) -> Dict[K, V]:
     """
     Like omit but always return a dictionary regardless of mapping type.

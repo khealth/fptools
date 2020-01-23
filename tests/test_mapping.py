@@ -2,6 +2,8 @@ from types import MappingProxyType
 from ftools.mapping import (
     create_empty,
     pick,
+    pick_by_key,
+    pick_by_value,
     omit,
     map_keys,
     map_values,
@@ -25,6 +27,14 @@ def test_extract():
 def test_pick():
     assert pick({"foo", "bar"}, {"foo": 4, "bar": 2, "yo": 3}) == {"foo": 4, "bar": 2}
 
+
+def test_pick_by_key():
+    mapping = {"foo": 4, "bar": 2, "yo": 3}
+    assert pick_by_key(lambda key: "o" in key, mapping) == {"foo": 4, "yo": 3}
+
+def test_pick_by_value():
+    mapping = {"foo": 4, "bar": 2, "yo": 3}
+    assert pick_by_value(lambda value: value % 2 == 0, mapping) == {"foo": 4, "bar": 2}
 
 def test_omit():
     assert omit({"foo", "bar", "non_existing"}, {"foo": 4, "bar": 2, "yo": 3}) == {
