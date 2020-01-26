@@ -13,7 +13,7 @@ from ftools.callable import (
     noop,
     constant,
     graceful,
-    once
+    once,
 )
 
 
@@ -119,4 +119,3 @@ def test_once():
     once_f()
     once_f()
     f.assert_called_once()
-    

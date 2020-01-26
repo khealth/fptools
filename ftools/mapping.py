@@ -14,7 +14,7 @@ from typing import (
     Optional,
     cast,
     Union,
-    Dict
+    Dict,
 )
 from copy import copy
 from collections.abc import ItemsView
@@ -96,7 +96,9 @@ def pick_by_key(
     return next_mapping
 
 
-def _omit_new_dictionary(_items: Iterable[K], mapping: MutableMapping[K, V]) -> Dict[K, V]:
+def _omit_new_dictionary(
+    _items: Iterable[K], mapping: MutableMapping[K, V]
+) -> Dict[K, V]:
     """
     Like omit but always return a dictionary regardless of mapping type.
     """

@@ -275,10 +275,12 @@ def index_of(item: T, iterable: Iterable[T]) -> Optional[int]:
     return None
 
 
-A = TypeVar("A") # pylint: disable=invalid-name
+A = TypeVar("A")  # pylint: disable=invalid-name
 
 
-def starreduce(function: Callable[[A, T], A], iterable: Iterable[Iterable[T]], initial: A) -> A:
+def starreduce(
+    function: Callable[[A, T], A], iterable: Iterable[Iterable[T]], initial: A
+) -> A:
     """
     Make an iterator that computes the function using arguments obtained from
     the iterable. Used instead of reduce() when argument parameters are already
@@ -289,7 +291,9 @@ def starreduce(function: Callable[[A, T], A], iterable: Iterable[Iterable[T]], i
     return reduce(lambda acc, item: function(acc, *item), iterable, initial)
 
 
-def starfilter(function: Callable[[T], bool], iterable: Iterable[Iterable[T]]) -> Iterable[T]:
+def starfilter(
+    function: Callable[[T], bool], iterable: Iterable[Iterable[T]]
+) -> Iterable[T]:
     """
     Make an iterator that computes the function using arguments obtained from
     the iterable. Used instead of filter() when argument parameters are already
@@ -297,10 +301,12 @@ def starfilter(function: Callable[[T], bool], iterable: Iterable[Iterable[T]]) -
     The difference between filter() and starfilter() parallels the distinction
     between function(a,b) and function(*c)
     """
-    return filter(lambda item: function(*item), iterable) # type: ignore
+    return filter(lambda item: function(*item), iterable)  # type: ignore
 
 
-def partition(predicate: Callable[[T], bool], iterable: Iterable[T]) -> Tuple[Iterable[T], Iterable[T]]:
+def partition(
+    predicate: Callable[[T], bool], iterable: Iterable[T]
+) -> Tuple[Iterable[T], Iterable[T]]:
     """
     Partition given iterable items to two iterables: of items matching the
     predicate function and items that do not.
@@ -313,4 +319,3 @@ def partition(predicate: Callable[[T], bool], iterable: Iterable[T]) -> Tuple[It
         else:
             non_matching.append(item)
     return matching, non_matching
-            

@@ -17,7 +17,7 @@ from ftools.iterable import (
     index_of,
     starfilter,
     starreduce,
-    partition
+    partition,
 )
 
 
@@ -123,26 +123,15 @@ def test_index_of(iterable, item, index):
 
 
 def test_starreduce():
-    data = [
-        (1, 2, 3),
-        (4, 5, 6),
-        (7, 8, 9)
-    ]
+    data = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
     result = starreduce(lambda acc, a, b, c: acc + a + b + c, data, 0)
     assert result == 45
 
 
 def test_starfilter():
-    data = [
-        (1, 2, 3),
-        (4, 5, 6),
-        (7, 8, 9)
-    ]
+    data = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
     result = list(starfilter(lambda a, b, c: b % 2 == 0, data))
-    assert result == [
-        (1, 2, 3),
-        (7, 8, 9)
-    ]
+    assert result == [(1, 2, 3), (7, 8, 9)]
 
 
 def test_partition():

@@ -71,6 +71,12 @@
                 },
                 {
                     "type": "function",
+                    "name": "debounce",
+                    "doc": "Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked. The debounced function comes with a cancel method to cancel delayed func invocations and a flush method to immediately invoke them. Provide options to indicate whether func should be invoked on the leading and/or trailing edge of the wait timeout. The func is invoked with the last arguments provided to the debounced function. Subsequent calls to the debounced function return the result of the last func invocation.",
+                    "signature": "(wait, func, leading=False, trailing=True)"
+                },
+                {
+                    "type": "function",
                     "name": "deprecated",
                     "doc": "Warn when using wrapped func",
                     "signature": "(func: ~T) -> ~T"
@@ -104,6 +110,12 @@
                     "name": "noop",
                     "doc": "This method returns None",
                     "signature": "(*_, **__) -> None"
+                },
+                {
+                    "type": "function",
+                    "name": "once",
+                    "doc": "Creates a callable that is restricted to be called once. Repeat calls to the callable return the value of the first call.",
+                    "signature": "(_callable)"
                 },
                 {
                     "type": "function",
@@ -365,6 +377,12 @@
                 },
                 {
                     "type": "function",
+                    "name": "partition",
+                    "doc": "Partition given iterable items to two iterables: of items matching the\npredicate function and items that do not.",
+                    "signature": "(predicate: Callable[[~T], bool], iterable: Iterable[~T]) -> Tuple[Iterable[~T], Iterable[~T]]"
+                },
+                {
+                    "type": "function",
                     "name": "starfilter",
                     "doc": "Make an iterator that computes the function using arguments obtained from\nthe iterable. Used instead of filter() when argument parameters are already\ngrouped in tuples from a single iterable (the data has been \u201cpre-zipped\u201d).\nThe difference between filter() and starfilter() parallels the distinction\nbetween function(a,b) and function(*c)",
                     "signature": "(function: Callable[[~T], bool], iterable: Iterable[Iterable[~T]]) -> Iterable[~T]"
@@ -524,9 +542,48 @@
                     "name": "pick",
                     "doc": "Creates a mapping composed of the picked mapping items.",
                     "signature": "(_items: Iterable[~K], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, Union[~V, NoneType]]"
+                },
+                {
+                    "type": "function",
+                    "name": "pick_by_key",
+                    "doc": "Creates a mapping composed of the picked mapping items.",
+                    "signature": "(predicate: Callable[[~K], bool], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, Union[~V, NoneType]]"
+                },
+                {
+                    "type": "function",
+                    "name": "pick_by_value",
+                    "doc": "Creates a mapping composed of the picked mapping items.",
+                    "signature": "(predicate: Callable[[~V], bool], mapping: MutableMapping[~K, ~V]) -> MutableMapping[~K, Union[~V, NoneType]]"
                 }
             ],
             "file": "/Users/iddan/ftools/ftools/mapping.py"
+        },
+        {
+            "type": "module",
+            "name": "ftools.optional",
+            "doc": "Utilities for working with Optional[T]",
+            "is_pkg": false,
+            "members": [
+                {
+                    "type": "function",
+                    "name": "ignore_optional",
+                    "doc": "Returns a new function only applied for non None value",
+                    "signature": "(func: Callable[[~T], ~T2])"
+                },
+                {
+                    "type": "function",
+                    "name": "is_some",
+                    "doc": "Returns whether a value is not None",
+                    "signature": "(value: Union[~T, NoneType]) -> bool"
+                },
+                {
+                    "type": "function",
+                    "name": "map_optionals",
+                    "doc": "Maps items of iterable with iteratee without affecting None items.",
+                    "signature": "(iteratee: Callable[[~T], ~T2], iterable: Iterable[Union[~T, NoneType]]) -> Iterable[Union[~T2, NoneType]]"
+                }
+            ],
+            "file": "/Users/iddan/ftools/ftools/optional.py"
         },
         {
             "type": "module",

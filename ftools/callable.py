@@ -190,6 +190,7 @@ def graceful(func: T, exception_type: Type[Exception] = Exception) -> T:
 
     return wrapped  # type: ignore
 
+
 def once(_callable):
     """
     Creates a callable that is restricted to be called once. Repeat calls to the callable return the value of the first call.
@@ -208,6 +209,7 @@ def once(_callable):
         return result
 
     return decorated
+
 
 @curry
 def debounce(wait, func, leading=False, trailing=True):

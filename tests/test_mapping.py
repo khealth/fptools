@@ -32,9 +32,11 @@ def test_pick_by_key():
     mapping = {"foo": 4, "bar": 2, "yo": 3}
     assert pick_by_key(lambda key: "o" in key, mapping) == {"foo": 4, "yo": 3}
 
+
 def test_pick_by_value():
     mapping = {"foo": 4, "bar": 2, "yo": 3}
     assert pick_by_value(lambda value: value % 2 == 0, mapping) == {"foo": 4, "bar": 2}
+
 
 def test_omit():
     assert omit({"foo", "bar", "non_existing"}, {"foo": 4, "bar": 2, "yo": 3}) == {
@@ -44,9 +46,7 @@ def test_omit():
 
 def test_omit_immutable():
     mapping = MappingProxyType({"foo": 4, "bar": 2, "yo": 3})
-    assert omit({"foo", "bar", "non_existing"}, mapping) == {
-        "yo": 3
-    }
+    assert omit({"foo", "bar", "non_existing"}, mapping) == {"yo": 3}
 
 
 def test_map_values():
