@@ -1,13 +1,10 @@
-import io
-import sys
-import json
-import inspect
-import pkgutil
 import importlib
+import inspect
+import json
+import pkgutil
+from dataclasses import asdict, dataclass, field
 from types import ModuleType
-from typing import TextIO
-from dataclasses import dataclass, field, asdict
-from typing import List, Generator, TypeVar, ClassVar, Optional
+from typing import Generator, List, Optional, TextIO, TypeVar
 
 
 @dataclass
@@ -57,7 +54,7 @@ def _get_documentation_for_module(module) -> ModuleDoc:
     member_docs = [
         _get_doc(name, member)
         for name, member in _get_module_members(module)
-        if not isinstance(member, TypeVar) and not name.startswith("_")
+        if not isinstance(member, TypeVar) and _is_public(name)
     ]
 
     if is_pkg:
@@ -90,6 +87,7 @@ def _get_doc(name: str, obj) -> Doc:
             Doc(name, None)
             for name, member in inspect.getmembers(obj)
             if (name, member) not in mro_members
+            and _is_public(name)
         ]
         return ClassDoc(name, doc, members)
 
@@ -123,9 +121,13 @@ def _get_module_members(module: ModuleType):
 def _is_package(module: ModuleType) -> bool:
     """
     Returns whether a module is a package.
-    https://docs.python.org/3/reference/import.html:
-    "It’s important to keep in mind that all packages are modules, but not all modules are packages. Or put another way,
-    packages are just a special kind of module. Specifically, any module that contains a __path__ attribute is
-    considered a package."
+    https://docs.python.org/3/reference/import.html: "It’s important to keep in
+    mind that all packages are modules, but not all modules are packages. Or put
+    another way, packages are just a special kind of module. Specifically, any
+    module that contains a __path__ attribute is considered a package."
     """
     return hasattr(module, "__path__")
+
+
+def _is_public(name: str) -> bool:
+    return not name.startswith("_")

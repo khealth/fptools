@@ -26,54 +26,13 @@
                     "type": "class",
                     "name": "currymethod",
                     "doc": "Like curry but if the method was executed as a static method it will accept self as the last\nargument.",
-                    "members": [
-                        {
-                            "type": "object",
-                            "name": "__dict__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__doc__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__get__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__init__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__init_subclass__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__module__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__subclasshook__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__weakref__",
-                            "doc": null
-                        }
-                    ]
+                    "members": []
                 },
                 {
                     "type": "function",
                     "name": "debounce",
-                    "doc": "Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked. The debounced function comes with a cancel method to cancel delayed func invocations and a flush method to immediately invoke them. Provide options to indicate whether func should be invoked on the leading and/or trailing edge of the wait timeout. The func is invoked with the last arguments provided to the debounced function. Subsequent calls to the debounced function return the result of the last func invocation.",
-                    "signature": "(wait, func, leading=False, trailing=True)"
+                    "doc": "Creates a debounced function that delays invoking func until after wait\nmilliseconds have elapsed since the last time the debounced function was\ninvoked. The debounced function comes with a cancel method to cancel delayed\nfunc invocations and a flush method to immediately invoke them. Provide\noptions to indicate whether func should be invoked on the leading and/or\ntrailing edge of the wait timeout. The func is invoked with the last\narguments provided to the debounced function. Subsequent calls to the\ndebounced function return the result of the last func invocation.",
+                    "signature": "(wait: Union[float, int], func: ~T, leading: bool = False, trailing: bool = True) -> ~T"
                 },
                 {
                     "type": "function",
@@ -114,8 +73,8 @@
                 {
                     "type": "function",
                     "name": "once",
-                    "doc": "Creates a callable that is restricted to be called once. Repeat calls to the callable return the value of the first call.",
-                    "signature": "(_callable)"
+                    "doc": "Creates a callable that is restricted to be called once. Repeat calls to the\ncallable return the value of the first call.",
+                    "signature": "(_callable: ~T) -> ~T"
                 },
                 {
                     "type": "function",
@@ -199,103 +158,7 @@
                     "type": "class",
                     "name": "FlatGroupBy",
                     "doc": "The iterable object returned by flat_group_by()",
-                    "members": [
-                        {
-                            "type": "object",
-                            "name": "__abstractmethods__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__annotations__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__class_getitem__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__dataclass_fields__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__dataclass_params__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__dict__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__doc__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__eq__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__hash__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__init__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__init_subclass__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__iter__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__module__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__orig_bases__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__parameters__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__repr__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__subclasshook__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__weakref__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "_abc_impl",
-                            "doc": null
-                        }
-                    ]
+                    "members": []
                 },
                 {
                     "type": "function",
@@ -436,88 +299,7 @@
                     "type": "class",
                     "name": "items",
                     "doc": "Mapping.items() for Mapping like objects that don't implement items()",
-                    "members": [
-                        {
-                            "type": "object",
-                            "name": "__annotations__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__class_getitem__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__contains__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__dict__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__doc__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__init__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__init_subclass__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__iter__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__len__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__module__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__orig_bases__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__parameters__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__subclasshook__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "__weakref__",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "_abc_impl",
-                            "doc": null
-                        },
-                        {
-                            "type": "object",
-                            "name": "_from_iterable",
-                            "doc": null
-                        }
-                    ]
+                    "members": []
                 },
                 {
                     "type": "function",
