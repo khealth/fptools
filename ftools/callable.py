@@ -191,9 +191,10 @@ def graceful(func: T, exception_type: Type[Exception] = Exception) -> T:
     return wrapped  # type: ignore
 
 
-def once(_callable):
+def once(_callable: T) -> T:
     """
-    Creates a callable that is restricted to be called once. Repeat calls to the callable return the value of the first call.
+    Creates a callable that is restricted to be called once. Repeat calls to the
+    callable return the value of the first call.
     """
     result = None
     called = False
