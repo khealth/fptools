@@ -7,7 +7,7 @@ from functools import partial, reduce, wraps
 from inspect import Parameter, getmodule, signature
 from logging import getLogger
 from time import time
-from typing import Callable, Iterable, Type, TypeVar
+from typing import Callable, Iterable, Type, TypeVar, cast
 
 
 def fullname(func: Callable) -> str:
@@ -208,6 +208,8 @@ def once(_callable: T) -> T:
         result = _callable(*args, **kwargs)
         called = True
         return result
+
+    decorated = cast(T, decorated)
 
     return decorated
 
