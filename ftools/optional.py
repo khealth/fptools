@@ -7,7 +7,7 @@ from typing import TypeVar, Callable, Iterable, Optional
 from functools import wraps
 
 
-T = TypeVar("T")
+T = TypeVar("T") # pylint: disable=invalid-name
 T2 = TypeVar("T2")
 
 
