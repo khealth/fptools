@@ -11,6 +11,8 @@ for Python standard functional libraries
 pip install ftools
 ```
 
+![Build Status](https://github.com/khealth/fptools/workflows/Python%20library/badge.svg)
+
 ### [Documentation](https://khealth.github.io/fptools/)
 
 ### Features
