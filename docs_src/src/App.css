@@ -37,7 +37,7 @@
 }
 
 .App > nav > ul h5 {
-  margin: 1.2em 0 .5em;
+  margin: 1.2em 0 0.5em;
   font: inherit;
   font-size: 1.1em;
 }
@@ -69,7 +69,7 @@
 }
 
 .App > main pre {
-  white-space: pre-wrap;  
+  white-space: pre-wrap;
 }
 
 .App a {
@@ -95,4 +95,8 @@
   background: #eee;
   padding: 1em;
   box-sizing: border-box;
+}
+
+.App .Tag {
+  color: rgb(105, 105, 105);
 }
