@@ -27,7 +27,7 @@ const NavigationMenuItem = ({ module, doc, filter }) => {
       <Tag className={active ? "active" : ""}>
         <a href={href}>{nameNode}</a>
       </Tag>
-      {doc.members && (
+      {doc.members && doc.members.length && (
         <NavigationMenu
           module={doc.name}
           members={doc.members}
