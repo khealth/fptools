@@ -14,6 +14,7 @@ from ftools.callable import (
     constant,
     graceful,
     once,
+    star,
 )
 
 
@@ -119,3 +120,13 @@ def test_once():
     once_f()
     once_f()
     f.assert_called_once()
+
+
+def test_star():
+    args = [2, 2]
+
+    def f(x, y):
+        return x * y
+
+    result = star(f)(args)
+    assert result == 4

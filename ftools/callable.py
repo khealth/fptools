@@ -247,3 +247,21 @@ def debounce(
     decorated = cast(T, decorated)
 
     return decorated
+
+
+Item = TypeVar("Item")  # pylint: disable=invalid-name
+R = TypeVar("R")  # pylint: disable=invalid-name
+
+
+def star(func: Callable[[Item], R]) -> Callable[[Iterable[Item]], R]:
+    """
+    Make a function using arguments obtained from the iterable. Used when
+    argument parameters are already grouped in tuples from a single iterable
+    (the data has been “pre-zipped”). The difference parallels the distinction
+    between func(a,b) and func(*c)
+    """
+
+    def new_func(iterable: Iterable[Item]) -> R:
+        return func(*iterable)
+
+    return new_func

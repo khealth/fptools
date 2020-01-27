@@ -86,8 +86,7 @@ def _get_doc(name: str, obj) -> Doc:
         members = [
             Doc(name, None)
             for name, member in inspect.getmembers(obj)
-            if (name, member) not in mro_members
-            and _is_public(name)
+            if (name, member) not in mro_members and _is_public(name)
         ]
         return ClassDoc(name, doc, members)
 

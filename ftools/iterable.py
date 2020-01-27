@@ -22,7 +22,7 @@ from typing import (
 
 from cardinality import count
 
-from .callable import curry
+from .callable import curry, star
 
 T = TypeVar("T")  # pylint: disable=invalid-name
 
@@ -301,7 +301,7 @@ def starfilter(
     The difference between filter() and starfilter() parallels the distinction
     between function(a,b) and function(*c)
     """
-    return filter(lambda item: function(*item), iterable)  # type: ignore
+    return filter(star(function), iterable)  # type: ignore
 
 
 def partition(
