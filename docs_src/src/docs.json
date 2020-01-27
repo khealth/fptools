@@ -81,6 +81,12 @@
                     "name": "rename",
                     "doc": "Set a new name for a function",
                     "signature": "(new_name: str) -> Callable[[~T], ~T]"
+                },
+                {
+                    "type": "function",
+                    "name": "star",
+                    "doc": "Make a function using arguments obtained from the iterable. Used when\nargument parameters are already grouped in tuples from a single iterable\n(the data has been \u201cpre-zipped\u201d). The difference parallels the distinction\nbetween func(a,b) and func(*c)",
+                    "signature": "(func: Callable[[~Item], ~R]) -> Callable[[Iterable[~Item]], ~R]"
                 }
             ],
             "file": "/Users/iddan/ftools/ftools/callable.py"
