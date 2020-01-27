@@ -5,7 +5,8 @@ const NavigationMenuItem = ({ module, doc, filter }) => {
   const fullName = getFullName({ ...doc, module });
   const href = getLink(fullName);
   const active = window.location.hash === href;
-  if (filter && doc.type !== "module" && !doc.name.includes(filter)) {
+  const isModule = doc.type === "module";
+  if (filter && !isModule && !doc.name.includes(filter)) {
     return null;
   }
 
@@ -19,7 +20,7 @@ const NavigationMenuItem = ({ module, doc, filter }) => {
           return part;
         });
 
-  const Tag = doc.members ? "h5" : "span";
+  const Tag = isModule ? "h5" : "span";
 
   return (
     <li>
